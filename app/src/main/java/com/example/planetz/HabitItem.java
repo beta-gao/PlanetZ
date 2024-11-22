@@ -19,7 +19,6 @@ public class HabitItem {
         return habit;
     }
 
-
     public int getImg() {
         return img;
     }

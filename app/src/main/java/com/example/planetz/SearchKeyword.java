@@ -2,6 +2,9 @@ package com.example.planetz;
 
 import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
+
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +24,13 @@ public class SearchKeyword extends AppCompatActivity {
     SearchView searchView;
     RecyclerView recyclerView;
     RAdapter adapter;
+    Button resetFilterButton;
+    Button transpButton;
+    Button energyButton;
+    Button foodButton;
+    Button consumpButton;
+    List<HabitItem> HabitList;
+    List<HabitItem> workingList;
 
 
     @Override
@@ -34,13 +44,9 @@ public class SearchKeyword extends AppCompatActivity {
             return insets;
         });
 
-        recyclerView = findViewById(R.id.recyclerview);
-        searchView = findViewById(R.id.searchview);
-
-        List<HabitItem> HabitList = new ArrayList<>();
-        HabitList.add(new HabitItem("Transportation","Take Public Transport",R.drawable.bus));
-        HabitList.add(new HabitItem("Energy","Unplug Devices",R.drawable.outlet));
-        HabitList.add(new HabitItem("Energy","Purchase Second-Handed Clothes",R.drawable.reuseclothes));
+        initializeViews();
+        initializeButtons();
+        retrieveHabitList();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RAdapter(HabitList,getApplicationContext()));
@@ -53,17 +59,78 @@ public class SearchKeyword extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String keywd) {
-                searchList(HabitList, keywd);
+                searchList(keywd);
                 return true;
+            }
+        });
+
+        setOnclick();
+    }
+
+    void initializeButtons(){
+        transpButton = findViewById(R.id.transportation);
+        energyButton = findViewById(R.id.energy);
+        foodButton = findViewById(R.id.food);
+        consumpButton = findViewById(R.id.consumption);
+        resetFilterButton = findViewById(R.id.resetFilter);
+    }
+
+    void initializeViews(){
+        recyclerView = findViewById(R.id.recyclerview);
+        searchView = findViewById(R.id.searchview);
+    }
+
+    //potentially getting habit list from firebase
+    void retrieveHabitList(){
+        HabitList = new ArrayList<>();
+        HabitList.add(new HabitItem("transportation","Take Public Transport",R.drawable.bus));
+        HabitList.add(new HabitItem("energy","Unplug Devices",R.drawable.outlet));
+        HabitList.add(new HabitItem("energy","Purchase Second-Handed Clothes",R.drawable.reuseclothes));
+
+        workingList = HabitList;
+    }
+
+    void setOnclick(){
+        transpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterList("transportation");
+            }
+        });
+        energyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterList("energy");
+            }
+        });
+        foodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterList("food");
+            }
+        });
+        consumpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterList("consumption");
+            }
+        });
+        resetFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                workingList = HabitList;
+                adapter = new RAdapter(HabitList, getApplicationContext());
+                recyclerView.setAdapter(adapter);
             }
         });
     }
 
-    void searchList(List<HabitItem> HabitList, String keywd) {
+    //search feature
+    void searchList(String keywd) {
         List<HabitItem> matchList = new ArrayList<>();
         String habitName;
 
-        for(HabitItem habit: HabitList){
+        for(HabitItem habit: workingList){
            habitName = habit.getHabit().toLowerCase();
            if(habitName.contains(keywd)){
                matchList.add(habit);
@@ -71,12 +138,31 @@ public class SearchKeyword extends AppCompatActivity {
         }
 
         if(!matchList.isEmpty()){
-            adapter = new RAdapter(HabitList, this);
+            adapter = new RAdapter(matchList, this);
             recyclerView.setAdapter(adapter);
-            adapter.setMatch(matchList);
-
+            //adapter.setMatch(matchList);
         }else{
             Toast.makeText(this, "Habit not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //filter feature
+    void filterList(String filter){
+        List<HabitItem> matchList = new ArrayList<>();
+        String category;
+
+        for(HabitItem habit: workingList){
+            category = habit.getCategory();
+            if(category.equalsIgnoreCase(filter)){
+                matchList.add(habit);
+            }
+        }
+
+        if(!matchList.isEmpty()){
+            adapter = new RAdapter(matchList, getApplicationContext());
+            recyclerView.setAdapter(adapter);
+        }else{
+            Toast.makeText(this, "There is no habit with this category yet", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -19,11 +19,6 @@ public class RAdapter extends RecyclerView.Adapter<RViewHolder>{
         this.context = c;
     }
 
-    public void setMatch(List<HabitItem> matchList) {
-        //only showing the habit matching keyword
-        this.HabitList = matchList;
-    }
-
     @NonNull
     @Override
     public RViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
