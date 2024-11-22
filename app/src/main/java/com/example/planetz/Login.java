@@ -37,11 +37,11 @@ public class Login extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        // 检查用户是否已登录，如果已登录，加载用户信息或保持在当前页面
         FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser != null){
-            Intent i = new Intent(getApplicationContext(), Login.class);//replace with main dashboard activity
-            startActivity(i);
-            finish();
+        if (currentUser != null) {
+            Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
+            // 这里可以加载用户相关的数据，比如显示欢迎信息等
         }
     }
 
@@ -50,73 +50,53 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         emailText = findViewById(R.id.email);
         passwordText = findViewById(R.id.password);
         auth = FirebaseAuth.getInstance();
 
         LButton = findViewById(R.id.loginButton);
-        LButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email;
-                String password;
+        LButton.setOnClickListener(v -> {
+            String email = String.valueOf(emailText.getText());
+            String password = String.valueOf(passwordText.getText());
 
-                email = String.valueOf(emailText.getText());
-                password = String.valueOf(passwordText.getText());
-
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Login.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Login.this, "Login in Successful",Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(getApplicationContext(), Login.class);//replace with main dashboard activity
-                                    startActivity(i);
-                                    finish();
-                                } else {
-                                    Toast.makeText(Login.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(Login.this, "Enter password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            LButton.setEnabled(false);
+            auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        LButton.setEnabled(true);
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            // 登录成功后，加载登录用户数据，停留在当前页面
+                            FirebaseUser user = auth.getCurrentUser();
+                            if (user != null) {
+                                // 显示用户信息或更新 UI
+                                Toast.makeText(Login.this, "Welcome " + user.getEmail(), Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(Login.this, "Authentication failed: wrong email address or password", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
 
         toRegTextView = findViewById(R.id.toReg);
-        toRegTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            //link to the register page
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Login.class);//replace with register class
-                startActivity(i);
-                finish();
-            }
-        });
+        toRegTextView.setOnClickListener(v -> navigateToActivity(RegisterActivity.class));
 
         toforgetTextView = findViewById(R.id.forgetpassword);
-        toforgetTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ForgetPassword.class);//replace with register class
-                startActivity(i);
-                finish();
-            }
-        });
+        toforgetTextView.setOnClickListener(v -> navigateToActivity(ForgetPassword.class));
+    }
 
+    private void navigateToActivity(Class<?> targetActivity) {
+        Intent i = new Intent(getApplicationContext(), targetActivity);
+        startActivity(i);
+        finish();
     }
 }

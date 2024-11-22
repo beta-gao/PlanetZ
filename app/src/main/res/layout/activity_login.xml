@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,22 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login"
-    android:background="@color/white">
+    android:background="@color/primary_light">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="21dp"
-        android:src="@drawable/logo"
-        />
+        android:layout_marginTop="21dp"
+        android:src="@drawable/logo" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
         app:cardCornerRadius="28dp"
-        app:cardElevation="20dp">
+        app:cardElevation="20dp"
+        app:cardBackgroundColor="@color/background_light">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,19 +30,10 @@
             android:orientation="vertical"
             android:padding="28dp">
 
-            <TextView
-                android:id="@+id/loginText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="36sp"
-                android:textStyle="bold" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
@@ -54,22 +46,22 @@
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
                     android:textColor="@color/black"
-                    android:textColorHighlight="@color/black">
-                </com.google.android.material.textfield.TextInputEditText>
+                    android:textColorHighlight="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/password"
                     android:background="@drawable/text_editor"
                     android:drawableStart="@drawable/psswd"
                     android:drawablePadding="8dp"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:padding="8dp"
                     android:textColor="@color/black"
@@ -81,9 +73,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/primary"
                 android:text="@string/login"
                 android:textSize="18sp" />
+
 
             <View
                 android:layout_width="wrap_content"
@@ -105,10 +98,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/forgetpw"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
->>>>>>> feature/user-login
