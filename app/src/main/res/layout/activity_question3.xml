@@ -1,0 +1,146 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d8dbe2"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/question_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="How many kilometers/miles do you drive per year?"
+        android:textColor="#1b1b1e"
+        android:fontFamily="monospace"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup_annual_mileage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_up_to_5000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="Up to 5,000 km\n(3,000 miles)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="5dp"/>
+
+        <!-- 间隔视图 -->
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <!-- 其余 RadioButton 也使用相同的背景和间距设置 -->
+        <RadioButton
+            android:id="@+id/radio_5000_10000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="5,000–10,000 km\n(3,000–6,000 miles)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <RadioButton
+            android:id="@+id/radio_10000_15000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="10,000–15,000 km\n(6,000–9,000 miles)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <RadioButton
+            android:id="@+id/radio_15000_20000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="15,000–20,000 km\n(9,000–12,000 miles)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <RadioButton
+            android:id="@+id/radio_20000_25000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="20,000–25,000 km\n(12,000–15,000 miles)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <RadioButton
+            android:id="@+id/radio_more_than_25000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="More than 25,000 km\n(15,000 miles)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_button_bg"
+        android:elevation="4dp"
+        android:padding="12dp"
+        android:text="Next"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

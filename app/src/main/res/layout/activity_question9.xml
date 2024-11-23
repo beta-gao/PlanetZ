@@ -1,0 +1,207 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#d8dbe2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/question_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="How often do you eat the following animal-based products?"
+            android:textColor="#1b1b1e"
+            android:fontFamily="monospace"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <!-- Beef Frequency -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beef:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="#1b1b1e"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup_beef"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <RadioButton
+                android:id="@+id/radio_beef_daily"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_button_bg"
+                android:button="@null"
+                android:text="Daily"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="10dp"/>
+            <View android:layout_width="10dp" android:layout_height="10dp"/>
+            <RadioButton
+                android:id="@+id/radio_beef_frequent"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_button_bg"
+                android:button="@null"
+                android:text="Frequently (3-5 times/week)"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="10dp"/>
+        </RadioGroup>
+
+        <!-- Pork Frequency -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pork:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="#1b1b1e"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup_pork"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <RadioButton
+                android:id="@+id/radio_pork_daily"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_button_bg"
+                android:button="@null"
+                android:text="Daily"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="10dp"/>
+            <View android:layout_width="10dp" android:layout_height="10dp"/>
+            <RadioButton
+                android:id="@+id/radio_pork_frequent"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_button_bg"
+                android:button="@null"
+                android:text="Frequently (3-5 times/week)"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="10dp"/>
+        </RadioGroup>
+
+        <!-- Chicken Frequency -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chicken:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="#1b1b1e"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup_chicken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <RadioButton
+                android:id="@+id/radio_chicken_daily"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_button_bg"
+                android:button="@null"
+                android:text="Daily"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="10dp"/>
+            <View android:layout_width="10dp" android:layout_height="10dp"/>
+            <RadioButton
+                android:id="@+id/radio_chicken_frequent"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_button_bg"
+                android:button="@null"
+                android:text="Frequently (3-5 times/week)"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="10dp"/>
+        </RadioGroup>
+
+        <!-- Fish/Seafood Frequency -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fish/Seafood:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="#1b1b1e"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup_fish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <RadioButton
+                android:id="@+id/radio_fish_daily"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_button_bg"
+                android:button="@null"
+                android:text="Daily"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="10dp"/>
+            <View android:layout_width="10dp" android:layout_height="10dp"/>
+            <RadioButton
+                android:id="@+id/radio_fish_frequent"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_button_bg"
+                android:button="@null"
+                android:text="Frequently (3-5 times/week)"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="10dp"/>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_button_bg"
+            android:elevation="2dp"
+            android:padding="12dp"
+            android:text="Next"
+            android:textSize="30sp"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>
