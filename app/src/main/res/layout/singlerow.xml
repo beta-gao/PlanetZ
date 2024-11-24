@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="13dp"
+    android:id="@+id/onehabitrow"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
@@ -15,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/img"
-        android:textSize="20dp"
+        android:textSize="20sp"
         tools:text="Habit Name"
         android:textColor="@color/black"/>
     

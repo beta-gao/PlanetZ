@@ -4,6 +4,7 @@ public class HabitItem {
     String category;
     String habit;
     int img;
+    double impact;
 
     public HabitItem(String category, String habit, int img){
         this.category = category;
