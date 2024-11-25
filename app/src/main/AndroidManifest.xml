@@ -13,9 +13,9 @@
         android:theme="@style/Theme.Planetz"
         tools:targetApi="31">
 
-        <!-- RegisterActivity as the main launcher activity -->
+        <!-- LoginActivity as the main launcher activity -->
         <activity
-            android:name=".RegisterActivity"
+            android:name=".LoginandRegister.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +24,10 @@
         </activity>
 
         <activity
-            android:name=".Login"
+            android:name=".LoginandRegister.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".ForgetPassword"
+            android:name=".LoginandRegister.ForgetPassword"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

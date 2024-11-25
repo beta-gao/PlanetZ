@@ -1,4 +1,4 @@
-package com.example.planetz;
+package com.example.planetz.LoginandRegister;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +16,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.planetz.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ForgetPassword extends AppCompatActivity {

@@ -63,4 +63,5 @@
     <item name="radio_pork_never" type="id" />
     <item name="radioGroup_using_vehicle" type="id" />
     <item name="completion_message" type="id" />
+    <item name="radio_other" type="id" />
 </resources>
