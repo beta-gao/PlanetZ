@@ -20,21 +20,17 @@ public class Question1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question1);
 
-        // 获取单例实例
         carbonFootprintData = CarbonFootprintData.getInstance();
 
-        // 初始化视图
         radioGroupUsingVehicle = findViewById(R.id.radioGroup_using_vehicle);
         Button nextButton = findViewById(R.id.next_button);
 
-        // 设置按钮点击事件
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int selectedId = radioGroupUsingVehicle.getCheckedRadioButtonId();
 
                 if (selectedId != -1) {
-                    // 使用 if-else 判断选择的按钮
                     boolean isUsingVehicle;
                     if (selectedId == R.id.radio_yes) {
                         isUsingVehicle = true;
@@ -45,10 +41,8 @@ public class Question1 extends AppCompatActivity {
                         return;
                     }
 
-                    // 保存用户选择到数据模型
                     carbonFootprintData.setUsingVehicle(isUsingVehicle);
 
-                    // 跳转到下一个问题
                     Intent intent;
                     if (isUsingVehicle) {
                         intent = new Intent(Question1.this, Question2.class);
@@ -58,7 +52,6 @@ public class Question1 extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    // 如果用户未选择任何选项，显示提示
                     Toast.makeText(Question1.this, "Please select an option before proceeding.", Toast.LENGTH_SHORT).show();
                 }
             }

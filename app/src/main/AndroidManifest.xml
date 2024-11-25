@@ -12,15 +12,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Planetz"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".Question.Question1"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Question.Question2" />
+        <activity android:name=".Question.Question3" />
+        <activity android:name=".Question.Question4" />
+        <activity android:name=".Question.Question5" />
+        <activity android:name=".Question.Question6" />
+        <activity android:name=".Question.Question7" />
+        <activity android:name=".Question.Question8" />
+        <activity android:name=".Question.Question9" />
+        <activity android:name=".Question.Question10" />
+        <activity android:name=".Question.Question11" />
+        <activity android:name=".Question.Question12" />
+        <activity android:name=".Question.Question13" />
+        <activity android:name=".Question.Question14" />
+        <activity android:name=".Question.Question15" />
+        <activity android:name=".Question.Question16" />
+        <activity android:name=".Question.Question17" />
+        <activity android:name=".Question.Question18" />
+        <activity android:name=".Question.Question19" />
+        <activity android:name=".Question.Question20" />
+        <activity android:name=".Question.Question21" />
+
+        <activity android:name=".Question.ResultActivity" />
+
+
     </application>
 
 </manifest>

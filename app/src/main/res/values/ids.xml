@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="radio_yes" type="id">id/radio_yes</item>
-    <item name="radio_no" type="id">id/radio_no</item>
-    <item name="next_button" type="id">+id/next_button</item>
-    <item name="question_text" type="id">question_text</item>
+    <item name="radio_yes" type="id" />
+    <item name="radio_no" type="id" />
+    <item name="next_button" type="id" />
+    <item name="question_text" type="id" />
     <item name="radioGroup_car_type" type="id" />
     <item name="radio_gasoline" type="id" />
     <item name="radio_diesel" type="id" />
@@ -62,4 +62,5 @@
     <item name="radio_pork_occasional" type="id" />
     <item name="radio_pork_never" type="id" />
     <item name="radioGroup_using_vehicle" type="id" />
+    <item name="completion_message" type="id" />
 </resources>
