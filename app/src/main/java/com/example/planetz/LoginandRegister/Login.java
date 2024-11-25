@@ -7,6 +7,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.R;
+import com.example.planetz.Question.Question1;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,11 +30,11 @@ public class Login extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // 检查用户是否已登录，如果已登录，加载用户信息或保持在当前页面
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {
             Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
-            // 这里可以加载用户相关的数据，比如显示欢迎信息等
+            // 自动跳转到 Question1
+            navigateToActivity(Question1.class);
         }
     }
 
@@ -67,12 +68,8 @@ public class Login extends AppCompatActivity {
                         LButton.setEnabled(true);
                         if (task.isSuccessful()) {
                             Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            // 登录成功后，加载登录用户数据，停留在当前页面
-                            FirebaseUser user = auth.getCurrentUser();
-                            if (user != null) {
-                                // 显示用户信息或更新 UI
-                                Toast.makeText(Login.this, "Welcome " + user.getEmail(), Toast.LENGTH_LONG).show();
-                            }
+                            // 登录成功后跳转到 Question1
+                            navigateToActivity(Question1.class);
                         } else {
                             Toast.makeText(Login.this, "Authentication failed: wrong email address or password", Toast.LENGTH_SHORT).show();
                         }
