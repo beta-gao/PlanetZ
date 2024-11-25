@@ -64,4 +64,16 @@
     <item name="radioGroup_using_vehicle" type="id" />
     <item name="completion_message" type="id" />
     <item name="radio_other" type="id" />
+    <item name="back_button" type="id" />
+    <item name="radio_back" type="id" />
+    <item name="radioGroup_home_type" type="id" />
+    <item name="radio_detached" type="id" />
+    <item name="radio_semi_detached" type="id" />
+    <item name="radio_townhouse" type="id" />
+    <item name="radio_condo" type="id" />
+    <item name="radio_5_or_more" type="id" />
+    <item name="radio_3_4" type="id" />
+    <item name="radio_2" type="id" />
+    <item name="radio_1" type="id" />
+    <item name="radioGroup_household_size" type="id" />
 </resources>

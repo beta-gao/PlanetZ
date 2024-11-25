@@ -43,12 +43,8 @@
             android:textSize="18sp"
             android:padding="5dp"/>
 
-        <!-- 间隔视图 -->
-        <View
-            android:layout_width="10dp"
-            android:layout_height="8dp" />
+        <View android:layout_width="10dp" android:layout_height="8dp" />
 
-        <!-- 其余 RadioButton 也使用相同的背景和间距设置 -->
         <RadioButton
             android:id="@+id/radio_5000_10000"
             android:layout_width="match_parent"
@@ -62,9 +58,7 @@
             android:textSize="20sp"
             android:padding="5dp"/>
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="8dp" />
+        <View android:layout_width="10dp" android:layout_height="8dp" />
 
         <RadioButton
             android:id="@+id/radio_10000_15000"
@@ -79,9 +73,7 @@
             android:textSize="20sp"
             android:padding="5dp"/>
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="8dp" />
+        <View android:layout_width="10dp" android:layout_height="8dp" />
 
         <RadioButton
             android:id="@+id/radio_15000_20000"
@@ -96,9 +88,7 @@
             android:textSize="20sp"
             android:padding="5dp"/>
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="8dp" />
+        <View android:layout_width="10dp" android:layout_height="8dp" />
 
         <RadioButton
             android:id="@+id/radio_20000_25000"
@@ -113,9 +103,7 @@
             android:textSize="20sp"
             android:padding="5dp"/>
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="8dp" />
+        <View android:layout_width="10dp" android:layout_height="8dp" />
 
         <RadioButton
             android:id="@+id/radio_more_than_25000"
@@ -132,15 +120,17 @@
 
     </RadioGroup>
 
-    <Button
-        android:id="@+id/next_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+    <!-- 返回按钮作为单选按钮 -->
+    <RadioButton
+        android:id="@+id/radio_back"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:gravity="center"
         android:background="@drawable/rounded_button_bg"
-        android:elevation="4dp"
-        android:padding="12dp"
-        android:text="Next"
-        android:textSize="30sp"
-        android:textColor="#FFFFFF" />
+        android:button="@null"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+
 </LinearLayout>

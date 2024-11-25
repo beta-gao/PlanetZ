@@ -2,13 +2,13 @@ package com.example.planetz.Question;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.planetz.model.CarbonFootprintData;
+
 import com.example.planetz.R;
+import com.example.planetz.model.CarbonFootprintData;
 
 public class Question1 extends AppCompatActivity {
 
@@ -23,37 +23,32 @@ public class Question1 extends AppCompatActivity {
         carbonFootprintData = CarbonFootprintData.getInstance();
 
         radioGroupUsingVehicle = findViewById(R.id.radioGroup_using_vehicle);
-        Button nextButton = findViewById(R.id.next_button);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroupUsingVehicle.getCheckedRadioButtonId();
-
-                if (selectedId != -1) {
-                    boolean isUsingVehicle;
-                    if (selectedId == R.id.radio_yes) {
-                        isUsingVehicle = true;
-                    } else if (selectedId == R.id.radio_no) {
-                        isUsingVehicle = false;
-                    } else {
-                        Toast.makeText(Question1.this, "Invalid selection. Please try again.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    carbonFootprintData.setUsingVehicle(isUsingVehicle);
-
-                    Intent intent;
-                    if (isUsingVehicle) {
-                        intent = new Intent(Question1.this, Question2.class);
-                    } else {
-                        intent = new Intent(Question1.this, Question4.class);
-                    }
-                    startActivity(intent);
-                    finish();
+        // 设置选项点击事件监听器
+        radioGroupUsingVehicle.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId != -1) {
+                boolean isUsingVehicle;
+                if (checkedId == R.id.radio_yes) {
+                    isUsingVehicle = true;
+                } else if (checkedId == R.id.radio_no) {
+                    isUsingVehicle = false;
                 } else {
-                    Toast.makeText(Question1.this, "Please select an option before proceeding.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Question1.this, "Invalid selection. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                carbonFootprintData.setUsingVehicle(isUsingVehicle);
+
+                Intent intent;
+                if (isUsingVehicle) {
+                    intent = new Intent(Question1.this, Question2.class);
+                } else {
+                    intent = new Intent(Question1.this, Question4.class);
+                }
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(Question1.this, "Please select an option.", Toast.LENGTH_SHORT).show();
             }
         });
     }

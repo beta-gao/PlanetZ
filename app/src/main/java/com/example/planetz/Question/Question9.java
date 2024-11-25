@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.planetz.model.CarbonFootprintData;
-import com.example.planetz.R;
 
 public class Question9 extends AppCompatActivity {
 
@@ -16,19 +15,21 @@ public class Question9 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question9);
 
+        // Load BeefFrequencyFragment directly
+        if (savedInstanceState == null) {
+            loadFragment(new Question9BeefFrequencyFragment());
+        }
+
+        // Initialize the CarbonFootprintData instance
         carbonFootprintData = CarbonFootprintData.getInstance();
-
-        // Load the first fragment (BeefFrequencyFragment)
-        loadFragment(new Question9BeefFrequencyFragment());
     }
 
-    // Method to load fragments
-    private void loadFragment(Fragment fragment) {
+    // Method to load fragments dynamically
+    void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
+        transaction.replace(android.R.id.content, fragment); // Use the default content view
         transaction.commit();
     }
 
@@ -45,11 +46,10 @@ public class Question9 extends AppCompatActivity {
                 break;
             case "Chicken":
                 carbonFootprintData.setChickenFrequency(frequency);
-                loadFragment(new Question9PorkFrequencyFragment());
+                loadFragment(new Question9FishFrequencyFragment());
                 break;
             case "Fish":
                 carbonFootprintData.setFishFrequency(frequency);
-                // Go to the next question activity (Question10Activity)
                 Intent intent = new Intent(Question9.this, Question10.class);
                 startActivity(intent);
                 finish();

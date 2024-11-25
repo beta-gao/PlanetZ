@@ -2,13 +2,14 @@ package com.example.planetz.Question;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.planetz.model.CarbonFootprintData;
+
 import com.example.planetz.R;
+import com.example.planetz.model.CarbonFootprintData;
 
 public class Question20 extends AppCompatActivity {
 
@@ -21,23 +22,26 @@ public class Question20 extends AppCompatActivity {
         setContentView(R.layout.activity_question20);
 
         carbonFootprintData = CarbonFootprintData.getInstance();
-
         radioGroupElectronicDevices = findViewById(R.id.radioGroup_electronic_devices);
-        Button nextButton = findViewById(R.id.next_button);
+        RadioButton backButton = findViewById(R.id.radio_back);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroupElectronicDevices.getCheckedRadioButtonId();
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Question20.this, Question19.class);
+            startActivity(intent);
+            finish();
+        });
+
+        radioGroupElectronicDevices.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId != -1) {
                 String selectedOption = null;
 
-                if (selectedId == R.id.radio_none) {
+                if (checkedId == R.id.radio_none) {
                     selectedOption = "None";
-                } else if (selectedId == R.id.radio_one) {
+                } else if (checkedId == R.id.radio_one) {
                     selectedOption = "1";
-                } else if (selectedId == R.id.radio_two) {
+                } else if (checkedId == R.id.radio_two) {
                     selectedOption = "2";
-                } else if (selectedId == R.id.radio_three_or_more) {
+                } else if (checkedId == R.id.radio_three_or_more) {
                     selectedOption = "3 or more";
                 }
 
@@ -48,8 +52,10 @@ public class Question20 extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(Question20.this, "Please select an option before proceeding.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Question20.this, "Invalid selection. Please try again.", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(Question20.this, "Please select an option.", Toast.LENGTH_SHORT).show();
             }
         });
     }

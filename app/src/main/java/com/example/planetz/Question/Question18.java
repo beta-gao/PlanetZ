@@ -2,13 +2,14 @@ package com.example.planetz.Question;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.planetz.model.CarbonFootprintData;
+
 import com.example.planetz.R;
+import com.example.planetz.model.CarbonFootprintData;
 
 public class Question18 extends AppCompatActivity {
 
@@ -21,23 +22,28 @@ public class Question18 extends AppCompatActivity {
         setContentView(R.layout.activity_question18);
 
         carbonFootprintData = CarbonFootprintData.getInstance();
-
         radioGroupClothingFrequency = findViewById(R.id.radioGroup_clothing_frequency);
-        Button nextButton = findViewById(R.id.next_button);
+        RadioButton backButton = findViewById(R.id.radio_back);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroupClothingFrequency.getCheckedRadioButtonId();
+        // 设置返回按钮点击事件
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Question18.this, Question17.class);
+            startActivity(intent);
+            finish();
+        });
+
+        // 设置点击选项直接跳转功能
+        radioGroupClothingFrequency.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId != -1) {
                 String selectedFrequency = null;
 
-                if (selectedId == R.id.radio_monthly) {
+                if (checkedId == R.id.radio_monthly) {
                     selectedFrequency = "Monthly";
-                } else if (selectedId == R.id.radio_quarterly) {
+                } else if (checkedId == R.id.radio_quarterly) {
                     selectedFrequency = "Quarterly";
-                } else if (selectedId == R.id.radio_annually) {
+                } else if (checkedId == R.id.radio_annually) {
                     selectedFrequency = "Annually";
-                } else if (selectedId == R.id.radio_rarely) {
+                } else if (checkedId == R.id.radio_rarely) {
                     selectedFrequency = "Rarely";
                 }
 
@@ -48,8 +54,10 @@ public class Question18 extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(Question18.this, "Please select an option before proceeding.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Question18.this, "Invalid selection. Please try again.", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(Question18.this, "Please select an option.", Toast.LENGTH_SHORT).show();
             }
         });
     }

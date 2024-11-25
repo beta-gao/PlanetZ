@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
@@ -22,19 +21,20 @@ public class Question9FishFrequencyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fish_frequency, container, false);
 
         radioGroupFishFrequency = view.findViewById(R.id.radioGroup_fish_frequency);
-        Button nextButton = view.findViewById(R.id.next_button);
+        RadioButton backButton = view.findViewById(R.id.radio_back);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroupFishFrequency.getCheckedRadioButtonId();
-                if (selectedId != -1) {
-                    RadioButton selectedRadioButton = view.findViewById(selectedId);
-                    String selectedFrequency = selectedRadioButton.getText().toString();
+        // 设置返回按钮点击事件
+        backButton.setOnClickListener(v -> {
+            ((Question9) getActivity()).loadFragment(new Question9ChickenFrequencyFragment());
+        });
 
-                    // 调用 Question9Activity 的方法来保存数据并跳转到下一个问题
-                    ((Question9) getActivity()).goToNextFragment("Fish", selectedFrequency);
-                }
+        // 设置选项点击直接跳转
+        radioGroupFishFrequency.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId != -1) {
+                RadioButton selectedRadioButton = view.findViewById(checkedId);
+                String selectedFrequency = selectedRadioButton.getText().toString();
+
+                ((Question9) getActivity()).goToNextFragment("Fish", selectedFrequency);
             }
         });
 

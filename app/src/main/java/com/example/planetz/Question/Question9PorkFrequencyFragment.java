@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
@@ -22,18 +21,20 @@ public class Question9PorkFrequencyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pork_frequency, container, false);
 
         radioGroupPorkFrequency = view.findViewById(R.id.radioGroup_pork_frequency);
-        Button nextButton = view.findViewById(R.id.next_button);
+        RadioButton backButton = view.findViewById(R.id.radio_back);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroupPorkFrequency.getCheckedRadioButtonId();
-                if (selectedId != -1) {
-                    RadioButton selectedRadioButton = view.findViewById(selectedId);
-                    String selectedFrequency = selectedRadioButton.getText().toString();
+        // 设置返回按钮点击事件
+        backButton.setOnClickListener(v -> {
+            ((Question9) getActivity()).loadFragment(new Question9BeefFrequencyFragment());
+        });
 
-                    ((Question9) getActivity()).goToNextFragment("Pork", selectedFrequency);
-                }
+        // 设置选项点击直接跳转
+        radioGroupPorkFrequency.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId != -1) {
+                RadioButton selectedRadioButton = view.findViewById(checkedId);
+                String selectedFrequency = selectedRadioButton.getText().toString();
+
+                ((Question9) getActivity()).goToNextFragment("Pork", selectedFrequency);
             }
         });
 

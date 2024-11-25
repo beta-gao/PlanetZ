@@ -2,13 +2,14 @@ package com.example.planetz.Question;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.planetz.model.CarbonFootprintData;
+
 import com.example.planetz.R;
+import com.example.planetz.model.CarbonFootprintData;
 
 public class Question14 extends AppCompatActivity {
 
@@ -21,39 +22,45 @@ public class Question14 extends AppCompatActivity {
         setContentView(R.layout.activity_question14);
 
         carbonFootprintData = CarbonFootprintData.getInstance();
-
         radioGroupHomeHeating = findViewById(R.id.radioGroup_home_heating);
-        Button nextButton = findViewById(R.id.next_button);
+        RadioButton backButton = findViewById(R.id.radio_back);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroupHomeHeating.getCheckedRadioButtonId();
+        // 返回按钮设置点击事件
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Question14.this, Question13.class);
+            startActivity(intent);
+            finish();
+        });
+
+        // 设置选项直接跳转逻辑
+        radioGroupHomeHeating.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId != -1) {
                 String selectedHeatingType = null;
 
-                if (selectedId == R.id.radio_natural_gas) {
+                if (checkedId == R.id.radio_natural_gas) {
                     selectedHeatingType = "Natural Gas";
-                } else if (selectedId == R.id.radio_electricity) {
+                } else if (checkedId == R.id.radio_electricity) {
                     selectedHeatingType = "Electricity";
-                } else if (selectedId == R.id.radio_oil) {
+                } else if (checkedId == R.id.radio_oil) {
                     selectedHeatingType = "Oil";
-                } else if (selectedId == R.id.radio_propane) {
+                } else if (checkedId == R.id.radio_propane) {
                     selectedHeatingType = "Propane";
-                } else if (selectedId == R.id.radio_wood) {
+                } else if (checkedId == R.id.radio_wood) {
                     selectedHeatingType = "Wood";
-                } else if (selectedId == R.id.radio_other) {
+                } else if (checkedId == R.id.radio_other) {
                     selectedHeatingType = "Other";
                 }
 
                 if (selectedHeatingType != null) {
                     carbonFootprintData.setHomeHeatingType(selectedHeatingType);
-
                     Intent intent = new Intent(Question14.this, Question15.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(Question14.this, "Please select an option before proceeding.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Question14.this, "Invalid selection. Please try again.", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(Question14.this, "Please select a home heating option.", Toast.LENGTH_SHORT).show();
             }
         });
     }

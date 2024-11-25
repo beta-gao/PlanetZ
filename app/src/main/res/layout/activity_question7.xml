@@ -11,14 +11,14 @@
         android:id="@+id/question_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="36dp"
         android:gravity="center"
         android:padding="16dp"
         android:text="How many long-haul flights (more than 1,500 km / 932 miles) have you taken in the past year?"
         android:textColor="#1b1b1e"
         android:fontFamily="monospace"
         android:textSize="26sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <RadioGroup
         android:id="@+id/radioGroup_long_haul_flights"
@@ -41,7 +41,7 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
         <View
             android:layout_width="10dp"
@@ -58,7 +58,7 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
         <View
             android:layout_width="10dp"
@@ -75,7 +75,7 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
         <View
             android:layout_width="10dp"
@@ -92,7 +92,7 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
         <View
             android:layout_width="10dp"
@@ -109,18 +109,23 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:padding="10dp"/>
+            android:padding="10dp" />
     </RadioGroup>
 
-    <Button
-        android:id="@+id/next_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+    <View
+        android:layout_width="10dp"
+        android:layout_height="10dp" />
+
+    <RadioButton
+        android:id="@+id/radio_back"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:gravity="center"
         android:background="@drawable/rounded_button_bg"
-        android:elevation="2dp"
-        android:padding="12dp"
-        android:text="Next"
-        android:textSize="30sp"
-        android:textColor="#FFFFFF" />
+        android:button="@null"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:padding="10dp" />
 </LinearLayout>
