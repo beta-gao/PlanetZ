@@ -8,6 +8,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planetz.ResultActivity;
 import com.example.planetz.model.CarbonFootprintData;
 import com.example.planetz.R;
 

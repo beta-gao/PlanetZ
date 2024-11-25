@@ -5,115 +5,80 @@ import com.example.planetz.model.VehicleType;
 
 public class FoodCalculator {
 
-    public static double calculate(CarbonFootprintData data) {
-        double totalEmission = 0.0;
+    public double calculateFoodEmission(CarbonFootprintData data) {
+        double dietEmission = calculateDietEmission(data.getDietType());
 
-        // 1. 饮食类型
-        String dietType = data.getDietType();
-        if (dietType != null) {
-            switch (dietType) {
-                case "Vegetarian":
-                    totalEmission += 1000; // 单位：kg CO2e
-                    break;
-                case "Vegan":
-                    totalEmission += 500;
-                    break;
-                case "Pescatarian":
-                    totalEmission += 1500;
-                    break;
-                case "Meat-based":
-                    totalEmission += 2500;
-                    break;
-            }
+        if (data.getDietType().equalsIgnoreCase("Meat-based")) {
+            dietEmission += calculateMeatConsumptionEmission(
+                    data.getBeefFrequency(),
+                    data.getPorkFrequency(),
+                    data.getChickenFrequency(),
+                    data.getFishFrequency()
+            );
         }
 
-        // 如果选择了 "Meat-based"，计算额外的问题
-        if ("Meat-based".equals(dietType)) {
-            totalEmission += calculateMeatConsumption(data);
-        }
+        // 加上食品浪费碳排放
+        dietEmission += calculateFoodWasteEmission(data.getFoodWasteFrequency());
 
-        // 2. 食物浪费频率
-        String foodWasteFrequency = data.getFoodWasteFrequency();
-        if (foodWasteFrequency != null) {
-            switch (foodWasteFrequency) {
-                case "Never":
-                    totalEmission += 0;
-                    break;
-                case "Rarely":
-                    totalEmission += 23.4;
-                    break;
-                case "Occasionally":
-                    totalEmission += 70.2;
-                    break;
-                case "Frequently":
-                    totalEmission += 140.4;
-                    break;
-            }
-        }
-
-        return totalEmission;
+        return dietEmission;
     }
 
-    private static double calculateMeatConsumption(CarbonFootprintData data) {
-        double meatEmission = 0.0;
-
-        // 吃猪肉的频率
-        String porkFrequency = data.getPorkFrequency();
-        if (porkFrequency != null) {
-            switch (porkFrequency) {
-                case "Daily":
-                    meatEmission += 1450;
-                    break;
-                case "Frequently (3-5 times/week)":
-                    meatEmission += 860;
-                    break;
-                case "Occasionally (1-2 times/week)":
-                    meatEmission += 450;
-                    break;
-                case "Never":
-                    meatEmission += 0;
-                    break;
-            }
+    private double calculateDietEmission(String dietType) {
+        switch (dietType) {
+            case "Vegetarian":
+                return 1000.0;
+            case "Vegan":
+                return 500.0;
+            case "Pescatarian":
+                return 1500.0;
+            case "Meat-based":
+                return 0.0;
+            default:
+                throw new IllegalArgumentException("Unknown diet type");
         }
-
-        // 吃鸡肉的频率
-        String chickenFrequency = data.getChickenFrequency();
-        if (chickenFrequency != null) {
-            switch (chickenFrequency) {
-                case "Daily":
-                    meatEmission += 950;
-                    break;
-                case "Frequently (3-5 times/week)":
-                    meatEmission += 600;
-                    break;
-                case "Occasionally (1-2 times/week)":
-                    meatEmission += 200;
-                    break;
-                case "Never":
-                    meatEmission += 0;
-                    break;
-            }
-        }
-
-        // 吃鱼的频率
-        String fishFrequency = data.getFishFrequency();
-        if (fishFrequency != null) {
-            switch (fishFrequency) {
-                case "Daily":
-                    meatEmission += 800;
-                    break;
-                case "Frequently (3-5 times/week)":
-                    meatEmission += 500;
-                    break;
-                case "Occasionally (1-2 times/week)":
-                    meatEmission += 150;
-                    break;
-                case "Never":
-                    meatEmission += 0;
-                    break;
-            }
-        }
-
-        return meatEmission;
     }
+
+
+    private double calculateMeatConsumptionEmission(String beefFrequency, String porkFrequency, String chickenFrequency, String fishFrequency) {
+        double beefEmission = getMeatEmission(beefFrequency, 2500, 1900, 1300, 0);
+        double porkEmission = getMeatEmission(porkFrequency, 1450, 860, 450, 0);
+        double chickenEmission = getMeatEmission(chickenFrequency, 950, 600, 200, 0);
+        double fishEmission = getMeatEmission(fishFrequency, 800, 500, 150, 0);
+
+        return beefEmission + porkEmission + chickenEmission + fishEmission;
+    }
+
+
+    private double getMeatEmission(String frequency, double dailyEmission, double frequentEmission, double occasionalEmission, double neverEmission) {
+        switch (frequency) {
+            case "Daily":
+                return dailyEmission;
+            case "Frequently":
+                return frequentEmission;
+            case "Occasionally":
+                return occasionalEmission;
+            case "Never":
+                return neverEmission;
+            default:
+                throw new IllegalArgumentException("Unknown frequency type");
+        }
+    }
+
+
+    private double calculateFoodWasteEmission(String foodWasteFrequency) {
+        switch (foodWasteFrequency) {
+            case "Never":
+                return 0.0;
+            case "Rarely":
+                return 23.4;
+            case "Occasionally":
+                return 70.2;
+            case "Frequently":
+                return 140.4;
+            default:
+                throw new IllegalArgumentException("Unknown food waste frequency");
+        }
+    }
+
+
 }
