@@ -4,12 +4,13 @@ public class HabitItem {
     String category;
     String habit;
     int img;
-    double impact;
+    String impact;
 
-    public HabitItem(String category, String habit, int img){
+    public HabitItem(String category, String habit, int img, String impact){
         this.category = category;
         this.habit = habit;
         this.img = img;
+        this.impact = impact;
     }
 
     public String getCategory() {

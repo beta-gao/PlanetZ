@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,8 +19,20 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class SearchKeyword extends AppCompatActivity implements SelectHabitOnClickListener{
@@ -32,12 +45,13 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
     Button energyButton;
     Button foodButton;
     Button consumpButton;
-    static List<HabitItem> HabitList;
-    static List<HabitItem> workingList;
+    List<HabitItem> HabitList;
+    List<HabitItem> workingList;
     Button addHabitButton;
     Button cancelButton;
     Dialog dialog;
     HabitTrackerItem habitTrackerItem;
+    List<HabitTrackerItem> habitTrackerList;
 
 
     @Override
@@ -93,9 +107,20 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
     //potentially getting habit list from firebase
     void retrieveHabitList(){
         HabitList = new ArrayList<>();
-        HabitList.add(new HabitItem("transportation","Take Public Transport",R.drawable.bus));
-        HabitList.add(new HabitItem("energy","Unplug Devices",R.drawable.outlet));
-        HabitList.add(new HabitItem("energy","Purchase Second-Handed Clothes",R.drawable.reuseclothes));
+        HabitList.add(new HabitItem("transportation","Take Public Transportation",R.drawable.bus, "mid"));
+        HabitList.add(new HabitItem("transportation","Walking",R.drawable.bus, "mid"));
+        HabitList.add(new HabitItem("transportation","Cycling",R.drawable.bus, "mid"));
+
+        HabitList.add(new HabitItem("consumption","Purchase Second-Handed Clothes",R.drawable.reuseclothes,"low"));
+        HabitList.add(new HabitItem("consumption","Mindful Shopping",R.drawable.reuseclothes,"low"));
+
+        HabitList.add(new HabitItem("food","Recycling Waste",R.drawable.outlet,"mid"));
+        HabitList.add(new HabitItem("food","Proper Storage",R.drawable.outlet,"low"));
+        HabitList.add(new HabitItem("food","Meal Planning",R.drawable.outlet,"mid"));
+
+        HabitList.add(new HabitItem("energy","Unplug Devices",R.drawable.outlet,"high"));
+        HabitList.add(new HabitItem("energy","Efficient Appliances",R.drawable.outlet,"high"));
+        HabitList.add(new HabitItem("energy","Save Usage",R.drawable.outlet,"high"));
 
         workingList = HabitList;
     }
@@ -148,10 +173,10 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
         String habitName;
 
         for(HabitItem habit: workingList){
-           habitName = habit.getHabit().toLowerCase();
-           if(habitName.contains(keywd)){
-               matchList.add(habit);
-           }
+            habitName = habit.getHabit().toLowerCase();
+            if(habitName.contains(keywd)){
+                matchList.add(habit);
+            }
         }
 
         if(!matchList.isEmpty()){
@@ -197,10 +222,68 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
             @Override
             public void onClick(View v) {
                 //add habit to habit tracker item
-                habitTrackerItem = new HabitTrackerItem(1, habit.getHabit(), 1);
-                TrackingHabit.habitTrackerList.add(habitTrackerItem);
 
-                Toast.makeText(SearchKeyword.this, "Habit added to tracker!", Toast.LENGTH_SHORT).show();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                //String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String userId = "user1";
+                habitTrackerItem = new HabitTrackerItem(1, habit.getHabit(), 1,0);
+
+                Map<String, Object> newHabit = new HashMap<>();
+                newHabit.put("habitName", habitTrackerItem.getHabitName());
+                newHabit.put("progress",1);
+                newHabit.put("days", 1);
+                newHabit.put("cycle", 0);
+
+                if(habitTrackerList == null){
+                    habitTrackerList = new ArrayList<>();
+                }
+
+                boolean exist = existItem(habitTrackerList, habitTrackerItem);
+
+                if(!exist){
+                    habitTrackerList.add(habitTrackerItem);
+
+                    db.collection("habitTrackerList").document(userId).get().addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot document = task.getResult();
+
+                            //if doc exist, update, if not, set
+                            if(document.exists()){
+                                db.collection("habitTrackerList").document(userId)
+                                        .update("habitTrackerList", FieldValue.arrayUnion(habitTrackerItem))
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(getApplicationContext(), "Habit added successfully!", Toast.LENGTH_SHORT).show();
+
+                                                Intent intent = new Intent(getApplicationContext(), TrackingHabit.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
+                            }
+                            /*
+                            else{
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("habitTrackerList", habitTrackerList);
+
+                                db.collection("habitTrackerList").document(userId)
+                                        .set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(getApplicationContext(), "Habit and Document added successfully!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }*/
+                        }else{
+                            Exception e = task.getException();
+                            Log.e("Firestore", "Error retrieving habits: " + (e != null ? e.getMessage() : "Unknown error"));
+                        }
+                    });
+                }else{
+                    Toast.makeText(getApplicationContext(), "Habit already exists in your tracker!", Toast.LENGTH_SHORT).show();
+                }
+
                 Intent intent = new Intent(getApplicationContext(), TrackingHabit.class);
                 startActivity(intent);
 
@@ -216,6 +299,21 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
         });
 
         dialog.show();
-
     }
+
+    boolean existItem(List<HabitTrackerItem> habitTrackerList, HabitTrackerItem habitTrackerItem){
+
+        if(habitTrackerList == null) return false;
+        if(habitTrackerList.isEmpty()) return false;
+
+        String habitName = habitTrackerItem.getHabitName();
+
+        for (HabitTrackerItem habitexist : habitTrackerList) {
+            if (habitName.equals(habitexist.getHabitName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

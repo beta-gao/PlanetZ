@@ -15,7 +15,7 @@ import java.util.List;
 
 
 public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder>{
-    static List<HabitTrackerItem> habitTrackerList;
+    List<HabitTrackerItem> habitTrackerList;
     Context context;
 
 
@@ -36,7 +36,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull TrackerViewHolder holder, int position) {
 
-        holder.time.setText(habitTrackerList.get(position).getDays());
+        holder.time.setText(habitTrackerList.get(position).getDaysString());
         holder.progressBar.setProgress(habitTrackerList.get(position).getProgress());
         holder.habitName.setText(habitTrackerList.get(position).getHabitName());
 
@@ -46,10 +46,10 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder>{
                 int pos = holder.getBindingAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     habitTrackerList.get(pos).logHabit();
+
                     notifyItemChanged(pos);
                 }
             }
-
         });
 
         holder.unlogButton.setOnClickListener(new View.OnClickListener() {
@@ -75,5 +75,9 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder>{
     public void addHabit(HabitTrackerItem habit) {
         habitTrackerList.add(habit);
         notifyItemInserted(habitTrackerList.size() + 1); // Notify RecyclerView to update
+    }
+
+    public void setHabitTrackerList(List<HabitTrackerItem> habitTrackerList) {
+        this.habitTrackerList = habitTrackerList;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.planetz;
 
+import java.util.Objects;
+
 public class HabitTrackerItem {
 
     int progress;
@@ -7,11 +9,15 @@ public class HabitTrackerItem {
     int days;
     int cycle;
 
-    public HabitTrackerItem(int progress, String habitName, int days) {
+    HabitTrackerItem(){
+    }
+
+    public HabitTrackerItem(int progress, String habitName, int days, int cycle) {
         this.progress = progress;
         this.habitName = habitName;
         this.days = days;
     }
+
 
     public int getProgress() {
         return progress;
@@ -21,8 +27,16 @@ public class HabitTrackerItem {
         return habitName;
     }
 
-    public String getDays() {
-        return days + "days";
+    public int getDays() {
+        return days;
+    }
+
+    public String getDaysString() {
+        return days + " days";
+    }
+
+    public int getCycle(){
+        return cycle;
     }
 
     void logHabit(){
@@ -35,17 +49,29 @@ public class HabitTrackerItem {
         }
         days++;
     }
-    
+
     void unLogHabit(){
         if(progress < 100 && progress > 0){
             progress--;
         }
         else if(progress == 0 && cycle == 0){
-            TrackingHabit.habitTrackerList.remove(this);
+            //remove
         }
         days--;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HabitTrackerItem habitTrackerItem = (HabitTrackerItem) o;
+        return habitName.equals(habitTrackerItem.habitName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(habitName);
+    }
 
 }
 

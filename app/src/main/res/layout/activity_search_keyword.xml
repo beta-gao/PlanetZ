@@ -72,6 +72,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/filters2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -87,12 +88,40 @@
             android:layout_height="match_parent"
             android:text="Filter by Impact"
             android:alpha="0.7"/>
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/lowimpact"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Low" />
+
+        <Button
+            android:id="@+id/midimpact"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Mid"/>
+
+        <Button
+            android:id="@+id/highimpact"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="High"/>
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/filters2"
+        android:id="@+id/filters3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

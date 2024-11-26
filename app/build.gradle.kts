@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.gms.google-services")
+    id("com.google.gms.google-services") version "4.4.2"
 }
 
 android {
@@ -38,13 +38,15 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform(libs.firebase.bom))
+    implementation("com.google.firebase:firebase-firestore:25.1.1")
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.analytics)
     implementation(libs.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation ("com.intuit.ssp:ssp-android:1.0.5")
-    implementation ("com.intuit.sdp:sdp-android:1.0.5")
+    implementation(libs.recyclerview.v110)
+    implementation (libs.ssp.android)
+    implementation (libs.sdp.android)
 }
