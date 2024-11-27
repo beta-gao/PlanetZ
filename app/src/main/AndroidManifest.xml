@@ -55,7 +55,10 @@
         <activity android:name=".Question.Question19" />
         <activity android:name=".Question.Question20" />
         <activity android:name=".Question.Question21" />
-        <activity android:name=".Question.ResultActivity" />
+
+        <activity android:name=".ResultActivity" />
+        <activity android:name=".BreakdownActivity" />
+        <activity android:name=".ComparisonActivity" />
 
     </application>
 </manifest>

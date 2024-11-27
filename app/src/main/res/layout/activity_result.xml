@@ -1,20 +1,22 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#f2f2f2"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/completion_message"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:text="Thank you for completing the questionnaire!" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <!-- 显示年度碳足迹 -->
+        <TextView
+            android:id="@+id/annualFootprint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Annual Footprint: "
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>
