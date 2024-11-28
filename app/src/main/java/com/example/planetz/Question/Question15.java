@@ -50,7 +50,7 @@ public class Question15 extends AppCompatActivity {
                 }
 
                 if (selectedBillRange != null) {
-                    carbonFootprintData.setMonthlyElectricityBill(selectedBillRange);
+                    carbonFootprintData.setMonthlyElectricityBill(selectedBillRange); // 确保设置了合法值
                     Intent intent = new Intent(Question15.this, Question16.class);
                     startActivity(intent);
                     finish();

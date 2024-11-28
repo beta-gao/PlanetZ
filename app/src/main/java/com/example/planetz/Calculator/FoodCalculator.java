@@ -20,7 +20,7 @@ public class FoodCalculator {
         // 加上食品浪费碳排放
         dietEmission += calculateFoodWasteEmission(data.getFoodWasteFrequency());
 
-        return dietEmission;
+        return dietEmission/1000;
     }
 
     private double calculateDietEmission(String dietType) {
@@ -29,9 +29,9 @@ public class FoodCalculator {
                 return 1000.0;
             case "Vegan":
                 return 500.0;
-            case "Pescatarian":
+            case "Pescatarian (fish/seafood)":
                 return 1500.0;
-            case "Meat-based":
+            case "Meat-based (eat all types of animal products)":
                 return 0.0;
             default:
                 throw new IllegalArgumentException("Unknown diet type");

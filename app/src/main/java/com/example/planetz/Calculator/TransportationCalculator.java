@@ -2,6 +2,7 @@ package com.example.planetz.Calculator;
 
 import com.example.planetz.model.CarbonFootprintData;
 import com.example.planetz.model.VehicleType;
+import static com.example.planetz.model.VehicleType.*;
 
 public class TransportationCalculator {
 
@@ -10,8 +11,16 @@ public class TransportationCalculator {
             return 0.0;
         }
 
+        // 将字符串转换为枚举
+        VehicleType vehicleType;
+        try {
+            vehicleType = VehicleType.valueOf(data.getVehicleType().toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            throw new IllegalArgumentException("Invalid vehicle type: " + data.getVehicleType());
+        }
+
         double emissionFactor;
-        switch (data.getVehicleType()) {
+        switch (vehicleType) {
             case GASOLINE:
                 emissionFactor = 0.24;
                 break;
@@ -32,11 +41,22 @@ public class TransportationCalculator {
         return emissionFactor * annualMileage;
     }
 
+
     public double calculatePublicTransportEmission(CarbonFootprintData data) {
         String frequency = data.getPublicTransportFrequency();
         String timeSpent = data.getPublicTransportTime();
 
         int emissionFactor;
+        if (frequency.contains("Never")) {
+            frequency = "Never";
+        } else if (frequency.contains("Occasionally")) {
+            frequency = "Occasionally";
+        } else if (frequency.contains("Frequently")) {
+            frequency = "Frequently";
+        } else if (frequency.contains("Always")) {
+            frequency = "Always";
+        }
+
         switch (frequency) {
             case "Never":
                 return 0.0;
@@ -56,8 +76,10 @@ public class TransportationCalculator {
                                                 9555;
                 break;
             default:
-                throw new IllegalArgumentException("Unknown public transport frequency");
+                emissionFactor = 0; // 提供默认值
+                break;
         }
+
 
         return emissionFactor;
     }
@@ -87,7 +109,7 @@ public class TransportationCalculator {
         double publicTransportEmission = calculatePublicTransportEmission(data);
         double flightEmission = calculateFlightEmission(data);
 
-        return vehicleEmission + publicTransportEmission + flightEmission;
+        return (vehicleEmission + publicTransportEmission + flightEmission)/1000;
     }
 
 }

@@ -3,25 +3,85 @@ import com.example.planetz.model.CarbonFootprintData;
 import com.example.planetz.model.VehicleType;
 public class ConsumptionCalculator {
 
-    /**
-     * 计算消费相关的碳排放
-     *
-     * @param clothingFrequency 新衣服购买频率
-     * @param ecoFriendlyProductUsage 是否购买二手或环保产品
-     * @param electronicDevicesPurchased 过去一年购买的电子设备数量
-     * @param recyclingFrequency 回收频率
-     * @return 总碳排放（单位：kg）
-     */
-    public double calculateConsumptionEmission(String clothingFrequency, String ecoFriendlyProductUsage,
-                                               int electronicDevicesPurchased, String recyclingFrequency) {
-        double clothingEmission = calculateClothingEmission(clothingFrequency, ecoFriendlyProductUsage);
-        double electronicDevicesEmission = calculateElectronicDevicesEmission(electronicDevicesPurchased);
-        double recyclingReduction = calculateRecyclingReduction(electronicDevicesPurchased, recyclingFrequency);
+
+    public double calculateConsumptionEmission(CarbonFootprintData data) {
+
+        String clothingFrequency = data.getClothingPurchaseFrequency();
+        String ecoFriendlyProductUsage = data.getSecondHandOrEcoFriendlyProducts();
+        String electronicDevicesPurchased = data.getElectronicDevicesPurchased();
+        String recyclingFrequency = data.getRecyclingFrequency();
+        // 使用映射函数将字符串转换为整数
+        int frequency = mapClothingFrequency(clothingFrequency);
+        int ecoFriendlyUsage = mapEcoFriendlyProductUsage(ecoFriendlyProductUsage);
+        int devicesCount = mapElectronicDevicesCount(electronicDevicesPurchased);
+        int recyclingFreq = mapRecyclingFrequency(recyclingFrequency);
+
+        // 调用修正后的计算方法
+        double clothingEmission = calculateClothingEmission(frequency, ecoFriendlyUsage);
+        double electronicDevicesEmission = calculateElectronicDevicesEmission(devicesCount);
+        double recyclingReduction = calculateRecyclingReduction(frequency, recyclingFreq, devicesCount);
 
         // 总排放 = 衣服 + 电子设备 - 回收减排
-        return clothingEmission + electronicDevicesEmission - recyclingReduction;
+        return (clothingEmission + electronicDevicesEmission - recyclingReduction)/1000;
     }
 
+    public static int mapClothingFrequency(String frequency) {
+        switch (frequency) {
+            case "Monthly":
+                return 1;
+            case "Quarterly":
+                return 2;
+            case "Annually":
+                return 3;
+            case "Rarely":
+                return 4;
+            default:
+                throw new IllegalArgumentException("Unknown clothing frequency: " + frequency);
+        }
+    }
+
+    public static int mapEcoFriendlyProductUsage(String usage) {
+        switch (usage) {
+            case "Yes, regularly":
+                return 1;
+            case "Yes, occasionally":
+                return 2;
+            case "No":
+                return 3;
+            default:
+                throw new IllegalArgumentException("Unknown eco-friendly product usage: " + usage);
+        }
+    }
+
+    public static int mapElectronicDevicesCount(String count) {
+        switch (count) {
+            case "None":
+                return 0;
+            case "1":
+                return 1;
+            case "2":
+                return 2;
+            case "3 or more":
+                return 3;
+            default:
+                throw new IllegalArgumentException("Unknown electronic devices count: " + count);
+        }
+    }
+
+    public static int mapRecyclingFrequency(String frequency) {
+        switch (frequency) {
+            case "Never":
+                return 0;
+            case "Occasionally":
+                return 1;
+            case "Frequently":
+                return 2;
+            case "Always":
+                return 3;
+            default:
+                throw new IllegalArgumentException("Unknown recycling frequency: " + frequency);
+        }
+    }
     /**
      * 计算新衣服购买的碳排放
      *
@@ -29,87 +89,89 @@ public class ConsumptionCalculator {
      * @param ecoFriendlyProductUsage 是否购买二手或环保产品
      * @return 衣服相关的碳排放（单位：kg）
      */
-    private double calculateClothingEmission(String frequency, String ecoFriendlyProductUsage) {
+    private double calculateClothingEmission(int frequency, int ecoFriendlyProductUsage) {
         double baseEmission;
         switch (frequency) {
-            case "Monthly":
+            case 1: // Monthly
                 baseEmission = 360;
                 break;
-            case "Quarterly":
+            case 2: // Quarterly
                 baseEmission = 120;
                 break;
-            case "Annually":
+            case 3: // Annually
                 baseEmission = 100;
                 break;
-            case "Rarely":
+            case 4: // Rarely
                 baseEmission = 5;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown clothing frequency: " + frequency);
         }
 
-        // 如果用户购买二手或环保产品
-        if ("Yes, regularly".equalsIgnoreCase(ecoFriendlyProductUsage)) {
-            return baseEmission * 0.5; // 减少 50%
-        } else if ("Yes, occasionally".equalsIgnoreCase(ecoFriendlyProductUsage)) {
-            return baseEmission * 0.7; // 减少 30%
-        } else if ("No".equalsIgnoreCase(ecoFriendlyProductUsage)) {
-            return baseEmission;
+        // 根据是否购买环保产品调整排放
+        switch (ecoFriendlyProductUsage) {
+            case 1: // Yes, regularly
+                return baseEmission * 0.5;
+            case 2: // Yes, occasionally
+                return baseEmission * 0.7;
+            case 3: // No
+                return baseEmission;
+            default:
+                throw new IllegalArgumentException("Unknown eco-friendly product usage: " + ecoFriendlyProductUsage);
         }
-
-        throw new IllegalArgumentException("Unknown eco-friendly product usage: " + ecoFriendlyProductUsage);
     }
 
     /**
      * 计算电子设备购买的碳排放
-     *
-     * @param count 过去一年购买的电子设备数量
+     * @param count 过去一年购买的电子设备数量（整数）
      * @return 电子设备相关的碳排放（单位：kg）
      */
     private double calculateElectronicDevicesEmission(int count) {
         switch (count) {
-            case 0:
+            case 0: // None
                 return 0;
-            case 1:
+            case 1: // 1 device
                 return 300;
-            case 2:
+            case 2: // 2 devices
                 return 600;
-            case 3:
+            case 3: // 3 or more devices
                 return 900;
-            case 4: // 4 或更多
-            default:
+            default: // Invalid count
                 return 1200;
         }
     }
 
     /**
      * 计算回收对碳排放的减排
-     *
-     * @param electronicDevicesPurchased 购买的电子设备数量
-     * @param recyclingFrequency 回收频率
+     * @param buyinghabit 购买的习惯
+     * @param recyclingFrequency 回收频率（整数）
      * @return 回收的减排量（单位：kg）
      */
-    private double calculateRecyclingReduction(int electronicDevicesPurchased, String recyclingFrequency) {
-        int reductionPerDevice;
-        switch (recyclingFrequency) {
-            case "Never":
-                return 0;
-            case "Occasionally":
-                reductionPerDevice = 45;
-                break;
-            case "Frequently":
-                reductionPerDevice = 60;
-                break;
-            case "Always":
-                reductionPerDevice = 90;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown recycling frequency: " + recyclingFrequency);
+    private double calculateRecyclingReduction(int buyinghabit, int recyclingFrequency, int devicesamount) {
+        if(recyclingFrequency == 0){
+            return 0;
         }
+        double reductionPerHabit = Habit_Recycle[buyinghabit-1][recyclingFrequency-1];
+        if (devicesamount == 0) {
+            return reductionPerHabit;
+        }
+        double reductionPerDevice = Device_Recycle[devicesamount][recyclingFrequency-1];
 
-        // 总减排 = 每个设备的减排 * 购买的设备数量
-        return reductionPerDevice * electronicDevicesPurchased;
+        return reductionPerDevice + reductionPerHabit;
     }
+    private static final double[][] Habit_Recycle = {
+            {54, 108, 180},
+            {15, 30, 50},
+            {15, 30, 50},
+            {0.75,1.5,2.5}
+    };
+
+    private static final double[][] Device_Recycle = {
+            {0, 0, 0},
+            {45, 60, 90},
+            {60,120,180},
+            {120.240,360}
+    };
 
 }
 

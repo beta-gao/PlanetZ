@@ -18,5 +18,12 @@
             android:textStyle="bold"
             android:paddingBottom="16dp" />
 
+        <Button
+            android:id="@+id/buttonBreakdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Breakdown"
+            android:layout_marginTop="16dp" />
+
     </LinearLayout>
 </ScrollView>

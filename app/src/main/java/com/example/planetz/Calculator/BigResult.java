@@ -33,16 +33,10 @@ public class BigResult {
         double housingEmission = housingCalculator.calculateHousingEmission(housingData);
 
         // 消费排放
-        double consumptionEmission = consumptionCalculator.calculateConsumptionEmission(
-                consumptionData.getClothingPurchaseFrequency(),
-                consumptionData.getSecondHandOrEcoFriendlyProducts(),
-                Integer.parseInt(consumptionData.getElectronicDevicesPurchased()),
-                consumptionData.getRecyclingFrequency()
-        );
+        double consumptionEmission = consumptionCalculator.calculateConsumptionEmission(consumptionData);
 
         double foodEmission = foodCalculator.calculateFoodEmission(foodData);
 
-        double totalEmissionInKg = transportationEmission + housingEmission + consumptionEmission + foodEmission;
-        return totalEmissionInKg / 1000;
+        return transportationEmission + housingEmission + consumptionEmission + foodEmission;
     }
 }

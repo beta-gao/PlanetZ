@@ -1,17 +1,26 @@
 package com.example.planetz.model;
 
+import android.util.Log;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * CarbonFootprintData class stores user input data needed to calculate carbon footprint.
  * This class is implemented as a Singleton to ensure a single shared instance throughout the application.
  */
 public class CarbonFootprintData {
 
-
     private static CarbonFootprintData instance;
 
-
+    // Fields
+    private String userId;
     private boolean isUsingVehicle;
-    private VehicleType vehicleType;
+    private String vehicleType; // Changed to String for Firestore compatibility
     private int annualMileage;
     private String dietType;
     private String publicTransportFrequency;
@@ -48,20 +57,29 @@ public class CarbonFootprintData {
         return instance;
     }
 
-    // Getters and Setters for all fields
+    // Getters and Setters
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public boolean isUsingVehicle() {
         return isUsingVehicle;
     }
 
-    public void setUsingVehicle(boolean isUsingVehicle) {
-        this.isUsingVehicle = isUsingVehicle;
+    public void setUsingVehicle(boolean usingVehicle) {
+        isUsingVehicle = usingVehicle;
     }
 
-    public VehicleType getVehicleType() {
+    public String getVehicleType() {
         return vehicleType;
     }
 
-    public void setVehicleType(VehicleType vehicleType) {
+    public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
     }
 
@@ -185,14 +203,20 @@ public class CarbonFootprintData {
         this.homeHeatingType = homeHeatingType;
     }
 
-
     public String getMonthlyElectricityBill() {
         return monthlyElectricityBill;
     }
 
     public void setMonthlyElectricityBill(String monthlyElectricityBill) {
-        this.monthlyElectricityBill = monthlyElectricityBill;
+        List<String> validBills = Arrays.asList("Under $50", "$50-$100", "$100-$150", "$150-$200", "Over $200");
+        if (validBills.contains(monthlyElectricityBill)) {
+            this.monthlyElectricityBill = monthlyElectricityBill;
+        } else {
+            Log.w("CarbonFootprintData", "Invalid electricity bill: " + monthlyElectricityBill);
+            this.monthlyElectricityBill = "$50-$100"; // 默认值
+        }
     }
+
 
     public String getWaterHeatingType() {
         return waterHeatingType;
@@ -242,8 +266,9 @@ public class CarbonFootprintData {
         this.recyclingFrequency = recyclingFrequency;
     }
 
-
+    // Clear method
     public void clear() {
+        userId = null;
         isUsingVehicle = false;
         vehicleType = null;
         annualMileage = 0;
@@ -268,5 +293,52 @@ public class CarbonFootprintData {
         secondHandOrEcoFriendlyProducts = null;
         electronicDevicesPurchased = null;
         recyclingFrequency = null;
+    }
+
+    // Convert to Map for Firestore
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("isUsingVehicle", isUsingVehicle);
+        map.put("vehicleType", vehicleType);
+        map.put("annualMileage", annualMileage);
+        map.put("dietType", dietType);
+        map.put("publicTransportFrequency", publicTransportFrequency);
+        map.put("publicTransportTime", publicTransportTime);
+        map.put("shortHaulFlights", shortHaulFlights);
+        map.put("longHaulFlights", longHaulFlights);
+        map.put("beefFrequency", beefFrequency);
+        map.put("porkFrequency", porkFrequency);
+        map.put("chickenFrequency", chickenFrequency);
+        map.put("fishFrequency", fishFrequency);
+        map.put("foodWasteFrequency", foodWasteFrequency);
+        map.put("homeType", homeType);
+        map.put("householdSize", householdSize);
+        map.put("homeSize", homeSize);
+        map.put("homeHeatingType", homeHeatingType);
+        map.put("monthlyElectricityBill", monthlyElectricityBill);
+        map.put("waterHeatingType", waterHeatingType);
+        map.put("renewableEnergyUse", renewableEnergyUse);
+        map.put("clothingPurchaseFrequency", clothingPurchaseFrequency);
+        map.put("secondHandOrEcoFriendlyProducts", secondHandOrEcoFriendlyProducts);
+        map.put("electronicDevicesPurchased", electronicDevicesPurchased);
+        map.put("recyclingFrequency", recyclingFrequency);
+        return map;
+    }
+
+    // Save to Firestore
+    public void saveToFirestore(FirebaseFirestore db, String userId, FirestoreSaveCallback callback) {
+        this.userId = userId;
+
+        db.collection("carbonFootprints")
+                .document(userId)
+                .set(toMap())
+                .addOnSuccessListener(aVoid -> callback.onSuccess())
+                .addOnFailureListener(callback::onFailure);
+    }
+
+    public interface FirestoreSaveCallback {
+        void onSuccess();
+        void onFailure(Exception e);
     }
 }

@@ -61,8 +61,8 @@ public class Question2 extends AppCompatActivity {
                         vehicleType = VehicleType.UNKNOWN;
                     }
 
-                    // 更新数据模型
-                    carbonFootprintData.setVehicleType(vehicleType);
+                    // 转换枚举为字符串后更新数据模型
+                    carbonFootprintData.setVehicleType(vehicleType.name());
 
                     // 跳转到下一问题
                     Intent intent = new Intent(Question2.this, Question3.class);

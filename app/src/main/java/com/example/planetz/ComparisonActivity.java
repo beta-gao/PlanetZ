@@ -1,106 +1,98 @@
 package com.example.planetz;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.example.planetz.model.AnnualFootprintData;
 
 public class ComparisonActivity extends AppCompatActivity {
 
-    private Spinner countrySpinner;
-    private TextView comparisonResult;
+    private TextView comparisonTextView;
     private FirebaseFirestore db;
-    private Map<String, Double> countryEmissions;
-    private double userFootprint = 10.5; // 示例用户碳足迹，可动态传递
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comparison);
 
-        // 初始化 UI 元素
-        countrySpinner = findViewById(R.id.countrySpinner);
-        comparisonResult = findViewById(R.id.comparisonResult);
-
-        // 初始化 Firebase
+        comparisonTextView = findViewById(R.id.comparisonTextView);
         db = FirebaseFirestore.getInstance();
-        countryEmissions = new HashMap<>();
 
-        // 加载国家数据
-        loadCountryData();
+        // 获取用户的碳足迹数据
+        AnnualFootprintData userFootprintData = AnnualFootprintData.getInstance();
+
+        if (userFootprintData == null) {
+            Toast.makeText(this, "User footprint data is not available.", Toast.LENGTH_SHORT).show();
+            comparisonTextView.setText("No data available for comparison.");
+            return;
+        }
+
+        double userTotalFootprint = userFootprintData.getTotal();
+
+        // 假设用户所在国家（可以从用户设置或地理信息中获取）
+        String userCountry = "Canada";
+
+        // 从 Firestore 获取国家平均碳排放数据
+        fetchCountryStats(userCountry, userTotalFootprint);
     }
 
-    private void loadCountryData() {
+    private void fetchCountryStats(String userCountry, double userTotalFootprint) {
         db.collection("globalStats").document("emissionsPerCapitaMap")
                 .get()
-                .addOnSuccessListener(this::populateCountrySpinner)
-                .addOnFailureListener(e -> comparisonResult.setText("Failed to load data: " + e.getMessage()));
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            // 获取国家对应的平均碳排放数据
+                            Double countryAverageFootprint = document.getDouble("countries." + userCountry);
+
+                            if (countryAverageFootprint == null) {
+                                comparisonTextView.setText("No data available for " + userCountry);
+                                return;
+                            }
+
+                            // 生成比较结果文本
+                            String comparisonResult = generateComparisonText(userCountry, userTotalFootprint, countryAverageFootprint);
+
+                            // 显示比较结果
+                            comparisonTextView.setText(comparisonResult);
+                        } else {
+                            Toast.makeText(this, "Global stats document not found.", Toast.LENGTH_SHORT).show();
+                            comparisonTextView.setText("Error: Global stats document not found.");
+                        }
+                    } else {
+                        Toast.makeText(this, "Failed to fetch data from Firestore.", Toast.LENGTH_SHORT).show();
+                        comparisonTextView.setText("Error fetching comparison data.");
+                    }
+                });
     }
 
-    private void populateCountrySpinner(DocumentSnapshot documentSnapshot) {
-        if (documentSnapshot.exists()) {
-            Map<String, Object> countries = (Map<String, Object>) documentSnapshot.get("countries");
-            List<String> countryNames = new ArrayList<>(countries.keySet());
+    private String generateComparisonText(String country, double userFootprint, double averageFootprint) {
+        // 用户与国家平均碳足迹的比较
+        double percentageDifference = ((userFootprint - averageFootprint) / averageFootprint) * 100;
 
-            // 保存每个国家对应的碳排放值
-            for (String country : countryNames) {
-                countryEmissions.put(country, ((Number) countries.get(country)).doubleValue());
-            }
+        // 用户与全球目标（0）的比较
+        double differenceFromGlobalTarget = userFootprint;
 
-            // 设置 Spinner 的适配器
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, countryNames);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            countrySpinner.setAdapter(adapter);
-
-            // 设置 Spinner 的选择事件
-            countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String selectedCountry = countryNames.get(position);
-                    updateComparisonResult(selectedCountry);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                    comparisonResult.setText("Please select a country.");
-                }
-            });
-        }
-    }
-
-    private void updateComparisonResult(String country) {
-        Double nationalAverage = countryEmissions.get(country);
-
-        if (nationalAverage != null) {
-            double difference = userFootprint - nationalAverage;
-            double percentage = Math.abs(difference) / nationalAverage * 100;
-
-            String result;
-            if (difference < 0) {
-                result = String.format("Your carbon footprint is %.2f%% below the national average for %s.", percentage, country);
-            } else if (difference > 0) {
-                result = String.format("Your carbon footprint is %.2f%% above the national average for %s.", percentage, country);
-            } else {
-                result = String.format("Your carbon footprint matches the national average for %s.", country);
-            }
-
-            comparisonResult.setText(result);
-        } else {
-            comparisonResult.setText("Data for " + country + " is not available.");
-        }
+        return String.format(
+                "Your Total Carbon Footprint: %.2f tons CO2e\n\n" +
+                        "Comparison with %s:\n" +
+                        "- National Average: %.2f tons CO2e\n" +
+                        "- You are %.2f%% %s the national average.\n\n" +
+                        "Comparison with Global Target:\n" +
+                        "- Target: 0 tons CO2e\n" +
+                        "- You are %.2f tons CO2e above the global target.",
+                userFootprint,
+                country,
+                averageFootprint,
+                Math.abs(percentageDifference),
+                percentageDifference > 0 ? "above" : "below",
+                differenceFromGlobalTarget
+        );
     }
 }

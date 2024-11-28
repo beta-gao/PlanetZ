@@ -2,52 +2,75 @@ package com.example.planetz;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planetz.model.AnnualFootprintData;
 
 public class BreakdownActivity extends AppCompatActivity {
 
-    private TextView transportationView;
-    private TextView housingView;
-    private TextView foodView;
-    private TextView consumptionView;
+    private TextView breakdownTextView;
+    private Button comparisonButton; // 跳转按钮
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breakdown);
 
-        // 初始化 UI 元素
-        transportationView = findViewById(R.id.transportationView);
-        housingView = findViewById(R.id.housingView);
-        foodView = findViewById(R.id.foodView);
-        consumptionView = findViewById(R.id.consumptionView);
+        breakdownTextView = findViewById(R.id.breakdownTextView);
+        comparisonButton = findViewById(R.id.buttonComparison); // 绑定按钮
 
-        // 获取传递过来的数据
-        double transportation = getIntent().getDoubleExtra("transportation", 0);
-        double housing = getIntent().getDoubleExtra("housing", 0);
-        double food = getIntent().getDoubleExtra("food", 0);
-        double consumption = getIntent().getDoubleExtra("consumption", 0);
+        // 获取全局单例的 AnnualFootprintData
+        AnnualFootprintData annualFootprintData = AnnualFootprintData.getInstance();
 
-        // 计算总排放量
-        double total = transportation + housing + food + consumption;
+        if (annualFootprintData == null) {
+            Toast.makeText(this, "AnnualFootprintData is not initialized!", Toast.LENGTH_SHORT).show();
+            breakdownTextView.setText("No data available. Please calculate your footprint first.");
+            return;
+        }
 
-        // 显示数据
-        updateTextViews(transportation, housing, food, consumption, total);
+        // 提取各类别的碳足迹
+        double transportation = annualFootprintData.getTransportation();
+        double housing = annualFootprintData.getHousing();
+        double food = annualFootprintData.getFood();
+        double consumption = annualFootprintData.getConsumption();
+        double total = annualFootprintData.getTotal();
+
+        // 计算各类别的贡献比例
+        double transportationPercentage = (transportation / total) * 100;
+        double housingPercentage = (housing / total) * 100;
+        double foodPercentage = (food / total) * 100;
+        double consumptionPercentage = (consumption / total) * 100;
+
+        // 构建显示文本
+        String breakdownText = String.format(
+                "Your Total Annual Carbon Footprint: %.2f tons CO2e\n\n" +
+                        "Breakdown by Category:\n" +
+                        "Transportation: %.2f tons CO2e (%.2f%%)\n" +
+                        "Housing: %.2f tons CO2e (%.2f%%)\n" +
+                        "Food: %.2f tons CO2e (%.2f%%)\n" +
+                        "Consumption: %.2f tons CO2e (%.2f%%)",
+                total,
+                transportation, transportationPercentage,
+                housing, housingPercentage,
+                food, foodPercentage,
+                consumption, consumptionPercentage
+        );
+
+        // 显示结果
+        breakdownTextView.setText(breakdownText);
+
+        // 设置按钮点击监听
+        comparisonButton.setOnClickListener(v -> navigateToComparisonActivity());
     }
 
-    private void updateTextViews(double transportation, double housing, double food, double consumption, double total) {
-        transportationView.setText(formatText("Transportation", transportation, total));
-        housingView.setText(formatText("Housing", housing, total));
-        foodView.setText(formatText("Food", food, total));
-        consumptionView.setText(formatText("Consumption", consumption, total));
+    /**
+     * 跳转到 ComparisonActivity
+     */
+    private void navigateToComparisonActivity() {
+        Intent intent = new Intent(BreakdownActivity.this, ComparisonActivity.class);
+        startActivity(intent);
     }
-
-    private String formatText(String category, double value, double total) {
-        double percentage = (value / total) * 100;
-        return String.format("%s: %.2f tons (%.2f%%)", category, value, percentage);
-    }
-
-
 }
