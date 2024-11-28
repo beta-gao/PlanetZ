@@ -24,7 +24,6 @@ public class Question1 extends AppCompatActivity {
 
         radioGroupUsingVehicle = findViewById(R.id.radioGroup_using_vehicle);
 
-        // 设置选项点击事件监听器
         radioGroupUsingVehicle.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId != -1) {
                 boolean isUsingVehicle;

@@ -67,7 +67,7 @@ public class ForgetPassword extends AppCompatActivity {
             @Override
             //link to the login page
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Login.class);//replace with register class
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);//replace with register class
                 startActivity(i);
                 finish();
             }

@@ -15,7 +15,7 @@
 
         <!-- LoginActivity as the main launcher activity -->
         <activity
-            android:name=".LoginandRegister.Login"
+            android:name=".LoginandRegister.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

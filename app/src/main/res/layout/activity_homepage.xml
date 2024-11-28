@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="#d8dbe2">
+
+    <!-- Logo at the top -->
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:contentDescription="Logo"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Buttons for navigation -->
+    <Button
+        android:id="@+id/buttonFirstAnnualCarbonFootprint"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button_bg"
+        android:button="@null"
+        android:text="First Annual Carbon Footprint"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonEcoTracker"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button_bg"
+        android:button="@null"
+        android:text="Eco Tracker"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonEcoGauge"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button_bg"
+        android:button="@null"
+        android:text="Eco Gauge"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
