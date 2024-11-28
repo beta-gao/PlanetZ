@@ -1,21 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <LinearLayout
+    <Spinner
+        android:id="@+id/countrySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="16dp"
+        android:spinnerMode="dropdown" />
 
-        <TextView
-            android:id="@+id/comparisonTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fetching comparison data..."
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
-            android:textAlignment="center" />
-    </LinearLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/comparisonTextView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Comparison Results will appear here" />
+
+    <Button
+        android:id="@+id/backToHomeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to Home" />
+</LinearLayout>

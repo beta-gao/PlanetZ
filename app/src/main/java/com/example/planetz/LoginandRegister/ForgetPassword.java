@@ -22,13 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-
 public class ForgetPassword extends AppCompatActivity {
     FirebaseAuth auth;
     Button ForgetButton;
     TextView BackToLog;
     TextInputEditText emailText;
-    TextInputEditText passwordText;
     String email;
 
     @Override
@@ -36,57 +34,61 @@ public class ForgetPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forget_password);
+
+        // 设置窗口边距
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.forget), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // 初始化组件
         ForgetButton = findViewById(R.id.ResetButton);
         emailText = findViewById(R.id.email);
         BackToLog = findViewById(R.id.toReg);
         auth = FirebaseAuth.getInstance();
 
+        // 点击“发送重置邮件”按钮
         ForgetButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 email = String.valueOf(emailText.getText());
                 if (TextUtils.isEmpty(email)) {
                     emailText.setError("Email field can't be empty");
-                    //Toast.makeText();
-                } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-
-                }
-                else {
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    emailText.setError("Please enter a valid email address");
+                } else {
                     SendLinktoReset();
                 }
             }
         });
+
+        // 点击“返回登录”按钮
         BackToLog.setOnClickListener(new View.OnClickListener() {
             @Override
-            //link to the login page
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);//replace with register class
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
                 finish();
             }
         });
     }
+
+    // 发送密码重置邮件
     void SendLinktoReset() {
         auth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(Void unused){
-                Toast.makeText(ForgetPassword.this, "A link has been sent to your Email!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ForgetPassword.this, ForgetPassword.class);
+            public void onSuccess(Void unused) {
+                Toast.makeText(ForgetPassword.this, "A link has been sent to your email!", Toast.LENGTH_SHORT).show();
+                // 成功后跳转到登录界面
+                Intent intent = new Intent(ForgetPassword.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
-
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ForgetPassword.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgetPassword.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.planetz;
+package com.example.planetz.DisplayingAnnualFootprintResult;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import com.example.planetz.Calculator.ConsumptionCalculator;
 import com.example.planetz.Calculator.FoodCalculator;
 import com.example.planetz.Calculator.HousingCalculator;
 import com.example.planetz.Calculator.TransportationCalculator;
+import com.example.planetz.R;
 import com.example.planetz.model.CarbonFootprintData;
 import com.example.planetz.model.AnnualFootprintData;
 import com.google.firebase.auth.FirebaseAuth;

@@ -32,6 +32,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".HomePageActivity"
+            android:exported="true"/>
 
         <!-- Other Question activities -->
         <activity android:name=".Question.Question1" />
@@ -56,9 +59,9 @@
         <activity android:name=".Question.Question20" />
         <activity android:name=".Question.Question21" />
 
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".BreakdownActivity" />
-        <activity android:name=".ComparisonActivity" />
+        <activity android:name=".DisplayingAnnualFootprintResult.ResultActivity" />
+        <activity android:name=".DisplayingAnnualFootprintResult.BreakdownActivity" />
+        <activity android:name=".DisplayingAnnualFootprintResult.ComparisonActivity" />
 
     </application>
 </manifest>

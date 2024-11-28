@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.R;
-import com.example.planetz.ResultActivity;
+import com.example.planetz.DisplayingAnnualFootprintResult.ResultActivity;
 import com.example.planetz.model.CarbonFootprintData;
 
 public class Question21 extends AppCompatActivity {

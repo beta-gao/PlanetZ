@@ -1,4 +1,4 @@
-package com.example.planetz;
+package com.example.planetz.DisplayingAnnualFootprintResult;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.planetz.R;
 import com.example.planetz.model.AnnualFootprintData;
 
 public class BreakdownActivity extends AppCompatActivity {
