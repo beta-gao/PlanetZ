@@ -76,4 +76,9 @@
     <item name="radio_2" type="id" />
     <item name="radio_1" type="id" />
     <item name="radioGroup_household_size" type="id" />
+    <item name="projectNameTextView" type="id" />
+    <item name="projectDescriptionTextView" type="id" />
+    <item name="projectCostTextView" type="id" />
+    <item name="projectLocationTextView" type="id" />
+    <item name="projectImpactTextView" type="id" />
 </resources>
