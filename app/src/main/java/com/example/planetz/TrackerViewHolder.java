@@ -9,13 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 
 public class TrackerViewHolder extends RecyclerView.ViewHolder{
     Button logButton;
     Button unlogButton;
+    Button removeButton;
     ProgressBar progressBar;
     TextView time;
     TextView habitName;
+
 
     public TrackerViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -24,5 +28,6 @@ public class TrackerViewHolder extends RecyclerView.ViewHolder{
         unlogButton = itemView.findViewById(R.id.unlogHabit);
         time = itemView.findViewById(R.id.timelog);
         habitName = itemView.findViewById(R.id.habitName);
+        removeButton = itemView.findViewById(R.id.removeHabit);
     }
 }

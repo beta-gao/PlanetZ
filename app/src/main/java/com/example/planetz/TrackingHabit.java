@@ -1,14 +1,20 @@
 package com.example.planetz;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,26 +23,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
-
-public class TrackingHabit extends AppCompatActivity {
+public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
 
     RecyclerView recyclerView;
     TrackerAdapter adapter;
     List<HabitTrackerItem> habitTrackerList;
     ImageView search;
+    TextView recomTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +56,14 @@ public class TrackingHabit extends AppCompatActivity {
             return insets;
         });
 
+
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         if (habitTrackerList == null) {
             habitTrackerList = new ArrayList<>();
         }
-
-        adapter = new TrackerAdapter(habitTrackerList, this);
+        adapter = new TrackerAdapter(habitTrackerList, this, this);
         recyclerView.setAdapter(adapter);
 
         getHabitTrackerList();
@@ -69,64 +77,110 @@ public class TrackingHabit extends AppCompatActivity {
             }
         });
 
-    }
+        recomTextView = findViewById(R.id.recommend);
+        recomTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HabitRecommendation.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-    void getHabitTrackerList() {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = "user1";
-
-        //String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        if (habitTrackerList == null) {
-            habitTrackerList = new ArrayList<>();
+        if (shouldShowPopup()) {
+            showReminderPopup();
         }
 
-        db.collection("habitTrackerList").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    }
+
+    private void showReminderPopup() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.reminderlog);
+        dialog.setCancelable(false);
+
+        Button startLoggingButton = dialog.findViewById(R.id.startlogging);
+        Button notShowTodayButton = dialog.findViewById(R.id.dontshow);
+
+        startLoggingButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        List<Map<String, Object>> habitData = (List<Map<String, Object>>) document.get("habitTrackerList");
-                        System.out.println(habitData.get(0).get("habitName"));
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
-                        if (habitData != null) {
-                            if(!habitData.isEmpty()){
-                                for (Map<String, Object> habit : habitData) {
-                                    if(habit == null) continue;
-                                    System.out.println("not null");
+        notShowTodayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences prefs = getSharedPreferences("HabitTrackerPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("lastPopupTime", System.currentTimeMillis());
+                editor.apply();
 
-                                    String habitName = (String) habit.get("habitName");
-                                    int days = ((Long) Objects.requireNonNull(habit.get("days"))).intValue();
-                                    int progress = ((Long) Objects.requireNonNull(habit.get("progress"))).intValue();
-                                    int cycle = ((Long) Objects.requireNonNull(habit.get("progress"))).intValue();
+                dialog.dismiss();
+            }
+        });
 
-                                    HabitTrackerItem item = new HabitTrackerItem(days, habitName, progress,cycle);
-                                    habitTrackerList.add(item);
-                                }
+        dialog.show();
+    }
+
+    private boolean shouldShowPopup() {
+        SharedPreferences prefs = getSharedPreferences("HabitTrackerPrefs", Context.MODE_PRIVATE);
+        long lastShownTime = prefs.getLong("lastPopupTime", 0);
+
+        // Check if the popup was shown today
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(lastShownTime);
+
+        Calendar today = Calendar.getInstance();
+        return calendar.get(Calendar.YEAR) != today.get(Calendar.YEAR) ||
+                calendar.get(Calendar.DAY_OF_YEAR) != today.get(Calendar.DAY_OF_YEAR);
+    }
+
+    public void getHabitTrackerList() {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = "user2";
+        //String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("habitTrackerList").document(userId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.e("Firestore", "Listen failed.", error);
+                }
+                if (value != null && value.exists()) {
+                    Log.d("Firestore", "Snapshot data: " + value.getData());
+
+                    List<Map<String, Object>> habitData = (List<Map<String, Object>>) value.get("habitTrackerList");
+
+                    if (habitData != null) {
+                        habitTrackerList.clear();
+
+                        if (!habitData.isEmpty()) {
+                            for (Map<String, Object> habit : habitData) {
+                                if (habit == null) continue;
+
+                                String habitName = (String) habit.get("habitName");
+                                int days = ((Long) Objects.requireNonNull(habit.get("days"))).intValue();
+                                int progress = ((Long) Objects.requireNonNull(habit.get("progress"))).intValue();
+                                int cycle = ((Long) Objects.requireNonNull(habit.get("cycle"))).intValue();
+
+                                HabitTrackerItem item = new HabitTrackerItem(days, habitName, progress, cycle);
+                                habitTrackerList.add(item);
                             }
+                            adapter.notifyDataSetChanged();
                         }
-
-                    }else {
-                        Toast.makeText(getApplicationContext(), "No habits found for this user.", Toast.LENGTH_SHORT).show();
-                        Map<String, Object> data = new HashMap<>();
-                        data.put("habitTrackerList", habitTrackerList); // Start with an empty list
-
-                        db.collection("habitTrackerList").document(userId)
-                                .set(data)
-                                .addOnSuccessListener(aVoid -> Toast.makeText(getApplicationContext(),
-                                        "Habit tracker created!", Toast.LENGTH_SHORT).show())
-                                .addOnFailureListener(e -> Toast.makeText(getApplicationContext(),
-                                        "Error creating habit tracker!", Toast.LENGTH_SHORT).show());
                     }
+                } else {
+                    Toast.makeText(getApplicationContext(), "No habits found yet.", Toast.LENGTH_SHORT).show();
+                    Map<String, Object> habitMap = new HashMap<>();
 
-                    adapter.setHabitTrackerList(habitTrackerList);
-                    adapter.notifyDataSetChanged();
-
-                }else{
-                    Log.e("Firestore", "Error retrieving habits", task.getException());
-                    Toast.makeText(getApplicationContext(), "Error retrieving habits.", Toast.LENGTH_SHORT).show();
+                    db.collection("habitTrackerList").document(userId)
+                            .set(habitMap)
+                            .addOnSuccessListener(aVoid -> Toast.makeText(getApplicationContext(),
+                                    "Habit tracker created!", Toast.LENGTH_SHORT).show());
                 }
             }
         });
@@ -135,8 +189,26 @@ public class TrackingHabit extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getHabitTrackerList();
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
     }
+
+    @Override
+    public void onRemoveHabit(int position) {
+        Log.d("TrackerAdapter", "onRemoveHabit triggered for position: " + position);
+
+        HabitTrackerItem habitToRemove = habitTrackerList.get(position);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = "user1";
+        //FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("habitTrackerList").document(userId)
+                .update("habitTrackerList", FieldValue.arrayRemove(habitToRemove))
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getApplicationContext(), "Habit removed successfully", Toast.LENGTH_SHORT).show();
+                });
+    }
 }
+

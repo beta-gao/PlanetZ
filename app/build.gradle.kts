@@ -40,13 +40,17 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-firestore:25.1.1")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation(libs.firebase.auth)
     implementation(libs.firebase.analytics)
     implementation(libs.recyclerview)
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.recyclerview.v110)
     implementation (libs.ssp.android)
     implementation (libs.sdp.android)
+    implementation("androidx.work:work-runtime:2.8.1")
+
 }

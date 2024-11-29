@@ -71,9 +71,17 @@
                 android:text="Unlog Today"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/white"/>
+
+            <Button
+                android:id="@+id/removeHabit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Remove Habit"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 </LinearLayout>

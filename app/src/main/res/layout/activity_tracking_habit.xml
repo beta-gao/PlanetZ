@@ -17,12 +17,21 @@
         android:background="@drawable/searchicon" />
 
     <TextView
+            android:id="@+id/recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Habit Recommendation"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+    <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical"
-        android:text="Total emission reduced:"
+        android:text="Your Habit Tracker:"
         android:textStyle="bold"
         android:textSize="25sp" />
 

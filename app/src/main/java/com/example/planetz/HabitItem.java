@@ -25,4 +25,8 @@ public class HabitItem {
         return img;
     }
 
+    public String getImpact(){
+        return impact;
+    }
+
 }
