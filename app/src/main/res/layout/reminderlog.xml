@@ -33,7 +33,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="@color/grayblue"
+                android:textColor="@color/black"
                 android:id="@+id/startlogging"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +43,9 @@
                 android:textSize="13sp"
                 android:text="Start Logging"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="@color/grayblue"
+                android:textColor="@color/black"
                 android:id="@+id/dontshow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

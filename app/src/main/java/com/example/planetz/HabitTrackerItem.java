@@ -53,11 +53,12 @@ public class HabitTrackerItem {
     void unLogHabit(){
         if(progress < 100 && progress > 0){
             progress--;
+            days--;
+
         }
         else if(progress == 0 && cycle == 0){
-            //remove
+           return;
         }
-        days--;
     }
 
     @Override

@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
+                android:layout_margin="10dp"
                 android:textSize="18sp"
                 tools:text="12 days" />
 
@@ -44,6 +44,7 @@
                 android:id="@+id/progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/grayblue"
                 android:layout_marginHorizontal="8dp"
                 style="?android:attr/progressBarStyleHorizontal"/>
         </LinearLayout>

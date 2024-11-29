@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Filter by Category"
+            android:textColor="@color/darkblue"
             android:alpha="0.7"/>
 
     </LinearLayout>
@@ -54,6 +55,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
             android:text="@string/Transportation" />
 
         <Button
@@ -61,6 +63,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
             android:text="@string/Energy"/>
 
         <Button
@@ -68,6 +71,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
             android:text="@string/Food"/>
 
         <Button
@@ -75,6 +79,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
             android:text="@string/Consumption"/>
     </LinearLayout>
 
@@ -94,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Filter by Impact"
+            android:textColor="@color/darkblue"
             android:alpha="0.7"/>
     </LinearLayout>
 
@@ -106,6 +112,7 @@
             android:id="@+id/lowimpact"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Low" />
@@ -114,6 +121,7 @@
             android:id="@+id/midimpact"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Mid"/>
@@ -122,6 +130,7 @@
             android:id="@+id/highimpact"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="High"/>
@@ -135,6 +144,7 @@
 
         <Button
             android:id="@+id/resetFilter"
+            android:textColor="@color/black"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

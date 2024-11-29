@@ -312,10 +312,6 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
                                             @Override
                                             public void onSuccess(Void unused) {
                                                 Toast.makeText(getApplicationContext(), "Habit added successfully!", Toast.LENGTH_SHORT).show();
-
-                                                //Intent intent = new Intent(getApplicationContext(), TrackingHabit.class);
-                                                //startActivity(intent);
-                                                //finish();
                                             }
                                         });
                             }

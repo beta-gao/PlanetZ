@@ -2,6 +2,7 @@ package com.example.planetz;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,13 +15,16 @@ public class RViewHolder extends RecyclerView.ViewHolder{
 
     ImageView imgView;
     TextView HabitNameView;
-    TextView CategoryView;
-    RelativeLayout relativeLayout;
+    TextView categoryView;
+    TextView impactView;
+    LinearLayout linearLayout;
+
     public RViewHolder(@NonNull View itemView) {
         super(itemView);
         imgView = itemView.findViewById(R.id.img);
         HabitNameView = itemView.findViewById(R.id.HabitName);
-        CategoryView = itemView.findViewById(R.id.Category);
-        relativeLayout = itemView.findViewById(R.id.onehabitrow);
+        categoryView = itemView.findViewById(R.id.Category);
+        linearLayout = itemView.findViewById(R.id.onehabitrow);
+        impactView = itemView.findViewById(R.id.Impact);
     }
 }

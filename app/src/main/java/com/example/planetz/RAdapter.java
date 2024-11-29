@@ -33,9 +33,10 @@ public class RAdapter extends RecyclerView.Adapter<RViewHolder>{
     public void onBindViewHolder(@NonNull RViewHolder holder, int position) {
         holder.HabitNameView.setText(HabitList.get(position).getHabit());
         holder.imgView.setImageResource(HabitList.get(position).getImg());
-        holder.CategoryView.setText(HabitList.get(position).getCategory());
+        holder.categoryView.setText(HabitList.get(position).getCategory());
+        holder.impactView.setText(HabitList.get(position).getImpact());
 
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pos = holder.getBindingAdapterPosition();
