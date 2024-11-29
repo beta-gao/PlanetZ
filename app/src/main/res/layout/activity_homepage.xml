@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -8,53 +7,24 @@
     android:padding="16dp"
     android:background="#d8dbe2">
 
-    <!-- Logo at the top -->
-    <ImageView
-        android:id="@+id/logoImageView"
+    <Button
+        android:id="@+id/annualFootprintButton"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:src="@drawable/logo"
-        android:contentDescription="Logo"
-        android:layout_marginBottom="32dp" />
-
-    <!-- Buttons for navigation -->
-    <Button
-        android:id="@+id/buttonFirstAnnualCarbonFootprint"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:background="@drawable/rounded_button_bg"
-        android:button="@null"
+        android:layout_height="wrap_content"
         android:text="First Annual Carbon Footprint"
+        android:backgroundTint="#009999"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        android:textSize="18sp" />
 
     <Button
-        android:id="@+id/buttonEcoTracker"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:background="@drawable/rounded_button_bg"
-        android:button="@null"
-        android:text="Eco Tracker"
+        android:id="@+id/ecoBalanceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eco Balance"
+        android:backgroundTint="#373f51"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/buttonEcoGauge"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:background="@drawable/rounded_button_bg"
-        android:button="@null"
-        android:text="Eco Gauge"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
+        android:padding="16dp"
+        android:textSize="18sp" />
 </LinearLayout>

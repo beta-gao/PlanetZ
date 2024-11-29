@@ -1,0 +1,72 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d8dbe2"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/ecoBalanceLogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Eco Balance Logo"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Project Buttons -->
+        <Button
+            android:id="@+id/kenyaReforestationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kenya Reforestation"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#009999"
+            android:textColor="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/brazilRainforestPreservationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Brazil Rainforest Preservation"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#373f51"
+            android:textColor="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/canadaSolarFarmsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Canada Solar Farms"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#009999"
+            android:textColor="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/indiaRenewableEnergyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="India Renewable Energy"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#373f51"
+            android:textColor="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>

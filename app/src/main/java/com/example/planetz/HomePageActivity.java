@@ -2,31 +2,46 @@ package com.example.planetz;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.DisplayingAnnualFootprintResult.BreakdownActivity;
+import com.example.planetz.EcoBalance.EcoBalanceHomePageActivity;
+import com.example.planetz.R;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    private Button buttonFirstAnnualCarbonFootprint, buttonEcoTracker, buttonEcoGauge;
+    private Button annualFootprintButton;
+    private Button ecoBalanceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-        // Bind buttons
-        buttonFirstAnnualCarbonFootprint = findViewById(R.id.buttonFirstAnnualCarbonFootprint);
-        buttonEcoTracker = findViewById(R.id.buttonEcoTracker);
-        buttonEcoGauge = findViewById(R.id.buttonEcoGauge);
+        // Initialize buttons
+        annualFootprintButton = findViewById(R.id.annualFootprintButton);
+        ecoBalanceButton = findViewById(R.id.ecoBalanceButton);
 
-        // Set click listener for First Annual Carbon Footprint button
-        buttonFirstAnnualCarbonFootprint.setOnClickListener(v -> {
-            Intent intent = new Intent(HomePageActivity.this, BreakdownActivity.class);
-            startActivity(intent);
+        // Set button listeners
+        annualFootprintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToActivity(BreakdownActivity.class);
+            }
         });
 
-        // Additional listeners for Eco Tracker and Eco Gauge can be added later
+        ecoBalanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToActivity(EcoBalanceHomePageActivity.class);
+            }
+        });
+    }
+
+    private void navigateToActivity(Class<?> activityClass) {
+        Intent intent = new Intent(HomePageActivity.this, activityClass);
+        startActivity(intent);
     }
 }
