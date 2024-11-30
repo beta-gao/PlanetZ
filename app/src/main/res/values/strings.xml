@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">planetz</string>
+    <string name="result_text">Result will appear here</string>
+    <string name="compare_button_text">Compare Emissions</string>
 </resources>
