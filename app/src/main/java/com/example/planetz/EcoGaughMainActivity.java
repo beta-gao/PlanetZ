@@ -35,6 +35,7 @@ public class EcoGaughMainActivity extends AppCompatActivity {
                 Log.d(TAG, "onPageSelected: Current page position: " + position);
             }
         });
+
     }
 
     @NonNull

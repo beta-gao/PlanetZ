@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- 基础主题 -->
     <style name="Base.Theme.Planetz" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">#009999</item>
         <item name="colorPrimaryVariant">#007777</item>
         <item name="colorOnPrimary">#FFFFFF</item>
     </style>
 
+    <!-- 应用主题 -->
     <style name="Theme.Planetz" parent="Base.Theme.Planetz" />
 </resources>

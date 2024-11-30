@@ -38,10 +38,18 @@ public class HomePageActivity extends AppCompatActivity {
                 navigateToActivity(EcoBalanceHomePageActivity.class);
             }
         });
+
+        Button buttonToEcoGaugh = findViewById(R.id.btn_to_eco_gaugh);
+        buttonToEcoGaugh.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePageActivity.this, EcoGaughMainActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void navigateToActivity(Class<?> activityClass) {
         Intent intent = new Intent(HomePageActivity.this, activityClass);
         startActivity(intent);
     }
+
+
 }

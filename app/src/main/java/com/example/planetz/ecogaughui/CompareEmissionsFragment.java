@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+import android.content.Intent;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.planetz.HomePageActivity;
 import com.example.planetz.R;
 import com.example.planetz.data.UserEmissionData;
 import com.example.planetz.ecogaugh.EmissionsDashboard;
@@ -84,6 +87,15 @@ public class CompareEmissionsFragment extends Fragment {
 
         previousPageButton = view.findViewById(R.id.btn_previous_page);
         previousPageButton.setOnClickListener(v -> navigateToPreviousPage());
+
+        // 设置返回按钮点击事件
+        Button buttonBackToHome = view.findViewById(R.id.btn_back_to_home);
+        buttonBackToHome.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), HomePageActivity.class);
+            startActivity(intent);
+            // 如果希望关闭当前活动栈中的所有活动，使用下面这行代码
+            requireActivity().finish();
+        });
 
         return view;
     }

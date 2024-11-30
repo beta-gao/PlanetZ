@@ -59,6 +59,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.activity:activity-ktx:1.7.2")
+
 
     // Additional libraries
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")

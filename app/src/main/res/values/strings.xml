@@ -1,12 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">planetz</string>
-<<<<<<< HEAD
+    <!-- 登录相关字符串 -->
     <string name="login">Login</string>
     <string name="email">Email Address</string>
     <string name="password">Password</string>
     <string name="toregister">No account yet? Register Here!</string>
     <string name="forgetpw">Forget password?</string>
     <string name="Forget_Password">Forgot Password</string>
+    <string name="app_name">PlanetZ</string>
     <string name="logout">Log Out</string>
     <string name="logoutmsg">Thank you for using Planetz</string>
     <string name="backtolog">Back to Login</string>
@@ -20,8 +21,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-=======
+
+    <!-- 排放相关字符串 -->
     <string name="result_text">Result will appear here</string>
     <string name="compare_button_text">Compare Emissions</string>
->>>>>>> feature/eco_gaugh
 </resources>
