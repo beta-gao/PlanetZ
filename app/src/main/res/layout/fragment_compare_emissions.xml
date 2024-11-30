@@ -43,7 +43,10 @@
 
     <Button
         android:id="@+id/btn_back_to_home"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back to Home" />
+        android:text="Back to Home"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
 </LinearLayout>

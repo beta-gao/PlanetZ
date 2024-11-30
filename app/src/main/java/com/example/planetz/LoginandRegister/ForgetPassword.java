@@ -32,24 +32,21 @@ public class ForgetPassword extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 设置全屏模式并允许内容扩展到系统窗口
+
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_forget_password);
 
-        // 设置窗口边距
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.forget), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // 初始化组件
         ForgetButton = findViewById(R.id.ResetButton);
         emailText = findViewById(R.id.email);
         BackToLog = findViewById(R.id.toReg);
         auth = FirebaseAuth.getInstance();
 
-        // 点击“发送重置邮件”按钮
         ForgetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +61,6 @@ public class ForgetPassword extends AppCompatActivity {
             }
         });
 
-        // 点击“返回登录”按钮
         BackToLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +71,6 @@ public class ForgetPassword extends AppCompatActivity {
         });
     }
 
-    // 发送密码重置邮件
     void SendLinktoReset() {
         auth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

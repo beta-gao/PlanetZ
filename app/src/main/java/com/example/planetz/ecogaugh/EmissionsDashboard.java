@@ -19,12 +19,10 @@ public class EmissionsDashboard {
 
     private static final String TAG = "EmissionsDashboard";
 
-    // 私有构造函数，防止外部实例化
     private EmissionsDashboard() {
         Log.d(TAG, "EmissionsDashboard: Singleton instance created");
     }
 
-    // 提供全局访问点
     public static synchronized EmissionsDashboard getInstance() {
         if (instance == null) {
             instance = new EmissionsDashboard();
@@ -78,7 +76,6 @@ public class EmissionsDashboard {
         return weekList;
     }
 
-
     public List<String> getMonthlyOptions() {
         Log.d(TAG, "getMonthlyOptions: Fetching monthly options");
         Set<String> months = new HashSet<>();
@@ -103,7 +100,6 @@ public class EmissionsDashboard {
         return monthList;
     }
 
-
     // Function A: Display total emissions
     public String getTotalEmissionsOverview(String timePeriod, String filterValue) {
         Log.d(TAG, "getTotalEmissionsOverview: Calculating total emissions for " + timePeriod + " " + filterValue);
@@ -114,7 +110,6 @@ public class EmissionsDashboard {
         return result;
     }
 
-    // New method to calculate average emissions
     public String getAverageEmissionsOverview(String timePeriod) {
         Log.d(TAG, "getAverageEmissionsOverview: Calculating average emissions for " + timePeriod);
         Map<String, DailyData> allData = userEmissionData.getDailyData();
@@ -129,7 +124,7 @@ public class EmissionsDashboard {
         }
 
         double averageEmissions = (count > 0) ? totalEmissions / count : 0.0;
-        String result = String.format("Your average %s emissions are %.2f kg CO2e.", timePeriod.toLowerCase(), averageEmissions);
+        String result = String.format("Your average %s emissions per instance are %.2f kg CO2.", timePeriod.toLowerCase(), averageEmissions);
         Log.d(TAG, "getAverageEmissionsOverview: Result - " + result);
         return result;
     }

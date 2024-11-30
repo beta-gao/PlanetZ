@@ -16,14 +16,11 @@ public class EcoBalancePay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eco_balance_pay);
 
-        // 获取返回主页按钮
         Button backToHomePageButton = findViewById(R.id.backToHomePageButton);
 
-        // 设置返回主页按钮点击事件
         backToHomePageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 返回到主页面 (HomePageActivity)
                 Intent intent = new Intent(EcoBalancePay.this, HomePageActivity.class);
                 startActivity(intent);
                 finish();

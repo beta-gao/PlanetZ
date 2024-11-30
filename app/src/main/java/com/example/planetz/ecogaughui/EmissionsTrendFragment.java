@@ -22,6 +22,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.Entry;
+import com.example.planetz.LoginandRegister.UserManager;
 
 import android.widget.Button;
 
@@ -35,7 +36,7 @@ public class EmissionsTrendFragment extends Fragment {
     private LineChart lineChart;
     private UserEmissionData userEmissionData;
     private FirestoreDataReader firestoreDataReader;
-    private static final String USER_ID = "user001";
+
     private static final String TAG = "EmissionsTrendFragment";
 
     private SharedViewModel sharedViewModel;
@@ -60,7 +61,7 @@ public class EmissionsTrendFragment extends Fragment {
             @Override
             public void onChanged(String period) {
                 timePeriod = period;
-                updateTrendChart();
+                updateTrendChart(); // 调用修改后的方法更新图表
             }
         });
 
@@ -68,24 +69,11 @@ public class EmissionsTrendFragment extends Fragment {
             @Override
             public void onChanged(String time) {
                 specificTime = time;
-                updateTrendChart();
+                updateTrendChart(); // 调用修改后的方法更新图表
             }
         });
 
-        firestoreDataReader.fetchEmissionData(USER_ID, new FirestoreDataReader.EmissionDataCallback() {
-            @Override
-            public void onSuccess(UserEmissionData data) {
-                Log.d(TAG, "fetchEmissionData: User emission data fetched successfully");
-                userEmissionData = data;
-                dashboard.setUserEmissionData(data);
-                updateTrendChart();
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                Log.e(TAG, "Error fetching emission data: " + errorMessage);
-            }
-        });
+        fetchUserEmissionData(); // 调用修改后的方法，动态获取用户 ID
 
         Button nextPageButton = view.findViewById(R.id.btn_next_page);
         nextPageButton.setOnClickListener(v -> {
@@ -100,6 +88,29 @@ public class EmissionsTrendFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void fetchUserEmissionData() {
+        String userId = UserManager.getInstance(requireContext()).getUserId();
+        if (userId == null) {
+            Log.e(TAG, "fetchUserEmissionData: User ID is null");
+            return;
+        }
+
+        firestoreDataReader.fetchEmissionData(userId, new FirestoreDataReader.EmissionDataCallback() {
+            @Override
+            public void onSuccess(UserEmissionData data) {
+                Log.d(TAG, "fetchEmissionData: User emission data fetched successfully");
+                userEmissionData = data;
+                dashboard.setUserEmissionData(data);
+                updateTrendChart();
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                Log.e(TAG, "Error fetching emission data: " + errorMessage);
+            }
+        });
     }
 
     private void updateTrendChart() {

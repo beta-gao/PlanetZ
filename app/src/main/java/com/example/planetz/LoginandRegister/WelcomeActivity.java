@@ -22,10 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
         welcomeMessage = findViewById(R.id.welcomeMessage);
         nextButton = findViewById(R.id.nextButton);
 
-        // 设置欢迎消息
         welcomeMessage.setText("Welcome to Planetze! Please fill out a questionnaire to get started.");
 
-        // 设置按钮跳转到 Question1
         nextButton.setOnClickListener(v -> {
             Intent intent = new Intent(WelcomeActivity.this, Question1.class);
             startActivity(intent);

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.planetz.LoginandRegister.UserManager;
 import com.example.planetz.R;
 import com.example.planetz.data.UserEmissionData;
 import com.example.planetz.ecogaugh.EmissionsDashboard;
@@ -87,8 +88,14 @@ public class EmissionsBreakdownFragment extends Fragment {
     }
 
     private void fetchUserEmissionData() {
+        String userId = UserManager.getInstance(requireContext()).getUserId();
+        if (userId == null) {
+            Log.e(TAG, "fetchUserEmissionData: User ID is null");
+            return;
+        }
+
         FirestoreDataReader firestoreDataReader = FirestoreDataReader.getInstance();
-        firestoreDataReader.fetchEmissionData("user001", new FirestoreDataReader.EmissionDataCallback() {
+        firestoreDataReader.fetchEmissionData(userId, new FirestoreDataReader.EmissionDataCallback() {
             @Override
             public void onSuccess(UserEmissionData data) {
                 Log.d(TAG, "fetchEmissionData: User emission data fetched successfully");
@@ -130,17 +137,17 @@ public class EmissionsBreakdownFragment extends Fragment {
         PieDataSet dataSet = new PieDataSet(entries, "");
 
         List<Integer> colors = new ArrayList<>();
-        colors.add(Color.parseColor("#FF6384")); // 红色
-        colors.add(Color.parseColor("#36A2EB")); // 蓝色
-        colors.add(Color.parseColor("#FFCE56")); // 黄色
-        colors.add(Color.parseColor("#4BC0C0")); // 绿色
-        colors.add(Color.parseColor("#9966FF")); // 紫色
+        colors.add(Color.parseColor("#FF6384"));
+        colors.add(Color.parseColor("#36A2EB"));
+        colors.add(Color.parseColor("#FFCE56"));
+        colors.add(Color.parseColor("#4BC0C0"));
+        colors.add(Color.parseColor("#9966FF"));
         dataSet.setColors(colors);
 
         PieData pieData = new PieData(dataSet);
         pieData.setValueTextSize(12f);
         pieData.setValueTextColor(Color.WHITE);
-        pieData.setValueFormatter(new PercentFormatter(pieChart)); // 显示百分比
+        pieData.setValueFormatter(new PercentFormatter(pieChart));
 
         pieChart.setData(pieData);
         pieChart.setUsePercentValues(true);

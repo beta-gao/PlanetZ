@@ -26,13 +26,10 @@ public class BigResult {
                                                 CarbonFootprintData housingData,
                                                 CarbonFootprintData consumptionData,
                                                 CarbonFootprintData foodData) {
-        // 交通排放
         double transportationEmission = transportationCalculator.calculateTransportationEmission(transportationData);
 
-        // 住房排放
         double housingEmission = housingCalculator.calculateHousingEmission(housingData);
 
-        // 消费排放
         double consumptionEmission = consumptionCalculator.calculateConsumptionEmission(consumptionData);
 
         double foodEmission = foodCalculator.calculateFoodEmission(foodData);

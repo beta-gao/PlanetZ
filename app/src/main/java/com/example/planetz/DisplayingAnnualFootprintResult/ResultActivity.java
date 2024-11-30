@@ -29,39 +29,31 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        // 初始化组件
         bigResult = new BigResult();
         resultTextView = findViewById(R.id.annualFootprint);
         breakdownButton = findViewById(R.id.buttonBreakdown);
 
-        // 获取全局单例实例的 CarbonFootprintData
         CarbonFootprintData carbonFootprintData = CarbonFootprintData.getInstance();
 
-        // 检查数据有效性
         if (carbonFootprintData == null) {
             Toast.makeText(this, "CarbonFootprintData is not initialized!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // 调用 BigResult 计算总碳足迹
         double totalCarbonFootprint = bigResult.calculateTotalCarbonFootprint(
-                carbonFootprintData,   // 交通相关数据
-                carbonFootprintData,   // 住房相关数据
-                carbonFootprintData,   // 消费相关数据
-                carbonFootprintData    // 饮食相关数据
+                carbonFootprintData,
+                carbonFootprintData,
+                carbonFootprintData,
+                carbonFootprintData
         );
 
-        // 将计算结果保存到全局单例 AnnualFootprintData
         saveToAnnualFootprintData(totalCarbonFootprint);
 
-        // 上传数据到 Firebase
         uploadCarbonFootprintDataToFirebase();
         uploadAnnualFootprintDataToFirebase();
 
-        // 显示结果
         resultTextView.setText(String.format("Your total carbon footprint is %.2f tons of CO2e", totalCarbonFootprint));
 
-        // 设置跳转按钮监听
         breakdownButton.setOnClickListener(v -> navigateToBreakdownActivity());
     }
 
@@ -89,7 +81,6 @@ public class ResultActivity extends AppCompatActivity {
             return;
         }
 
-        // 设置字段
         Adata.setTransportation(cal1.calculateTransportationEmission(carbonFootprintData));
         Adata.setFood(cal2.calculateFoodEmission(carbonFootprintData));
         Adata.setHousing(cal3.calculateHousingEmission(carbonFootprintData));

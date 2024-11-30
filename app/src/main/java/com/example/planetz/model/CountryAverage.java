@@ -246,7 +246,6 @@ public class CountryAverage {
 
     }
 
-    // 获取单例实例
     public static synchronized CountryAverage getInstance() {
         if (instance == null) {
             instance = new CountryAverage();
@@ -254,28 +253,23 @@ public class CountryAverage {
         return instance;
     }
 
-    // 获取某项平均值
     public Double getAverage(String key) {
         return averages.getOrDefault(key, 0.0); // 如果没有找到对应键，返回默认值0.0
     }
 
-    // 更新某项平均值
     public void setAverage(String key, Double value) {
         averages.put(key, value);
     }
 
-    // 获取所有平均值
     public Map<String, Double> getAllAverages() {
         return new HashMap<>(averages); // 返回一个副本，避免直接修改
     }
 
-    // 更新所有平均值
     public void setAllAverages(Map<String, Double> newAverages) {
         averages.clear();
         averages.putAll(newAverages);
     }
 
-    // 打印所有平均值（调试用）
     @Override
     public String toString() {
         return "GlobalAverages{" +

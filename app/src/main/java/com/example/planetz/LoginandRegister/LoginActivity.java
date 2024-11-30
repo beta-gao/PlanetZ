@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {
+            UserManager.getInstance(this).setUserId(currentUser.getUid());
             Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
             initializeData(currentUser.getUid(), () -> navigateToActivity(HomePageActivity.class));
         }
@@ -69,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = auth.getCurrentUser();
                             if (user != null) {
+                                UserManager.getInstance(this).setUserId(user.getUid());
                                 initializeData(user.getUid(), () -> navigateToActivity(HomePageActivity.class));
                             }
                         } else {

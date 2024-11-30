@@ -10,18 +10,16 @@ public class ConsumptionCalculator {
         String ecoFriendlyProductUsage = data.getSecondHandOrEcoFriendlyProducts();
         String electronicDevicesPurchased = data.getElectronicDevicesPurchased();
         String recyclingFrequency = data.getRecyclingFrequency();
-        // 使用映射函数将字符串转换为整数
+
         int frequency = mapClothingFrequency(clothingFrequency);
         int ecoFriendlyUsage = mapEcoFriendlyProductUsage(ecoFriendlyProductUsage);
         int devicesCount = mapElectronicDevicesCount(electronicDevicesPurchased);
         int recyclingFreq = mapRecyclingFrequency(recyclingFrequency);
 
-        // 调用修正后的计算方法
         double clothingEmission = calculateClothingEmission(frequency, ecoFriendlyUsage);
         double electronicDevicesEmission = calculateElectronicDevicesEmission(devicesCount);
         double recyclingReduction = calculateRecyclingReduction(frequency, recyclingFreq, devicesCount);
 
-        // 总排放 = 衣服 + 电子设备 - 回收减排
         return (clothingEmission + electronicDevicesEmission - recyclingReduction)/1000;
     }
 
@@ -108,7 +106,6 @@ public class ConsumptionCalculator {
                 throw new IllegalArgumentException("Unknown clothing frequency: " + frequency);
         }
 
-        // 根据是否购买环保产品调整排放
         switch (ecoFriendlyProductUsage) {
             case 1: // Yes, regularly
                 return baseEmission * 0.5;

@@ -5,17 +5,16 @@ import java.util.Map;
 
 public class AnnualFootprintData {
 
-    private static AnnualFootprintData instance; // 单例实例
+    private static AnnualFootprintData instance;
 
     // Fields
-    private String userId;         // 用户 ID
-    private double transportation; // 交通
-    private double housing;        // 住房
-    private double food;           // 饮食
-    private double consumption;    // 通用消费
-    private double total;          // 总消费
+    private String userId;
+    private double transportation;
+    private double housing;
+    private double food;
+    private double consumption;
+    private double total;
 
-    // 私有构造方法，确保只能通过 getInstance() 获取实例
     private AnnualFootprintData() {
         this.transportation = 0;
         this.housing = 0;
@@ -24,7 +23,6 @@ public class AnnualFootprintData {
         this.total = 0;
     }
 
-    // 获取单例实例的静态方法
     public static synchronized AnnualFootprintData getInstance() {
         if (instance == null) {
             instance = new AnnualFootprintData();
@@ -32,7 +30,6 @@ public class AnnualFootprintData {
         return instance;
     }
 
-    // Getter 和 Setter 方法
     public String getUserId() {
         return userId;
     }
@@ -81,17 +78,14 @@ public class AnnualFootprintData {
         return total;
     }
 
-    // 添加 setTotal 方法
     public void setTotal(double total) {
         this.total = total;
     }
 
-    // 更新总消费
     private void updateTotal() {
         this.total = transportation + housing + food + consumption;
     }
 
-    // 转换为 Map 以支持 Firestore 上传
     public Map<String, Object> toMap() {
         Map<String, Object> data = new HashMap<>();
         data.put("userId", userId);

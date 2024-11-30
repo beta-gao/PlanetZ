@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.DisplayingAnnualFootprintResult.BreakdownActivity;
 import com.example.planetz.EcoBalance.EcoBalanceHomePageActivity;
+import com.example.planetz.LoginandRegister.UserManager;
 import com.example.planetz.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -39,6 +42,15 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
+        UserManager userManager = UserManager.getInstance(this);
+
+        if (userManager.getUserId() == null) {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                userManager.setUserId(currentUser.getUid());
+            }
+        }
+
         Button buttonToEcoGaugh = findViewById(R.id.btn_to_eco_gaugh);
         buttonToEcoGaugh.setOnClickListener(v -> {
             Intent intent = new Intent(HomePageActivity.this, EcoGaughMainActivity.class);
@@ -50,6 +62,4 @@ public class HomePageActivity extends AppCompatActivity {
         Intent intent = new Intent(HomePageActivity.this, activityClass);
         startActivity(intent);
     }
-
-
 }

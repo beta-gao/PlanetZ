@@ -17,7 +17,6 @@ public class FoodCalculator {
             );
         }
 
-        // 加上食品浪费碳排放
         dietEmission += calculateFoodWasteEmission(data.getFoodWasteFrequency());
 
         return dietEmission/1000;

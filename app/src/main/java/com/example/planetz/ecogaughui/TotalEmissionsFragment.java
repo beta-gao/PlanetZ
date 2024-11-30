@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.planetz.LoginandRegister.UserManager;
 import com.example.planetz.R;
 import com.example.planetz.data.UserEmissionData;
 import com.example.planetz.ecogaugh.EmissionsDashboard;
@@ -27,7 +28,6 @@ import java.util.List;
 public class TotalEmissionsFragment extends Fragment {
 
     private static final String TAG = "TotalEmissionsFragment";
-    private static final String USER_ID = "user001";
 
     private Spinner timePeriodSpinner;
     private Spinner specificTimeSpinner;
@@ -41,7 +41,6 @@ public class TotalEmissionsFragment extends Fragment {
 
     private SharedViewModel sharedViewModel;
 
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: TotalEmissionsFragment started");
@@ -58,25 +57,9 @@ public class TotalEmissionsFragment extends Fragment {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         initTimePeriodSpinner();
-
         initSpecificTimeSpinner();
 
-        firestoreDataReader.fetchEmissionData(USER_ID, new FirestoreDataReader.EmissionDataCallback() {
-            @Override
-            public void onSuccess(UserEmissionData data) {
-                Log.d(TAG, "fetchEmissionData: User emission data fetched successfully");
-                userEmissionData = data;
-                dashboard.setUserEmissionData(data);
-
-                String selectedPeriod = timePeriodSpinner.getSelectedItem().toString();
-                updateSpecificTimeOptions(selectedPeriod);
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                Log.e(TAG, "Error fetching emission data: " + errorMessage);
-            }
-        });
+        fetchUserEmissionData();
 
         nextPageButton.setOnClickListener(v -> {
             Log.d(TAG, "Next page button clicked");
@@ -121,7 +104,6 @@ public class TotalEmissionsFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-
     }
 
     private void initSpecificTimeSpinner() {
@@ -139,6 +121,31 @@ public class TotalEmissionsFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Log.d(TAG, "onNothingSelected: No specific time selected");
+            }
+        });
+    }
+
+    private void fetchUserEmissionData() {
+        String userId = UserManager.getInstance(requireContext()).getUserId();
+        if (userId == null) {
+            Log.e(TAG, "fetchUserEmissionData: User ID is null");
+            return;
+        }
+
+        firestoreDataReader.fetchEmissionData(userId, new FirestoreDataReader.EmissionDataCallback() {
+            @Override
+            public void onSuccess(UserEmissionData data) {
+                Log.d(TAG, "fetchEmissionData: User emission data fetched successfully");
+                userEmissionData = data;
+                dashboard.setUserEmissionData(data);
+
+                String selectedPeriod = timePeriodSpinner.getSelectedItem().toString();
+                updateSpecificTimeOptions(selectedPeriod);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                Log.e(TAG, "Error fetching emission data: " + errorMessage);
             }
         });
     }

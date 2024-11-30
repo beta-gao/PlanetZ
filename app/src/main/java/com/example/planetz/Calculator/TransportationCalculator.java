@@ -11,7 +11,6 @@ public class TransportationCalculator {
             return 0.0;
         }
 
-        // 将字符串转换为枚举
         VehicleType vehicleType;
         try {
             vehicleType = VehicleType.valueOf(data.getVehicleType().toUpperCase());

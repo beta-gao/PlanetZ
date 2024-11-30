@@ -35,17 +35,14 @@ public class ComparisonActivity extends AppCompatActivity {
         countrySpinner = findViewById(R.id.countrySpinner);
         backToHomeButton = findViewById(R.id.backToHomeButton);
 
-        // 设置返回按钮点击事件
         backToHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(ComparisonActivity.this, HomePageActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // 初始化国家列表到 Spinner
         initializeCountrySpinner();
 
-        // 获取用户的碳足迹数据
         AnnualFootprintData userFootprintData = AnnualFootprintData.getInstance();
 
         if (userFootprintData == null) {
@@ -56,7 +53,6 @@ public class ComparisonActivity extends AppCompatActivity {
 
         double userTotalFootprint = userFootprintData.getTotal();
 
-        // 监听 Spinner 的选项变化
         countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -75,7 +71,6 @@ public class ComparisonActivity extends AppCompatActivity {
         CountryAverage countryAverage = CountryAverage.getInstance();
         List<String> countryList = new ArrayList<>(countryAverage.getAllAverages().keySet());
 
-        // 设置 Spinner 的适配器
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -95,10 +90,8 @@ public class ComparisonActivity extends AppCompatActivity {
             return;
         }
 
-        // 生成比较结果文本
         String comparisonResult = generateComparisonText(country, userFootprint, averageFootprint);
 
-        // 显示比较结果
         comparisonTextView.setText(comparisonResult);
     }
 
