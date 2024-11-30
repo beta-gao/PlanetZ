@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">planetz</string>
+<<<<<<< HEAD
     <string name="login">Login</string>
     <string name="email">Email Address</string>
     <string name="password">Password</string>
@@ -19,4 +20,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+=======
+    <string name="result_text">Result will appear here</string>
+    <string name="compare_button_text">Compare Emissions</string>
+>>>>>>> feature/eco_gaugh
 </resources>

@@ -3,6 +3,9 @@
     <style name="Base.Theme.Planetz" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#009999</item>
+        <item name="colorPrimaryVariant">#007777</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
     </style>
 
     <style name="Theme.Planetz" parent="Base.Theme.Planetz" />

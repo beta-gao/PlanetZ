@@ -1,67 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Planetz"
-        tools:targetApi="31">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.planetz">
 
-        <!-- LoginActivity as the main launcher activity -->
-        <activity
-            android:name=".LoginandRegister.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <uses-permission android:name="android.permission.INTERNET" />
 
-        <activity
-            android:name=".LoginandRegister.RegisterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".LoginandRegister.ForgetPassword"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-        <activity
-            android:name=".HomePageActivity"
-            android:exported="true"/>
+        <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.Planetz"
+            tools:targetApi="31">
 
-        <!-- Other Question activities -->
-        <activity android:name=".Question.Question1" />
-        <activity android:name=".Question.Question2" />
-        <activity android:name=".Question.Question3" />
-        <activity android:name=".Question.Question4" />
-        <activity android:name=".Question.Question5" />
-        <activity android:name=".Question.Question6" />
-        <activity android:name=".Question.Question7" />
-        <activity android:name=".Question.Question8" />
-        <activity android:name=".Question.Question9" />
-        <activity android:name=".Question.Question10" />
-        <activity android:name=".Question.Question11" />
-        <activity android:name=".Question.Question12" />
-        <activity android:name=".Question.Question13" />
-        <activity android:name=".Question.Question14" />
-        <activity android:name=".Question.Question15" />
-        <activity android:name=".Question.Question16" />
-        <activity android:name=".Question.Question17" />
-        <activity android:name=".Question.Question18" />
-        <activity android:name=".Question.Question19" />
-        <activity android:name=".Question.Question20" />
-        <activity android:name=".Question.Question21" />
+                <!-- LoginActivity as the main launcher activity -->
+                <activity
+                    android:name=".LoginandRegister.LoginActivity"
+                    android:exported="true">
+                        <intent-filter>
+                                <action android:name="android.intent.action.MAIN" />
+                                <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
+                </activity>
 
-        <activity android:name=".DisplayingAnnualFootprintResult.ResultActivity" />
-        <activity android:name=".DisplayingAnnualFootprintResult.BreakdownActivity" />
-        <activity android:name=".DisplayingAnnualFootprintResult.ComparisonActivity" />
+                <activity
+                    android:name=".LoginandRegister.RegisterActivity"
+                    android:exported="true" />
+                <activity
+                    android:name=".LoginandRegister.ForgetPassword"
+                    android:exported="false" />
+                <activity
+                    android:name=".HomePageActivity"
+                    android:exported="true"/>
 
-    </application>
+                <!-- Other Question activities -->
+                <activity android:name=".Question.Question1" />
+                <activity android:name=".Question.Question2" />
+                <activity android:name=".Question.Question3" />
+                <activity android:name=".Question.Question4" />
+                <activity android:name=".Question.Question5" />
+                <activity android:name=".Question.Question6" />
+                <activity android:name=".Question.Question7" />
+                <activity android:name=".Question.Question8" />
+                <activity android:name=".Question.Question9" />
+                <activity android:name=".Question.Question10" />
+                <activity android:name=".Question.Question11" />
+                <activity android:name=".Question.Question12" />
+                <activity android:name=".Question.Question13" />
+                <activity android:name=".Question.Question14" />
+                <activity android:name=".Question.Question15" />
+                <activity android:name=".Question.Question16" />
+                <activity android:name=".Question.Question17" />
+                <activity android:name=".Question.Question18" />
+                <activity android:name=".Question.Question19" />
+                <activity android:name=".Question.Question20" />
+                <activity android:name=".Question.Question21" />
+
+                <activity android:name=".DisplayingAnnualFootprintResult.ResultActivity" />
+                <activity android:name=".DisplayingAnnualFootprintResult.BreakdownActivity" />
+                <activity android:name=".DisplayingAnnualFootprintResult.ComparisonActivity" />
+
+                <activity
+                    android:name=".EcoGaughMainActivity"
+                    android:label="@string/app_name"
+                    android:exported="true">
+                </activity>
+
+                <activity
+                    android:name=".ecogaugh.EcoGaughActivity"
+                    android:label="Eco Gaugh Activity"
+                    android:exported="true">
+                </activity>
+
+                <activity
+                    android:name=".ecogaugh.EmissionsDashboard"
+                    android:label="Emissions Dashboard"
+                    android:exported="true">
+                </activity>
+
+        </application>
 </manifest>
