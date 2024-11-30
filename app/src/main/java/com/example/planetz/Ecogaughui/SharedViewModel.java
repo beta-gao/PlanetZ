@@ -1,4 +1,4 @@
-package com.example.planetz.ecogaughui;
+package com.example.planetz.Ecogaughui;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

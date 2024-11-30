@@ -1,4 +1,4 @@
-package com.example.planetz.ecogaugh;
+package com.example.planetz.EcoGaugh;
 
 import com.example.planetz.data.DailyData;
 import com.example.planetz.data.Date;

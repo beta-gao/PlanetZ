@@ -1,10 +1,10 @@
-package com.example.planetz.ecogaugh;
+package com.example.planetz.EcoGaugh;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.planetz.R;
-import com.example.planetz.ecogaughui.TotalEmissionsFragment;
+import com.example.planetz.Ecogaughui.TotalEmissionsFragment;
 
 import android.util.Log;
 

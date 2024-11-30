@@ -83,4 +83,6 @@
     <item name="projectImpactTextView" type="id" />
     <item name="annualFootprintButton" type="id" />
     <item name="ecoBalanceButton" type="id" />
+    <item name="resourceTitle" type="id" />
+    <item name="resourceDescription" type="id" />
 </resources>
