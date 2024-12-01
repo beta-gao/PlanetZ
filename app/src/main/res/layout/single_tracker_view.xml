@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:backgroundTint="@color/gray"
         android:background="@drawable/habittrackerbg">
 
         <LinearLayout
@@ -60,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="@dimen/_2sdp"
                 android:text="Log"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/white"/>
@@ -69,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="@dimen/_2sdp"
                 android:text="Unlog Today"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/white"/>
@@ -78,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="@dimen/_2sdp"
                 android:text="Remove Habit"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/white"/>

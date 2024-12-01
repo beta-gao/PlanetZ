@@ -57,7 +57,7 @@ public class HabitRecommendation extends AppCompatActivity  {
 
         recomRecyclerView = findViewById(R.id.recyclerview);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recomRecyclerView.setLayoutManager(layoutManager);
 
         addHabitRecommendation();

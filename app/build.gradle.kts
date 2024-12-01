@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-firestore:25.1.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation(libs.firebase.auth)
     implementation(libs.firebase.analytics)

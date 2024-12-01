@@ -137,7 +137,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/filters3"
+        android:id="@+id/resetFilterholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -145,10 +145,28 @@
         <Button
             android:id="@+id/resetFilter"
             android:textColor="@color/black"
+            android:layout_below="@+id/fi"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/resetfilters" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/holderrecombutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/recom"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grayblue"
+            android:text="View Personalized Recommended Habit" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

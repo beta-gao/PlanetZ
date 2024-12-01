@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,12 +48,16 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
     List<HabitItem> workingList;
     Button addHabitButton;
     Button cancelButton;
+    Button recomButton;
     Dialog dialog;
     HabitTrackerItem habitTrackerItem;
     List<HabitTrackerItem> habitTrackerList;
     Button lowButton;
     Button midButton;
     Button hiButton;
+    String userId;
+    FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,9 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        db = FirebaseFirestore.getInstance();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         initializeViews();
         initializeButtons();
@@ -94,14 +102,13 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
         foodButton = findViewById(R.id.food);
         consumpButton = findViewById(R.id.consumption);
         resetFilterButton = findViewById(R.id.resetFilter);
+        recomButton = findViewById(R.id.recom);
 
         lowButton = findViewById(R.id.lowimpact);
         midButton = findViewById(R.id.midimpact);
         hiButton = findViewById(R.id.highimpact);
 
         backImageView = findViewById(R.id.goback);
-
-
     }
 
     void initializeViews(){
@@ -200,6 +207,15 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
             }
         });
 
+        recomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HabitRecommendation.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     //search feature
@@ -280,9 +296,6 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
                     dialog.dismiss();
                 }
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                //String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                String userId = "user2";
                 habitTrackerItem = new HabitTrackerItem(1, habit.getHabit(), 1,0);
 
                 Map<String, Object> newHabit = new HashMap<>();
@@ -313,6 +326,9 @@ public class SearchKeyword extends AppCompatActivity implements SelectHabitOnCli
                                             public void onSuccess(Void unused) {
                                                 Toast.makeText(getApplicationContext(), "Habit added successfully!", Toast.LENGTH_SHORT).show();
                                             }
+                                        }).addOnFailureListener(e -> {
+                                            Log.e("Firestore", "Failed to update habit", e);
+                                            Toast.makeText(getApplicationContext(), "Failed to update database.", Toast.LENGTH_SHORT).show();
                                         });
                             }
                         }else{

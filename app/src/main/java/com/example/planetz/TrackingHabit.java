@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
 
@@ -42,7 +44,9 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
     TrackerAdapter adapter;
     List<HabitTrackerItem> habitTrackerList;
     ImageView search;
-    TextView recomTextView;
+    String userId;
+    FirebaseFirestore db;
+
 
 
     @Override
@@ -56,17 +60,20 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
             return insets;
         });
 
-
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        db = FirebaseFirestore.getInstance();
 
         if (habitTrackerList == null) {
             habitTrackerList = new ArrayList<>();
         }
-        adapter = new TrackerAdapter(habitTrackerList, this, this);
-        recyclerView.setAdapter(adapter);
 
         getHabitTrackerList();
+
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new TrackerAdapter(habitTrackerList, this, this);
+        recyclerView.setAdapter(adapter);
 
         search = findViewById(R.id.searchicon);
         search.setOnClickListener(new View.OnClickListener() {
@@ -77,19 +84,16 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
             }
         });
 
-        recomTextView = findViewById(R.id.recommend);
-        recomTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HabitRecommendation.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
         if (shouldShowPopup()) {
             showReminderPopup();
         }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("HabitTrackerList").document("testDoc")
+                .set(Collections.singletonMap("testField", "testValue"))
+                .addOnSuccessListener(aVoid -> Log.d("FirestoreTest", "Write succeeded"))
+                .addOnFailureListener(e -> Log.e("FirestoreTest", "Write failed", e));
 
     }
 
@@ -139,10 +143,6 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
 
     public void getHabitTrackerList() {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = "user2";
-        //String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         db.collection("habitTrackerList").document(userId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
 
             @Override
@@ -157,6 +157,7 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
 
                     if (habitData != null) {
                         habitTrackerList.clear();
+                        adapter.notifyDataSetChanged();
 
                         if (!habitData.isEmpty()) {
                             for (Map<String, Object> habit : habitData) {
@@ -174,16 +175,24 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
                         }
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "No habits found yet.", Toast.LENGTH_SHORT).show();
-                    Map<String, Object> habitMap = new HashMap<>();
-
-                    db.collection("habitTrackerList").document(userId)
-                            .set(habitMap)
-                            .addOnSuccessListener(aVoid -> Toast.makeText(getApplicationContext(),
-                                    "Habit tracker created!", Toast.LENGTH_SHORT).show());
+                    Toast.makeText(getApplicationContext(), "no document", Toast.LENGTH_SHORT).show();
+                    createNewHabitTracker();
                 }
             }
         });
+    }
+
+    public void createNewHabitTracker(){
+        Map<String, Object> habitMap = new HashMap<>();
+        habitMap.put("habitTrackerList", new ArrayList<>());
+
+        db.collection("habitTrackerList").document(userId)
+                .set(habitMap)
+                .addOnSuccessListener(aVoid -> Toast.makeText(getApplicationContext(),
+                        "Habit tracker created!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> {
+                    Log.e("Firestore", "Failed to create habit tracker", e);
+                    Toast.makeText(getApplicationContext(), "Failed to create habit tracker.", Toast.LENGTH_SHORT).show();
+                });
     }
 
     @Override
@@ -200,8 +209,6 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
         Log.d("TrackerAdapter", "onRemoveHabit triggered for position: " + position);
 
         HabitTrackerItem habitToRemove = habitTrackerList.get(position);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = "user1";
         //FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         db.collection("habitTrackerList").document(userId)
