@@ -95,19 +95,22 @@ Key Classes for each package:
 
 ## Firebase Data Strucutre
 
-1. **Feature: Login and Registration**
 
-2. **Feature: Annual Carbon Footprint**
+1. **Feature: Annual Carbon Footprint**
+
+annualCarbonFootprint:
+
+![3841733168848_ pic](https://github.com/user-attachments/assets/7b062a3e-7ae0-48ff-a018-d82ef9b95372)
 
 
-3. **Feature: EcoTracker**
+2. **Feature: EcoTracker**
 
 habitTrackerList:
 
 <img width="492" alt="Screenshot 2024-12-02 at 12 57 35" src="https://github.com/user-attachments/assets/51a037f3-94ca-4e2e-8a4b-6aedf68e444e">
 
 
-4. **Feature: EcoGaugh**
+3. **Feature: EcoGaugh**
 
 emissions:
 
