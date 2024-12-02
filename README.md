@@ -114,12 +114,6 @@ emissions:
 <img width="578" alt="Screenshot 2024-12-02 at 12 42 52" src="https://github.com/user-attachments/assets/1449c017-54a6-44f5-a33d-65b0b7eee964">
 
 
-5. **Feature: EcoBalance**
-
-
-emissions
-
-
 
 ## Future Modification
 
