@@ -15,9 +15,9 @@ Packages:
 2. **Feature: Annual Carbon Footprint**
 
 Packages:
-  - **Questions** : Ask users questions to obtain user's carbon emission level
-  - **Calculator**: calculate consumption,food, housing and transportation part of annual footprint separately
-  - **Displaying Annual Footprint Result** : calculate the total annual footprint
+  - **Questions** : Ask users questions to obtain user's carbon emission level, update all message to fire base
+  - **Calculator**: calculate consumption,food, housing and transportation part of annual footprint separately and totally
+  - **Displaying Annual Footprint Result** : diaplay the total and seperate annual footprint
 
 3. **Feature: EcoTracker**
 
@@ -41,12 +41,12 @@ Class:
 5. **Feature: EcoBalance**
 
 Packages:
-  - **EcoBalance** :
+  - **EcoBalance** : Display information about items available for users to purchase, and provide user selection and payment functions.
 
 
 6. **Feature: EcoHub**
 
-Packages:
+Packages: 
 
 
 ## Key Components
