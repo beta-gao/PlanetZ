@@ -95,15 +95,8 @@ Key Classes for each package:
 
 1. **Feature: Login and Registration**
 
-Key Classes for each package:
-  - **LoginandRegister**: LoginActivity, RegisterAcitivity, ForgetPassword.
-
 2. **Feature: Annual Carbon Footprint**
 
-Key Classes for each package:
-  - **Questions** : all classes
-  - **Calculator**: BigResult
-  - **Displaying Annual Footprint Result** : ResultActivity
 
 3. **Feature: EcoTracker**
 
@@ -121,15 +114,12 @@ emissions:
 
 5. **Feature: EcoBalance**
 
-Key Classes for each package:
-  - **EcoBalance** : 
-
 
 emissions
 
 
 
-## Future Application
+## Future Modification
 
 
 
