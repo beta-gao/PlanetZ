@@ -47,6 +47,7 @@ Packages:
 6. **Feature: EcoHub**
 
 Packages: 
+  - **EcoHub** : EcoHub offers learning resources, market trends, and sustainable product recommendations to promote eco-friendly practices and informed decisions.
 
 
 ## Key Components
@@ -77,12 +78,13 @@ Key Classes for each package:
 5. **Feature: EcoBalance**
 
 Key Classes for each package:
-  - **EcoBalance** : 
+  - **EcoBalance** : EcoBalanceHomePageActivity, EcoBalancePay, ProjectDetailActivity, ProjectActivity
 
 
 6. **Feature: EcoHub**
 
 Key Classes for each package:
+  - **EcoHub** : EcoHubActivity
 
 
 
