@@ -2,6 +2,8 @@ package com.example.planetz.ecogaugh;
 
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.planetz.data.DailyData;
 import com.example.planetz.data.UserEmissionData;
 
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class EmissionsDashboard {
+public class EmissionsDashboard extends AppCompatActivity {
 
     private static EmissionsDashboard instance;
     private UserEmissionData userEmissionData;

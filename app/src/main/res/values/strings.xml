@@ -25,4 +25,10 @@
     <!-- 排放相关字符串 -->
     <string name="result_text">Result will appear here</string>
     <string name="compare_button_text">Compare Emissions</string>
+    <string name="Transportation">Transportation</string>
+    <string name="Energy">Energy</string>
+    <string name="Food">Food</string>
+    <string name="Consumption">Consumption</string>
+    <string name="resetfilters">Reset Filter</string>
+
 </resources>
