@@ -43,6 +43,9 @@
         <activity
             android:name=".HomePageActivity"
             android:exported="true" />
+        <activity
+            android:name=".LoginandRegister.WelcomeActivity"
+            android:exported="true" />
         <activity android:name=".EcoBalance.EcoBalanceHomePageActivity" />
         <activity android:name=".EcoBalance.ProjectDetailActivity" /> <!-- Other Question activities -->
         <activity android:name=".Question.Question1" />
