@@ -169,97 +169,226 @@ The integration layer ensures seamless communication between the frontend and ba
 
 ---
 
+# **Key Components**
+
 This detailed structure highlights how the Eco App leverages a robust backend to deliver a seamless user experience while maintaining flexibility for future enhancements.
 
+---
 
-1. **Feature: Login and Registration**
+## **Feature: Login and Registration**
+### **Packages**:
+- **LoginandRegister**:  
+  Responsible for user logins, registration, and password reset functionalities.
 
-Packages:
-  - **LoginandRegister**: Responsible for user logins, registration and reset password.
+### **Key Classes**:
+- `LoginActivity`
+- `RegisterActivity`
+- `ForgetPassword`
+
+---
+
+## **Feature: Annual Carbon Footprint**
+### **Packages**:
+- **Questions**:  
+  Gathers user data about carbon emissions through a questionnaire and updates all inputs to Firebase.  
+- **Calculator**:  
+  Calculates carbon emissions in different categories (consumption, food, housing, and transportation) and provides total and category-wise results.  
+- **Displaying Annual Footprint Result**:  
+  Displays the total and category-specific annual carbon footprint in a clear format.
+
+### **Key Classes**:
+- **Questions**: All classes in the package.
+- **Calculator**: `BigResult`
+- **Displaying Annual Footprint Result**: `ResultActivity`
+
+---
+
+## **Feature: EcoTracker**
+### **Packages**:
+- **HabitSuggestionandTracker**:  
+  - Provides personalized habit suggestions based on questionnaire responses.  
+  - Tracks user progress in adopting sustainable habits.  
+  - Allows users to search habits by keywords and filter them by category or environmental impact.  
+  - Sends reminders to users to log activities.
+
+### **Key Classes**:
+- `HabitRecommendation`
+- `TrackingHabit`
+- `SearchingKeyword`
+
+---
+
+## **Feature: EcoGauge**
+### **Packages**:
+- **Data**:  
+  Stores data from the EcoTracker and retrieves local data from Firebase.  
+- **EcoGauge**:  
+  - Displays total CO2 emissions and a breakdown by categories.  
+  - Shows emission trends over time and comparisons with global averages.  
+- **EcoGaugeUI**:  
+  XML-based UI for EcoGauge functionalities.
+
+### **Key Classes**:
+- `EcoGaugeMainActivity`: Main dashboard for EcoGauge.
+- `EmissionDashboard`
+- `EmissionUtils`
+
+---
+
+## **Feature: EcoBalance**
+### **Packages**:
+- **EcoBalance**:  
+  Displays information about offset projects and allows users to select and pay for them.
+
+### **Key Classes**:
+- `EcoBalanceHomePageActivity`
+- `EcoBalancePay`
+- `ProjectDetailActivity`
+- `ProjectActivity`
+
+---
+
+## **Feature: EcoHub**
+### **Packages**:
+- **EcoHub**:  
+  A resource center providing learning materials, market trends, and recommendations for sustainable products to promote eco-friendly practices and informed decisions.
+
+### **Key Classes**:
+- `EcoHubActivity`
 
 
-2. **Feature: Annual Carbon Footprint**
+# **Dependencies and Why They're Needed**
 
-Packages:
-  - **Questions** : Ask users questions to obtain user's carbon emission level, update all message to fire base
-  - **Calculator**: calculate consumption,food, housing and transportation part of annual footprint separately and totally
-  - **Displaying Annual Footprint Result** : diaplay the total and seperate annual footprint
+## **Firebase Platform and Dependencies**
+1. **`platform("com.google.firebase:firebase-bom:33.6.0")`**  
+   Manages the versions of all Firebase libraries, ensuring compatibility across Analytics, Database, Auth, and Firestore.  
 
-3. **Feature: EcoTracker**
+2. **`com.google.firebase:firebase-analytics`**  
+   Tracks user behavior and engagement, providing insights to improve app performance and user experience.  
+
+3. **`com.google.firebase:firebase-database`**  
+   Enables real-time database functionality, storing user activity logs and syncing data efficiently across devices.  
+
+4. **`com.google.firebase:firebase-auth`**  
+   Provides secure user authentication for login and registration using email and password.  
+
+5. **`com.google.firebase:firebase-firestore`**  
+   A NoSQL cloud database that stores structured user data, including habits, preferences, and activity progress, with real-time syncing capabilities.
+
+---
+
+## **AndroidX Libraries**
+1. **`androidx.appcompat:appcompat:1.6.1`**  
+   Ensures backward compatibility for modern Android features, allowing the app to run smoothly on older devices.  
+
+2. **`androidx.core:core-ktx:1.12.0`**  
+   Simplifies Android development by providing Kotlin extensions for common tasks.  
+
+3. **`com.google.android.material:material:1.9.0`**  
+   Supports Material Design components for a polished and modern user interface.  
+
+4. **`androidx.constraintlayout:constraintlayout:2.1.4`**  
+   Helps create complex UI layouts with better performance and flexibility.  
+
+5. **`androidx.recyclerview:recyclerview:1.3.1`**  
+   Displays dynamic lists of data, such as activities or recommended habits, with smooth scrolling and item animations.  
+
+6. **`androidx.viewpager2:viewpager2:1.0.0`**  
+   Manages swipe-based navigation between pages, ideal for displaying educational content in EcoHub.  
+
+7. **`androidx.lifecycle:lifecycle-viewmodel` and `lifecycle-livedata`**  
+   Manages UI-related data with lifecycle-aware components, ensuring consistent and efficient updates.  
+
+8. **`androidx.activity:activity-ktx:1.7.2`**  
+   Simplifies common Activity-related tasks with Kotlin-friendly APIs.  
+
+---
+
+## **Additional Libraries**
+1. **`com.github.PhilJay:MPAndroidChart:3.1.0`**  
+   Generates dynamic and visually appealing charts for EcoGauge to display CO2 emissions and trends.  
+
+2. **`de.hdodenhof:circleimageview:3.1.0`**  
+   Adds circular image view functionality, used for profile pictures or graphical elements in the UI.  
+
+3. **`androidx.annotation:annotation:1.6.0`**  
+   Provides compile-time checks to improve code reliability and maintainability.
+
+---
+
+## **Testing Libraries**
+1. **`junit:junit:4.13.2`**  
+   Provides a framework for writing and running unit tests to ensure reliable code behavior.  
+
+2. **`androidx.test.ext:junit:1.1.5`**  
+   Extends JUnit functionality for Android, enabling UI and instrumentation testing.  
+
+3. **`androidx.test.espresso:espresso-core:3.5.1`**  
+   Facilitates automated UI testing by simulating user interactions.  
+
+---
+
+## **Plugins**
+1. **`com.android.application`**  
+   Configures the project as an Android application, managing builds, packaging, and APK generation.  
+
+2. **`com.google.gms.google-services`**  
+   Connects the app to Firebase services, enabling Analytics, Auth, and Database functionality.
+
+---
+
+By integrating these dependencies, the Eco App ensures seamless functionality, robust backend operations, and a user-friendly interface while enabling efficient testing and development workflows.
+
+# **Assumptions**
+
+The Eco App was developed based on these key assumptions:
+
+---
+
+## **User Behavior**
+1. Users can provide accurate and honest data about their activities.  
+2. Users are motivated to track and reduce their carbon footprint.  
+
+## **Carbon Footprint Calculation**
+1. Emission factors used are globally accepted averages.  
+2. Calculations focus only on user-controlled emissions like transportation and energy use.  
+
+## **Technological Assumptions**
+1. Users have stable internet access for real-time syncing.  
+2. The app supports devices running Android 7.0 (API level 24) and above.  
+
+## **Features and Engagement**
+1. Users will actively engage with features like EcoTracker and EcoGauge.  
+2. Educational content in EcoHub will drive informed sustainability decisions.
+
+# **Links**
+
+## **GitHub Repository**
+The source code for the Eco App is hosted on GitHub. Developers can access the repository for version control, issue tracking, and collaboration:  
+[GitHub Repository](https://github.com/beta-gao/PlanetZ)
+
+---
+
+## **Jira Board**
+Task management and project tracking are managed on Jira. Team members can view sprints, assign tasks, and monitor progress:  
+[Jira Board](https://gonggequan.atlassian.net/jira/software/projects/B07PROJ/boards/2)
 
 
-Packages:
-  - **HabitSuggestionandTracker**: suggest personalized habits(based on questions), habit tracker(track progress), search habits by keywords and filters(category and impact,
-                                   remind users to log activites.
+# **Existing Credentials**
 
+Below are the existing credentials to sign in to the Eco App for testing and development purposes:
 
-4. **Feature: EcoGaugh**
+---
 
-Packages:
-  - **Data**: store data from Ecotracker, and obtain data from firebase locally.
-  - **EcoGaugh**: Using data collected from habit tracker, reponsible for display total CO2 emission, CO2 emission breakdown by category, emission trend graph, display                    comparison with global average.
-  - **EcoGaughui**: Combined with xml for UI
+## **Admin Account**
+- **Email**: `yiqin.gao@mail.utoronto.ca`  
+- **Password**: `20050711`
 
-Class:
- - **EcoGaugeMainAcitivity**: main dashboard of ecoGauge
+---
 
-
-5. **Feature: EcoBalance**
-
-Packages:
-  - **EcoBalance** : Display information about items available for users to purchase, and provide user selection and payment functions.
-
-
-6. **Feature: EcoHub**
-
-Packages: 
-  - **EcoHub** : EcoHub offers learning resources, market trends, and sustainable product recommendations to promote eco-friendly practices and informed decisions.
-
-
-## Key Components
-1. **Feature: Login and Registration**
-
-Key Classes for each package:
-  - **LoginandRegister**: LoginActivity, RegisterAcitivity, ForgetPassword.
-
-2. **Feature: Annual Carbon Footprint**
-
-Key Classes for each package:
-  - **Questions** : all classes
-  - **Calculator**: BigResult
-  - **Displaying Annual Footprint Result** : ResultActivity
-
-3. **Feature: EcoTracker**
-
-Key Classes for each package:
-  - **HabitSuggestionandTracker**: HabitRecommmendation, TrackingHabit, SearchingKeyword
-
-
-4. **Feature: EcoGaugh**
-
-Key Classes for each package:
-  - **EcoGaugh**: EmissionDashboard, EmissionUtils,
-
-
-5. **Feature: EcoBalance**
-
-Key Classes for each package:
-  - **EcoBalance** : EcoBalanceHomePageActivity, EcoBalancePay, ProjectDetailActivity, ProjectActivity
-
-
-6. **Feature: EcoHub**
-
-Key Classes for each package:
-  - **EcoHub** : EcoHubActivity
-
-
-
-## Testing
-### Unit Testing
-- Location: /app/src/test
-- Coverage for `LoginActivity` using mocked user inputs.
-
-## Firebase Data Strucutre
+## **Test User Account**
+- **Email**: `3371593089@qq.com`  
+- **Password**: `20050711`
 
 
 1. **Feature: Annual Carbon Footprint**
