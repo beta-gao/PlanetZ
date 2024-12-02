@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.DisplayingAnnualFootprintResult.BreakdownActivity;
 import com.example.planetz.EcoBalance.EcoBalanceHomePageActivity;
+import com.example.planetz.EcoHub.EcoHubActivity; // 引入 EcoHubActivity
 import com.example.planetz.LoginandRegister.UserManager;
-import com.example.planetz.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -17,6 +17,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     private Button annualFootprintButton;
     private Button ecoBalanceButton;
+    private Button ecoHubButton; // 新增 Eco Hub 按钮
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class HomePageActivity extends AppCompatActivity {
         // Initialize buttons
         annualFootprintButton = findViewById(R.id.annualFootprintButton);
         ecoBalanceButton = findViewById(R.id.ecoBalanceButton);
+        ecoHubButton = findViewById(R.id.ecoHubButton); // 初始化 Eco Hub 按钮
 
         // Set button listeners
         annualFootprintButton.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +41,13 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 navigateToActivity(EcoBalanceHomePageActivity.class);
+            }
+        });
+
+        ecoHubButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToActivity(EcoHubActivity.class); // 跳转到 EcoHubActivity
             }
         });
 

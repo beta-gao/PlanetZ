@@ -1,5 +1,8 @@
 package com.example.planetz.EcoHub;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planetz.R;
+import com.example.planetz.model.Resource;
 
 import java.util.List;
 
 public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.ViewHolder> {
 
     private final List<Resource> resources;
+    private Context context = null;
 
     public ResourceAdapter(List<Resource> resources) {
+        this.context = context;
         this.resources = resources;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_resource, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_resource, parent, false);
         return new ViewHolder(view);
     }
 
@@ -32,6 +38,11 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.ViewHo
         Resource resource = resources.get(position);
         holder.titleTextView.setText(resource.getTitle());
         holder.descriptionTextView.setText(resource.getDescription());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(resource.getUrl()));
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -40,10 +51,10 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
-        TextView descriptionTextView;
+        private final TextView titleTextView;
+        private final TextView descriptionTextView;
 
-        ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.resourceTitle);
             descriptionTextView = itemView.findViewById(R.id.resourceDescription);

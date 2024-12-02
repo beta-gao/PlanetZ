@@ -6,17 +6,24 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/resourceTitle"
+        android:id="@+id/productName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resource Title"
+        android:text="Product Name"
         android:textStyle="bold"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/resourceDescription"
+        android:id="@+id/productDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resource Description"
+        android:text="Product Description"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Price"
         android:textSize="14sp" />
 </LinearLayout>
