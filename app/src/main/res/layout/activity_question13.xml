@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d8dbe2"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/question_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="What is the size of your home?"
+        android:textColor="#1b1b1e"
+        android:fontFamily="monospace"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup_home_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_under_1000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="Under 1000 sq. ft."
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+
+        <RadioButton
+            android:id="@+id/radio_1000_2000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="1000-2000 sq. ft."
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+
+        <RadioButton
+            android:id="@+id/radio_over_2000"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="Over 2000 sq. ft."
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp" />
+    </RadioGroup>
+
+    <RadioButton
+        android:id="@+id/radio_back"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button_bg"
+        android:button="@null"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:padding="10dp" />
+</LinearLayout>

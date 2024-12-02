@@ -1,0 +1,26 @@
+[
+  {
+    "type": "Article",
+    "title": "The Future of Renewable Energy",
+    "description": "Explore the latest innovations in solar and wind energy.",
+    "url": "https://education.nationalgeographic.org/resource/renewable-energy/"
+  },
+  {
+    "type": "Video",
+    "title": "Understanding Carbon Footprints",
+    "description": "A short video explaining how carbon footprints impact the planet.",
+    "url": "https://www.youtube.com/watch?v=8q7_aV8eLUE"
+  },
+  {
+    "type": "Article",
+    "title": "Top 10 Sustainable Living Tips",
+    "description": "Learn how to live a more eco-friendly life.",
+    "url": "https://www.outdoors.org/resources/amc-outdoors/conservation-and-climate/go-green-10-tips-for-a-more-sustainable-lifestyle/"
+  },
+  {
+    "type": "Video",
+    "title": "Smart Home Technologies",
+    "description": "How smart homes contribute to sustainability.",
+    "url": "https://www.youtube.com/watch?v=WHXYlEB_QmY"
+  }
+]

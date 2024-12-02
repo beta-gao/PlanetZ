@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d8dbe2"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/question_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="How many electronic devices (phones, laptops, etc.) have you purchased in the past year?"
+        android:textColor="#1b1b1e"
+        android:fontFamily="monospace"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup_electronic_devices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_none"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="None"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <RadioButton
+            android:id="@+id/radio_one"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="1"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <RadioButton
+            android:id="@+id/radio_two"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="2"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <RadioButton
+            android:id="@+id/radio_three_or_more"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="3 or more"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp" />
+    </RadioGroup>
+
+    <RadioButton
+        android:id="@+id/radio_back"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button_bg"
+        android:button="@null"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:padding="10dp" />
+</LinearLayout>

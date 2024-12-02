@@ -1,0 +1,82 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#d8dbe2"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- 项目标题 -->
+        <TextView
+            android:id="@+id/projectTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project Title"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#373f51"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 项目信息卡片 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#a9bcd0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/projectDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description of the project."
+                    android:textSize="18sp"
+                    android:textColor="#1b1b1e"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:id="@+id/projectCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cost per ton: $X.XX"
+                    android:textSize="18sp"
+                    android:textColor="#1b1b1e"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:id="@+id/projectImpact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Impact: Description of the impact."
+                    android:textSize="18sp"
+                    android:textColor="#1b1b1e" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 返回按钮 -->
+        <Button
+            android:id="@+id/backToEcoBalanceButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back to Eco Balance"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#373f51"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:padding="16dp" />
+
+    </LinearLayout>
+</ScrollView>

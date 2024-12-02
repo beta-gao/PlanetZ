@@ -1,0 +1,107 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Learning Resource Section -->
+        <TextView
+            android:id="@+id/learningResourceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#373F51"
+            android:layout_marginBottom="8dp"
+            android:text="Latest Learning Resource:" />
+
+        <TextView
+            android:id="@+id/learningResourceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#009999"
+            android:layout_marginBottom="8dp"
+            android:text="This is the most recent resource available!" />
+
+        <Button
+            android:id="@+id/learningResourceButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:text="View Details"
+            android:layout_marginBottom="24dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD"
+            android:layout_marginVertical="16dp" />
+
+        <!-- Market Trends Section -->
+        <TextView
+            android:id="@+id/marketTrendLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#373F51"
+            android:layout_marginBottom="8dp"
+            android:text="Market Trend:" />
+
+        <TextView
+            android:id="@+id/marketTrendTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#009999"
+            android:layout_marginBottom="24dp"
+            android:text="Discover the latest trends in eco-friendly technologies." />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD"
+            android:layout_marginVertical="16dp" />
+
+        <!-- Eco-Friendly Product Section -->
+        <TextView
+            android:id="@+id/ecoProductLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#373F51"
+            android:layout_marginBottom="8dp"
+            android:text="Eco-Friendly Product:" />
+
+        <TextView
+            android:id="@+id/ecoProductTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#009999"
+            android:layout_marginBottom="24dp"
+            android:text="Check out this innovative product that saves energy!" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_button"
+            android:textColor="#FFFFFF"
+            android:text="Back to Home"
+            android:layout_gravity="start"
+            android:padding="12dp" />
+
+    </LinearLayout>
+</ScrollView>
