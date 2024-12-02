@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.DisplayingAnnualFootprintResult.BreakdownActivity;
 import com.example.planetz.EcoBalance.EcoBalanceHomePageActivity;
+import com.example.planetz.HabitSuggestionandTracker.TrackingHabit;
 import com.example.planetz.LoginandRegister.UserManager;
 import com.example.planetz.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +18,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     private Button annualFootprintButton;
     private Button ecoBalanceButton;
+    private Button ecoTrackerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class HomePageActivity extends AppCompatActivity {
         // Initialize buttons
         annualFootprintButton = findViewById(R.id.annualFootprintButton);
         ecoBalanceButton = findViewById(R.id.ecoBalanceButton);
-
+        ecoTrackerButton = findViewById(R.id.ecoTrackerButton);
         // Set button listeners
         annualFootprintButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +41,13 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 navigateToActivity(EcoBalanceHomePageActivity.class);
+            }
+        });
+
+        ecoTrackerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToActivity(TrackingHabit.class);
             }
         });
 

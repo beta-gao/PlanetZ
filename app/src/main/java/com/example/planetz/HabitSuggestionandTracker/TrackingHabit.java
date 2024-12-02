@@ -97,13 +97,6 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
             showReminderPopup();
         }
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("HabitTrackerList").document("testDoc")
-                .set(Collections.singletonMap("testField", "testValue"))
-                .addOnSuccessListener(aVoid -> Log.d("FirestoreTest", "Write succeeded"))
-                .addOnFailureListener(e -> Log.e("FirestoreTest", "Write failed", e));
-
     }
 
     private void showReminderPopup() {
