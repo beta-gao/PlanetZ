@@ -1,5 +1,6 @@
 package com.example.planetz.LoginandRegister;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,23 +19,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
-    FirebaseAuth auth;
-    Button loginButton;
-    TextInputEditText emailText;
-    TextInputEditText passwordText;
-    TextView toRegisterTextView;
-    TextView toForgetPasswordTextView;
+    private LoginContract.Presenter presenter;
+    private Button loginButton;
+    private TextInputEditText emailText;
+    private TextInputEditText passwordText;
+    private TextView toRegisterTextView;
+    private TextView toForgetPasswordTextView;
 
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             UserManager.getInstance(this).setUserId(currentUser.getUid());
             Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
-            initializeData(currentUser.getUid(), () -> navigateToActivity(HomePageActivity.class));
+            initializeData(currentUser.getUid(), this::navigateToHome);
         }
     }
 
@@ -43,52 +44,83 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        presenter = new LoginPresenterImpl();
+        presenter.attachView(this);
+
         emailText = findViewById(R.id.email);
         passwordText = findViewById(R.id.password);
-        auth = FirebaseAuth.getInstance();
 
         loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> {
             String email = String.valueOf(emailText.getText());
             String password = String.valueOf(passwordText.getText());
-
-            if (TextUtils.isEmpty(email)) {
-                Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(password)) {
-                Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            loginButton.setEnabled(false);
-            auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        loginButton.setEnabled(true);
-                        if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = auth.getCurrentUser();
-                            if (user != null) {
-                                UserManager.getInstance(this).setUserId(user.getUid());
-                                initializeData(user.getUid(), () -> navigateToActivity(HomePageActivity.class));
-                            }
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Authentication failed: wrong email or password", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            presenter.login(email, password);
         });
 
         toRegisterTextView = findViewById(R.id.toReg);
-        toRegisterTextView.setOnClickListener(v -> navigateToActivity(RegisterActivity.class));
+        toRegisterTextView.setOnClickListener(v -> presenter.navigateToRegister());
 
         toForgetPasswordTextView = findViewById(R.id.forgetpassword);
-        toForgetPasswordTextView.setOnClickListener(v -> navigateToActivity(ForgetPassword.class));
+        toForgetPasswordTextView.setOnClickListener(v -> presenter.navigateToForgetPassword());
     }
 
-    private void navigateToActivity(Class<?> targetActivity) {
-        Intent intent = new Intent(getApplicationContext(), targetActivity);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
+    }
+
+    @Override
+    public void showLoading() {
+        loginButton.setEnabled(false);
+        // Optionally, show a progress bar
+    }
+
+    @Override
+    public void hideLoading() {
+        loginButton.setEnabled(true);
+        // Optionally, hide the progress bar
+    }
+
+    @Override
+    public void showLoginSuccess() {
+        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoginError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void navigateToHome() {
+        Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void navigateToRegister() {
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void navigateToForgetPassword() {
+        Intent intent = new Intent(getApplicationContext(), ForgetPassword.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void showEmailError(String message) {
+        emailText.setError(message);
+    }
+
+    @Override
+    public void showPasswordError(String message) {
+        passwordText.setError(message);
     }
 
     private void initializeData(String userId, Runnable onSuccess) {
@@ -130,5 +162,9 @@ public class LoginActivity extends AppCompatActivity {
                     onSuccess.run();
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Failed to load AnnualFootprintData", Toast.LENGTH_SHORT).show());
+    }
+
+    public Context getContext() {
+        return this;
     }
 }
