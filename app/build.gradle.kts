@@ -38,6 +38,21 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
@@ -60,7 +75,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.activity:activity-ktx:1.7.2")
-
+    testImplementation("androidx.test:core:1.5.0")
 
     // Additional libraries
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
@@ -69,9 +84,13 @@ dependencies {
     implementation("androidx.annotation:annotation:1.6.0")
 
     // Testing libraries
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+//    testImplementation("junit:junit:4.13.2")
+//    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+//    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // Mockito
+//    testImplementation("org.mockito:mockito-core:5.2.0")
+//    testImplementation("org.mockito:mockito-inline:5.2.0")
 }
 
 

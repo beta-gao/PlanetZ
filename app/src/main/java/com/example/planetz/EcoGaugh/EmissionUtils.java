@@ -1,4 +1,4 @@
-package com.example.planetz.ecogaugh;
+package com.example.planetz.EcoGaugh;
 
 import com.example.planetz.data.DailyData;
 import com.example.planetz.data.Date;
@@ -12,12 +12,10 @@ public class EmissionUtils {
 
     public static double calculateTotalEmissions(Map<String, DailyData> data) {
         double totalEmissions = 0.0;
-        int i = 0;
         for (DailyData dailyData : data.values()) {
             totalEmissions += dailyData.getConsumption().getTotalEmissions();
-            i++;
         }
-        return totalEmissions/i;
+        return totalEmissions;
     }
 
     public static Map<String, Double> calculateEmissionsBreakdown(Map<String, DailyData> data) {
@@ -25,21 +23,19 @@ public class EmissionUtils {
         double energyUseTotal = 0.0;
         double foodConsumptionTotal = 0.0;
         double shoppingAndConsumptionTotal = 0.0;
-        int i = 0;
 
         for (DailyData dailyData : data.values()) {
             transportationTotal += dailyData.getConsumption().getTransportation();
             energyUseTotal += dailyData.getConsumption().getEnergyUse();
             foodConsumptionTotal += dailyData.getConsumption().getFoodConsumption();
             shoppingAndConsumptionTotal += dailyData.getConsumption().getShoppingAndConsumption();
-            i++;
         }
 
         Map<String, Double> breakdown = new HashMap<>();
-        breakdown.put("Transportation", transportationTotal/i);
-        breakdown.put("Energy Use", energyUseTotal/i);
-        breakdown.put("Food Consumption", foodConsumptionTotal/i);
-        breakdown.put("Shopping and Consumption", shoppingAndConsumptionTotal/i);
+        breakdown.put("Transportation", transportationTotal);
+        breakdown.put("Energy Use", energyUseTotal);
+        breakdown.put("Food Consumption", foodConsumptionTotal);
+        breakdown.put("Shopping and Consumption", shoppingAndConsumptionTotal);
 
         return breakdown;
     }

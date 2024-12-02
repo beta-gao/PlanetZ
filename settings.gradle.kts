@@ -17,10 +17,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter()
         maven("https://jitpack.io")
     }
 }
 
 rootProject.name = "planetz"
 include(":app")
- 

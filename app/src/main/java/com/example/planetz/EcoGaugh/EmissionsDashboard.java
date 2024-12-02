@@ -1,4 +1,4 @@
-package com.example.planetz.ecogaugh;
+package com.example.planetz.EcoGaugh;
 
 import android.util.Log;
 
