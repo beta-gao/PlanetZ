@@ -14,6 +14,7 @@ public class EcoBalanceHomePageActivity extends AppCompatActivity {
     private Button brazilRainforestPreservationButton;
     private Button canadaSolarFarmsButton;
     private Button indiaRenewableEnergyButton;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,25 +26,18 @@ public class EcoBalanceHomePageActivity extends AppCompatActivity {
         brazilRainforestPreservationButton = findViewById(R.id.brazilRainforestPreservationButton);
         canadaSolarFarmsButton = findViewById(R.id.canadaSolarFarmsButton);
         indiaRenewableEnergyButton = findViewById(R.id.indiaRenewableEnergyButton);
+        backButton = findViewById(R.id.backButton);
 
         // Set button click listeners
         kenyaReforestationButton.setOnClickListener(v -> navigateToProject("Kenya Reforestation"));
         brazilRainforestPreservationButton.setOnClickListener(v -> navigateToProject("Brazil Rainforest Preservation"));
         canadaSolarFarmsButton.setOnClickListener(v -> navigateToProject("Canada Solar Farms"));
         indiaRenewableEnergyButton.setOnClickListener(v -> navigateToProject("India Renewable Energy"));
+
+        // Set back button listener
+        backButton.setOnClickListener(v -> onBackPressed());
     }
 
-    /**
-     * Navigates to the project detail page with the given project name.
-     *
-     * @param projectName The name of the project.
-     */
-//    private void navigateToProject(String projectName) {
-//        Intent intent = new Intent(EcoBalanceHomePageActivity.this, ProjectDetailActivity.class);
-//        intent.putExtra("project_name", projectName);
-//        // Pass other project details (if needed) through extras
-//        startActivity(intent);
-//    }
     private void navigateToProject(String projectName) {
         Intent intent = new Intent(EcoBalanceHomePageActivity.this, ProjectDetailActivity.class);
 
@@ -69,8 +63,6 @@ public class EcoBalanceHomePageActivity extends AppCompatActivity {
             intent.putExtra("project_impact", "Impact: Offsets 1 ton of CO2e for every $30 contributed.");
         }
 
-        // 启动目标 Activity
         startActivity(intent);
     }
-
 }
