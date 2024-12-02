@@ -83,4 +83,18 @@
     <item name="projectImpactTextView" type="id" />
     <item name="annualFootprintButton" type="id" />
     <item name="ecoBalanceButton" type="id" />
+    <item name="resourceTitle" type="id" />
+    <item name="resourceDescription" type="id" />
+    <item name="ecoHubButton" type="id" />
+    <item name="marketTrendTitle" type="id" />
+    <item name="marketTrendDescription" type="id" />
+    <item name="ecoProductTitle" type="id" />
+    <item name="ecoProductDescription" type="id" />
+    <item name="trendTitle" type="id" />
+    <item name="productName" type="id" />
+    <item name="productDescription" type="id" />
+    <item name="productPrice" type="id" />
+    <item name="newsTitle" type="id" />
+    <item name="newsDescription" type="id" />
+    <item name="newsImage" type="id" />
 </resources>

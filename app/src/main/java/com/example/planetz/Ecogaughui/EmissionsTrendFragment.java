@@ -1,4 +1,4 @@
-package com.example.planetz.ecogaughui;
+package com.example.planetz.Ecogaughui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,7 @@ import com.example.planetz.R;
 import com.example.planetz.data.DailyData;
 import com.example.planetz.data.FirestoreDataReader;
 import com.example.planetz.data.UserEmissionData;
-import com.example.planetz.ecogaugh.EmissionsDashboard;
+import com.example.planetz.EcoGaugh.EmissionsDashboard;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;

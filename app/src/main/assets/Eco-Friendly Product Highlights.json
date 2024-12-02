@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Eco-Friendly Washing Machine",
+    "description": "Uses 50% less water and energy compared to traditional models.",
+    "price": "$700"
+  },
+  {
+    "name": "Solar-Powered Water Heater",
+    "description": "A sustainable solution for reducing home energy consumption.",
+    "price": "$1200"
+  },
+  {
+    "name": "Reusable Grocery Bags",
+    "description": "Durable and eco-friendly bags for everyday shopping.",
+    "price": "$10"
+  },
+  {
+    "name": "Smart Thermostat",
+    "description": "Optimize home energy use with this intelligent thermostat.",
+    "price": "$150"
+  }
+]

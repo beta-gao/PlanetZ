@@ -1,4 +1,4 @@
-package com.example.planetz.ecogaughui;
+package com.example.planetz.Ecogaughui;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import android.widget.Button;
 import com.example.planetz.LoginandRegister.UserManager;
 import com.example.planetz.R;
 import com.example.planetz.data.UserEmissionData;
-import com.example.planetz.ecogaugh.EmissionsDashboard;
+import com.example.planetz.EcoGaugh.EmissionsDashboard;
 import com.example.planetz.data.FirestoreDataReader;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;

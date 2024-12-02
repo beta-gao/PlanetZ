@@ -1,4 +1,4 @@
-package com.example.planetz.ecogaughui;
+package com.example.planetz.Ecogaughui;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.example.planetz.LoginandRegister.UserManager;
 import com.example.planetz.R;
 import com.example.planetz.data.UserEmissionData;
-import com.example.planetz.ecogaugh.EmissionsDashboard;
+import com.example.planetz.EcoGaugh.EmissionsDashboard;
 import com.example.planetz.data.FirestoreDataReader;
 
 import java.util.ArrayList;

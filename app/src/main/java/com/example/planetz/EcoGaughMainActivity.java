@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.planetz.ecogaughui.EmissionsPagerAdapter;
+import com.example.planetz.Ecogaughui.EmissionsPagerAdapter;
 import com.google.firebase.FirebaseApp;
 
 import android.util.Log;

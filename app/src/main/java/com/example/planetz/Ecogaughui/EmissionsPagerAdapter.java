@@ -1,4 +1,4 @@
-package com.example.planetz.ecogaughui;
+package com.example.planetz.Ecogaughui;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

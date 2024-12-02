@@ -3,26 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.planetz">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+        <uses-permission android:name="android.permission.INTERNET" />
 
-    <application
+        <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.Planetz"
-            tools:targetApi="31"
-            android:dataExtractionRules="@xml/data_extraction_rules"
-            android:fullBackupContent="@xml/backup_rules">
+            tools:targetApi="31">
 
-            <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyDfAK6hapxkUnZzCoQKAavphSQR12GNc4I" />
                 <!-- LoginActivity as the main launcher activity -->
                 <activity
                     android:name=".LoginandRegister.LoginActivity"
@@ -42,10 +33,6 @@
                 <activity
                     android:name=".HomePageActivity"
                     android:exported="true"/>
-                <activity
-                    android:name=".LoginandRegister.WelcomeActivity"
-                    android:exported="true"/>
-
 
                 <activity android:name=".EcoBalance.EcoBalanceHomePageActivity" />
                 <activity android:name="com.example.planetz.EcoBalance.ProjectDetailActivity" />
@@ -96,17 +83,6 @@
                     android:label="Emissions Dashboard"
                     android:exported="true">
                 </activity>
-
-                <activity
-                    android:name=".HabitSuggestionandTracker.TrackingHabit"
-                    android:exported="true">
-                </activity>
-                <activity
-                    android:name=".HabitSuggestionandTracker.SearchKeyword"
-                    android:exported="true" />
-                <activity
-                    android:name=".HabitSuggestionandTracker.HabitRecommendation"
-                    android:exported="false" />
 
         </application>
 </manifest>
