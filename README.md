@@ -3,6 +3,29 @@
 PlanetZ is designed to promote sustainability and help users reduce their carbon footprint. It includes features such as tracking emissions, visualizing progress, offsetting carbon, and providing educational resources.
 
 ---
+# **Links**
+
+## **GitHub Repository**
+[GitHub Repository](https://github.com/beta-gao/PlanetZ)
+
+---
+
+## **Jira Board**
+[Jira Board](https://gonggequan.atlassian.net/jira/software/projects/B07PROJ/boards/2)
+
+---
+
+# **Existing Credentials**
+
+- **Admin Account**:  
+  - Email: `yiqin.gao@mail.utoronto.ca`  
+  - Password: `20050711`
+
+- **Test User Account**:  
+  - Email: `3371593089@qq.com`  
+  - Password: `20050711`
+
+---
 
 ## **Instructions for Use**
 
@@ -159,30 +182,6 @@ PlanetZ is designed to promote sustainability and help users reduce their carbon
 - Users are motivated to reduce their carbon footprint.  
 - Data provided by users is accurate and honest.  
 - Devices have stable internet access and run Android 7.0 or above.
-
----
-
-# **Links**
-
-## **GitHub Repository**
-[GitHub Repository](https://github.com/beta-gao/PlanetZ)
-
----
-
-## **Jira Board**
-[Jira Board](https://gonggequan.atlassian.net/jira/software/projects/B07PROJ/boards/2)
-
----
-
-# **Existing Credentials**
-
-- **Admin Account**:  
-  - Email: `yiqin.gao@mail.utoronto.ca`  
-  - Password: `20050711`
-
-- **Test User Account**:  
-  - Email: `3371593089@qq.com`  
-  - Password: `20050711`
 
 ---
 
