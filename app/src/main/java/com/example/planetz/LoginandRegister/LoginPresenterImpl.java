@@ -73,7 +73,7 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
                 });
     }
 
-    private void loadUserData(String userId) {
+    public void loadUserData(String userId) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         AtomicInteger taskCounter = new AtomicInteger(2); // 用于追踪两个任务的完成情况
 

@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class LoginPresenterImplTest {
 
@@ -27,13 +29,14 @@ public class LoginPresenterImplTest {
     private LoginContract.View mockView;
 
     @Mock
+    private FirebaseUser mockUser;
+
+    @Mock
     private Task<AuthResult> mockAuthTask;
 
     @Mock
     private AuthResult mockAuthResult;
 
-    @Mock
-    private FirebaseUser mockUser;
 
     private LoginPresenterImpl loginPresenter;
 
@@ -83,4 +86,38 @@ public class LoginPresenterImplTest {
         verify(mockView).hideLoading();
         verify(mockView).showLoginError("Authentication failed: wrong email or password");
     }
+    @Test
+    public void testLogin_withNullView_doesNothing() {
+        loginPresenter.detachView();
+        loginPresenter.login("test@example.com", "password123");
+
+        verifyNoInteractions(mockAuth);
+    }
+
+    @Test
+    public void testDetachView_clearsView() {
+        loginPresenter.detachView();
+        loginPresenter.login("test@example.com", "password123");
+
+        verify(mockAuth, never()).signInWithEmailAndPassword(anyString(), anyString());
+        verifyNoInteractions(mockView);
+    }
+
+    @Test
+    public void testNavigateToRegister_callsViewNavigateToRegister() {
+        loginPresenter.navigateToRegister();
+        verify(mockView).navigateToRegister();
+    }
+
+    @Test
+    public void testNavigateToForgetPassword_callsViewNavigateToForgetPassword() {
+        loginPresenter.navigateToForgetPassword();
+        verify(mockView).navigateToForgetPassword();
+    }
+
+
+
+
+
+
 }
