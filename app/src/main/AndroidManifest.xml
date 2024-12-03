@@ -26,6 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+            <activity
+                android:name=".DailyActivity.CalendarActivity"
+                android:exported="false" />
         <activity
             android:name=".HabitSuggestionandTracker.TrackingHabit"
             android:exported="false" />
@@ -89,6 +92,13 @@
             android:name=".EcoGaugh.EmissionsDashboard"
             android:exported="true"
             android:label="Emissions Dashboard" />
+
+        <activity android:name=".DailyActivity.ActivityCategoryActivity" />
+        <activity android:name=".DailyActivity.DailyEmissionActivity" />
+        <activity android:name=".DailyActivity.FoodActivity" />
+        <activity android:name=".DailyActivity.ShoppingActivity" />
+        <activity android:name=".DailyActivity.TransportationActivity" />
+
     </application>
 
 </manifest>
