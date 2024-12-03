@@ -70,9 +70,20 @@ dependencies {
     implementation(libs.activity)
 
     // Testing libraries
-    testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:5.2.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+    implementation("com.google.android.gms:play-services-tasks:18.0.2")
+    testImplementation("net.bytebuddy:byte-buddy:1.14.7")
+    testImplementation("net.bytebuddy:byte-buddy-agent:1.14.7")
+
+    implementation("com.google.android.gms:play-services-tasks:18.0.2")
+
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation("org.robolectric:robolectric:4.10")
 }
 
 

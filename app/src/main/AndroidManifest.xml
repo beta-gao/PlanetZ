@@ -13,17 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Planetz"
         tools:targetApi="31">
-        <activity
-            android:name=".HabitSuggestionandTracker.TrackingHabit"
-            android:exported="false" />
 
-            <activity
-                android:name=".HabitSuggestionandTracker.HabitRecommendation"
-                android:exported="false" />
-
-            <activity
-                android:name=".HabitSuggestionandTracker.SearchKeyword"
-                android:exported="false" />
         <!-- LoginActivity as the main launcher activity -->
         <activity
             android:name=".LoginandRegister.LoginActivity"
@@ -34,6 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HabitSuggestionandTracker.TrackingHabit"
+            android:exported="false" />
+        <activity
+            android:name=".HabitSuggestionandTracker.HabitRecommendation"
+            android:exported="false" />
+        <activity
+            android:name=".HabitSuggestionandTracker.SearchKeyword"
+            android:exported="false" />
         <activity
             android:name=".LoginandRegister.RegisterActivity"
             android:exported="true" />
