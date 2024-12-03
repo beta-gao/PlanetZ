@@ -2,6 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:backgroundTint="@color/gray"
+
     android:background="#F5F5F5">
 
     <LinearLayout
@@ -11,24 +13,26 @@
         android:gravity="center_horizontal">
 
         <!-- Learning Resource Section -->
-        <TextView
-            android:id="@+id/learningResourceLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#373F51"
-            android:layout_marginBottom="8dp"
-            android:text="Latest Learning Resource:" />
 
-        <TextView
-            android:id="@+id/learningResourceTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#009999"
-            android:layout_marginBottom="8dp"
-            android:text="This is the most recent resource available!" />
+            <TextView
+                android:id="@+id/learningResourceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#373F51"
+                android:layout_marginBottom="8dp"
+                android:text="Latest Learning Resource:" />
+
+            <TextView
+                android:id="@+id/learningResourceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#009999"
+                android:layout_marginBottom="8dp"
+                android:text="This is the most recent resource available!" />
+
 
         <Button
             android:id="@+id/learningResourceButton"
@@ -100,7 +104,7 @@
             android:background="@drawable/rounded_button"
             android:textColor="#FFFFFF"
             android:text="Back to Home"
-            android:layout_gravity="start"
+            android:layout_gravity="end"
             android:padding="12dp" />
 
     </LinearLayout>

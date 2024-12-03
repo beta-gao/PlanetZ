@@ -7,17 +7,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/gray"
+            android:layout_margin="15dp">
 
             <TextView
                 android:id="@+id/breakdownTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="15dp"
                 android:text="Loading breakdown..."
                 android:textSize="16sp"
                 android:layout_marginBottom="16dp"
                 android:textAlignment="center" />
+
+
+        </androidx.cardview.widget.CardView>
+
+
 
         <Button
             android:id="@+id/buttonComparison"

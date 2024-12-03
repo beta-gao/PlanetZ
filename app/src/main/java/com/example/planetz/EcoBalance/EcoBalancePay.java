@@ -7,6 +7,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.HomePageActivity;
+import com.example.planetz.MainDashboard;
 import com.example.planetz.R;
 
 public class EcoBalancePay extends AppCompatActivity {
@@ -21,7 +22,8 @@ public class EcoBalancePay extends AppCompatActivity {
         backToHomePageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EcoBalancePay.this, HomePageActivity.class);
+                //Intent intent = new Intent(EcoBalancePay.this, HomePageActivity.class);
+                Intent intent = new Intent(EcoBalancePay.this, MainDashboard.class);
                 startActivity(intent);
                 finish();
             }

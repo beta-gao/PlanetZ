@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.planetz.HomePageActivity;
 import com.example.planetz.LoginandRegister.UserManager;
+import com.example.planetz.MainDashboard;
 import com.example.planetz.R;
 import com.example.planetz.data.UserEmissionData;
 import com.example.planetz.EcoGaugh.EmissionsDashboard;
@@ -91,7 +92,8 @@ public class CompareEmissionsFragment extends Fragment {
 
         Button buttonBackToHome = view.findViewById(R.id.btn_back_to_home);
         buttonBackToHome.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), HomePageActivity.class);
+            //Intent intent = new Intent(getActivity(), HomePageActivity.class);
+            Intent intent = new Intent(getActivity(), MainDashboard.class);
             startActivity(intent);
             requireActivity().finish();
         });

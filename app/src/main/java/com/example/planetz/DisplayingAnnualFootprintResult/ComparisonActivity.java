@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.HomePageActivity;
+import com.example.planetz.MainDashboard;
 import com.example.planetz.R;
 import com.example.planetz.model.AnnualFootprintData;
 import com.example.planetz.model.CountryAverage;
@@ -36,7 +37,8 @@ public class ComparisonActivity extends AppCompatActivity {
         backToHomeButton = findViewById(R.id.backToHomeButton);
 
         backToHomeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ComparisonActivity.this, HomePageActivity.class);
+            //Intent intent = new Intent(ComparisonActivity.this, HomePageActivity.class);
+            Intent intent = new Intent(ComparisonActivity.this, MainDashboard.class);
             startActivity(intent);
             finish();
         });

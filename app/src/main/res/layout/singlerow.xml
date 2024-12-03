@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     android:id="@+id/onehabitrow"
     android:orientation="vertical"
@@ -62,6 +63,5 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="18dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white" />
+        android:layout_marginTop="10dp" />
 </LinearLayout>

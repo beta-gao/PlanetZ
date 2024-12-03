@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Planetz"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MainDashboard"
+            android:exported="false" />
         <!-- LoginActivity as the main launcher activity -->
         <activity
             android:name=".LoginandRegister.LoginActivity"
@@ -74,15 +76,19 @@
         <activity
             android:name=".EcoGaughMainActivity"
             android:exported="true"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
+        <activity
+            android:name=".EcoHub.EcoHubActivity"
+            android:exported="true"
+            android:label="@string/app_name" />
         <activity
             android:name=".EcoGaugh.EcoGaughActivity"
             android:exported="true"
-            android:label="Eco Gaugh Activity"></activity>
+            android:label="Eco Gaugh Activity" />
         <activity
             android:name=".EcoGaugh.EmissionsDashboard"
             android:exported="true"
-            android:label="Emissions Dashboard"></activity>
+            android:label="Emissions Dashboard" />
     </application>
 
 </manifest>

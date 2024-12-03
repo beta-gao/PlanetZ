@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planetz.HomePageActivity;
+import com.example.planetz.MainDashboard;
 import com.example.planetz.R;
 
 import java.util.ArrayList;
@@ -222,7 +223,8 @@ public class EcoHubActivity extends AppCompatActivity {
     private void enableBackToHomepage() {
         // Add a back button at the top of the activity (optional)
         findViewById(R.id.backButton).setOnClickListener(v -> {
-            Intent intent = new Intent(EcoHubActivity.this, HomePageActivity.class);
+            //Intent intent = new Intent(EcoHubActivity.this, HomePageActivity.class);
+            Intent intent = new Intent(EcoHubActivity.this, MainDashboard.class);
             startActivity(intent);
             finish();
         });
