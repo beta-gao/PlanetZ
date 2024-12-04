@@ -111,7 +111,7 @@ public class DailyEmissionActivity extends AppCompatActivity implements Emission
             Map<String, Object> consumption = (Map<String, Object>) dailyData.get("consumption");
 
             double totalEmissions = getDoubleFromMap(consumption, "totalEmissions");
-            totalEmissionView.setText(String.format("Total Emission: %.2f kg CO2e", totalEmissions));
+            totalEmissionView.setText(String.format("Attentions", totalEmissions));
 
             // Update activity logs
             activityLogs.clear();
