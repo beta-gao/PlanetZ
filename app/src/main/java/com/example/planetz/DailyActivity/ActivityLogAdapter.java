@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.planetz.R;
 
 import java.util.List;
@@ -23,8 +22,7 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
     @NonNull
     @Override
     public ActivityLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_activity_log, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_activity_log, parent, false);
         return new ActivityLogViewHolder(itemView);
     }
 

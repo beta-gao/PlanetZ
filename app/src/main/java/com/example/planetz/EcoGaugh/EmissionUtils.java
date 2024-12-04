@@ -1,7 +1,7 @@
 package com.example.planetz.EcoGaugh;
 
-import com.example.planetz.data.DailyData;
-import com.example.planetz.data.Date;
+import com.example.planetz.Data.DailyData;
+import com.example.planetz.Data.Date;
 
 import java.util.HashMap;
 import java.util.Map;

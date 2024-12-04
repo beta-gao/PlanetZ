@@ -16,22 +16,23 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FoodActivity extends AppCompatActivity {
+public class EnergyUseActivity extends AppCompatActivity {
 
-    private static final String TAG = "FoodActivity";
+    private static final String TAG = "EnergyUseActivity";
     private String selectedDate;
     private String userId;
     private FirebaseFirestore db;
 
-    private Spinner mealTypeSpinner;
-    private EditText servingsInput;
-    private Button saveFoodEmissionsButton;
+    private EditText electricityCostInput;
+    private EditText naturalGasCostInput;
+    private EditText waterCostInput;
+    private Button saveEnergyUseButton;
     private ImageView goBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_energy_use);
 
         // 初始化Firebase
         FirebaseApp.initializeApp(this);
@@ -45,22 +46,24 @@ public class FoodActivity extends AppCompatActivity {
             return;
         }
 
-        mealTypeSpinner = findViewById(R.id.mealTypeSpinner);
-        servingsInput = findViewById(R.id.servingsInput);
-        saveFoodEmissionsButton = findViewById(R.id.saveFoodEmissionsButton);
+        electricityCostInput = findViewById(R.id.electricityCostInput);
+        naturalGasCostInput = findViewById(R.id.naturalGasCostInput);
+        waterCostInput = findViewById(R.id.waterCostInput);
+        saveEnergyUseButton = findViewById(R.id.saveEnergyUseButton);
         goBackButton = findViewById(R.id.goBackButton);
 
-        saveFoodEmissionsButton.setOnClickListener(v -> {
-            String servingsStr = servingsInput.getText().toString();
-            if (!servingsStr.isEmpty()) {
-                int servings = Integer.parseInt(servingsStr);
-                String mealType = mealTypeSpinner.getSelectedItem().toString();
-                double emissionFactor = getMealEmissionFactor(mealType);
-                double calculatedValue = servings * emissionFactor;
-                updateFoodConsumption(calculatedValue);
-            } else {
-                Log.e(TAG, "Input is empty");
-            }
+        saveEnergyUseButton.setOnClickListener(v -> {
+            String electricityStr = electricityCostInput.getText().toString();
+            String naturalGasStr = naturalGasCostInput.getText().toString();
+            String waterStr = waterCostInput.getText().toString();
+
+            double electricityCost = electricityStr.isEmpty() ? 0.0 : Double.parseDouble(electricityStr);
+            double naturalGasCost = naturalGasStr.isEmpty() ? 0.0 : Double.parseDouble(naturalGasStr);
+            double waterCost = waterStr.isEmpty() ? 0.0 : Double.parseDouble(waterStr);
+
+            double calculatedValue = electricityCost * 0.5 + naturalGasCost * 0.3 + waterCost * 0.2;
+
+            updateEnergyUse(calculatedValue);
         });
 
         goBackButton.setOnClickListener(v -> {
@@ -68,27 +71,10 @@ public class FoodActivity extends AppCompatActivity {
         });
     }
 
-    private double getMealEmissionFactor(String mealType) {
-        switch (mealType) {
-            case "Beef":
-                return 6.85;
-            case "Pork":
-                return 3.97;
-            case "Chicken":
-                return 2.60;
-            case "Fish":
-                return 2.19;
-            case "Plant-based":
-                return 1.37;
-            default:
-                return 0.0;
-        }
-    }
-
-    private void updateFoodConsumption(double calculatedValue) {
+    private void updateEnergyUse(double calculatedValue) {
         DocumentReference docRef = db.collection("emissions").document(userId);
 
-        // 获取当前的 totalEmissions 和旧的 foodConsumption 值
+        // 获取当前的 totalEmissions 和旧的 energyUse 值
         docRef.get().addOnSuccessListener(documentSnapshot -> {
             Map<String, Object> data = documentSnapshot.getData();
             if (data == null) {
@@ -122,11 +108,11 @@ public class FoodActivity extends AppCompatActivity {
                 consumptionData = new HashMap<>();
             }
 
-            // 获取旧的 foodConsumption 值
-            double oldFoodConsumptionValue = 0.0;
-            Object foodConsumptionObj = consumptionData.get("foodConsumption");
-            if (foodConsumptionObj instanceof Number) {
-                oldFoodConsumptionValue = ((Number) foodConsumptionObj).doubleValue();
+            // 获取旧的 energyUse 值
+            double oldEnergyUseValue = 0.0;
+            Object energyUseObj = consumptionData.get("energyUse");
+            if (energyUseObj instanceof Number) {
+                oldEnergyUseValue = ((Number) energyUseObj).doubleValue();
             }
 
             // 获取旧的 totalEmissions 值
@@ -137,10 +123,10 @@ public class FoodActivity extends AppCompatActivity {
             }
 
             // 计算新的 totalEmissions 值
-            double newTotalEmissions = oldTotalEmissions - oldFoodConsumptionValue + calculatedValue;
+            double newTotalEmissions = oldTotalEmissions - oldEnergyUseValue + calculatedValue;
 
-            // 更新 foodConsumption 和 totalEmissions
-            consumptionData.put("foodConsumption", calculatedValue);
+            // 更新 energyUse 和 totalEmissions
+            consumptionData.put("energyUse", calculatedValue);
             consumptionData.put("totalEmissions", newTotalEmissions);
 
             // 更新 dateData 和 dailyData
@@ -153,12 +139,11 @@ public class FoodActivity extends AppCompatActivity {
 
             // 更新到 Firebase
             docRef.set(updatedData, SetOptions.merge())
-                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Food consumption and total emissions updated successfully."))
-                    .addOnFailureListener(e -> Log.e(TAG, "Error updating food consumption and total emissions", e));
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Energy use and total emissions updated successfully."))
+                    .addOnFailureListener(e -> Log.e(TAG, "Error updating energy use and total emissions", e));
 
         }).addOnFailureListener(e -> {
             Log.e(TAG, "Error fetching document", e);
         });
     }
-
 }

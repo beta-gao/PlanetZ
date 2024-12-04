@@ -14,9 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.planetz.R;
-import com.example.planetz.data.DailyData;
-import com.example.planetz.data.FirestoreDataReader;
-import com.example.planetz.data.UserEmissionData;
+import com.example.planetz.Data.DailyData;
+import com.example.planetz.Data.FirestoreDataReader;
+import com.example.planetz.Data.UserEmissionData;
 import com.example.planetz.EcoGaugh.EmissionsDashboard;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;

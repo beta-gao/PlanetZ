@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.planetz.DailyActivity.CalendarActivity;
 import com.example.planetz.DisplayingAnnualFootprintResult.BreakdownActivity;
 import com.example.planetz.EcoBalance.EcoBalanceHomePageActivity;
 import com.example.planetz.EcoHub.EcoHubActivity;
@@ -58,7 +59,7 @@ public class MainDashboard extends AppCompatActivity {
        ecoTracker.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               navigateToActivity(TrackingHabit.class);
+               navigateToActivity(EcoTrackerMainActivity.class);
            }
        });
 

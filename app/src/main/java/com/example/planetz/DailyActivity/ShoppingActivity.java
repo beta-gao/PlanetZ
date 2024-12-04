@@ -1,227 +1,160 @@
 package com.example.planetz.DailyActivity;
 
-import com.example.planetz.R;
-import com.example.planetz.LoginandRegister.UserManager;
-
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.util.Log;
+import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.planetz.R;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ShoppingActivity extends AppCompatActivity {
 
-    private String userId;
+    private static final String TAG = "ShoppingActivity";
     private String selectedDate;
+    private String userId;
+    private FirebaseFirestore db;
+
+    private Spinner shoppingTypeSpinner;
+    private EditText itemsCountInput;
+    private Button saveShoppingEmissionsButton;
+    private ImageView goBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
-        userId = UserManager.getInstance(this).getUserId();
-        selectedDate = getIntent().getStringExtra("selectedDate");
+        // 初始化Firebase
+        FirebaseApp.initializeApp(this);
+        db = FirebaseFirestore.getInstance();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if (userId == null || selectedDate == null) {
-            Toast.makeText(this, "Error: User not logged in or date not selected", Toast.LENGTH_SHORT).show();
+        selectedDate = getIntent().getStringExtra("selectedDate");
+        if (selectedDate == null) {
+            Log.e(TAG, "Selected date is null");
             finish();
             return;
         }
 
-        // Buy New Clothes Section
-        EditText inputClothesQuantity = findViewById(R.id.inputClothesQuantity);
-        Button clothesLogButton = findViewById(R.id.clothesLogButton);
-        Button clothesEditButton = findViewById(R.id.clothesEditButton);
-        Button clothesDeleteButton = findViewById(R.id.clothesDeleteButton);
+        shoppingTypeSpinner = findViewById(R.id.shoppingTypeSpinner);
+        itemsCountInput = findViewById(R.id.itemsCountInput);
+        saveShoppingEmissionsButton = findViewById(R.id.saveShoppingEmissionsButton);
+        goBackButton = findViewById(R.id.goBackButton);
 
-        clothesLogButton.setOnClickListener(v -> {
-            String quantityText = inputClothesQuantity.getText().toString();
-            if (quantityText.isEmpty()) {
-                Toast.makeText(this, "Please enter the quantity of clothing items", Toast.LENGTH_SHORT).show();
-                return;
+        saveShoppingEmissionsButton.setOnClickListener(v -> {
+            String countStr = itemsCountInput.getText().toString();
+            if (!countStr.isEmpty()) {
+                int count = Integer.parseInt(countStr);
+                String shoppingType = shoppingTypeSpinner.getSelectedItem().toString();
+                double emissionFactor = getShoppingEmissionFactor(shoppingType);
+                double calculatedValue = count * emissionFactor;
+                updateShoppingAndConsumption(calculatedValue);
+            } else {
+                Log.e(TAG, "Input is empty");
             }
-            int quantity = Integer.parseInt(quantityText);
-            double emission = calculateClothesEmissions(quantity);
-
-            saveActivityData("BuyNewClothes", emission);
         });
 
-        clothesEditButton.setOnClickListener(v -> editActivity("BuyNewClothes", inputClothesQuantity));
-        clothesDeleteButton.setOnClickListener(v -> deleteActivity("BuyNewClothes"));
-
-        // Buy Electronics Section
-        EditText inputElectronicsQuantity = findViewById(R.id.inputElectronicsQuantity);
-        Spinner spinnerElectronicsType = findViewById(R.id.spinnerElectronicsType);
-        Button electronicsLogButton = findViewById(R.id.electronicsLogButton);
-        Button electronicsEditButton = findViewById(R.id.electronicsEditButton);
-        Button electronicsDeleteButton = findViewById(R.id.electronicsDeleteButton);
-
-        electronicsLogButton.setOnClickListener(v -> {
-            String quantityText = inputElectronicsQuantity.getText().toString();
-            if (quantityText.isEmpty()) {
-                Toast.makeText(this, "Please enter the quantity of electronics", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            int quantity = Integer.parseInt(quantityText);
-            String type = spinnerElectronicsType.getSelectedItem().toString();
-            double emission = calculateElectronicsEmissions(type, quantity);
-
-            saveActivityData("BuyElectronics", emission);
+        goBackButton.setOnClickListener(v -> {
+            finish(); // 结束当前活动，返回上一个活动
         });
-
-        electronicsEditButton.setOnClickListener(v -> editActivity("BuyElectronics", inputElectronicsQuantity));
-        electronicsDeleteButton.setOnClickListener(v -> deleteActivity("BuyElectronics"));
-
-        // Other Purchases Section
-        EditText inputPurchaseQuantity = findViewById(R.id.inputPurchaseQuantity);
-        Button purchaseLogButton = findViewById(R.id.purchaseLogButton);
-        Button purchaseEditButton = findViewById(R.id.purchaseEditButton);
-        Button purchaseDeleteButton = findViewById(R.id.purchaseDeleteButton);
-
-        purchaseLogButton.setOnClickListener(v -> {
-            String quantityText = inputPurchaseQuantity.getText().toString();
-            if (quantityText.isEmpty()) {
-                Toast.makeText(this, "Please enter the quantity of purchases", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            int quantity = Integer.parseInt(quantityText);
-            double emission = calculateOtherPurchasesEmissions(quantity);
-
-            saveActivityData("OtherPurchases", emission);
-        });
-
-        purchaseEditButton.setOnClickListener(v -> editActivity("OtherPurchases", inputPurchaseQuantity));
-        purchaseDeleteButton.setOnClickListener(v -> deleteActivity("OtherPurchases"));
-
-        // Energy Bills Section
-        EditText inputElectricityBill = findViewById(R.id.inputElectricityBill);
-        EditText inputGasBill = findViewById(R.id.inputGasBill);
-        EditText inputWaterBill = findViewById(R.id.inputWaterBill);
-        Button energyBillLogButton = findViewById(R.id.energyBillLogButton);
-        Button energyBillEditButton = findViewById(R.id.energyBillEditButton);
-        Button energyBillDeleteButton = findViewById(R.id.energyBillDeleteButton);
-
-        energyBillLogButton.setOnClickListener(v -> {
-            String electricityText = inputElectricityBill.getText().toString();
-            String gasText = inputGasBill.getText().toString();
-            String waterText = inputWaterBill.getText().toString();
-
-            double electricity = electricityText.isEmpty() ? 0.0 : Double.parseDouble(electricityText);
-            double gas = gasText.isEmpty() ? 0.0 : Double.parseDouble(gasText);
-            double water = waterText.isEmpty() ? 0.0 : Double.parseDouble(waterText);
-
-            double emission = calculateEnergyBillEmissions(electricity, gas, water);
-            saveActivityData("EnergyBills", emission);
-        });
-
-        energyBillEditButton.setOnClickListener(v -> editEnergyBill(inputElectricityBill, inputGasBill, inputWaterBill));
-        energyBillDeleteButton.setOnClickListener(v -> deleteActivity("EnergyBills"));
     }
 
-    // Emission Calculations
-    private double calculateClothesEmissions(int quantity) {
-        return quantity * 12.0; // Assume each clothing item contributes 12 kg CO2e
-    }
-
-    private double calculateElectronicsEmissions(String type, int quantity) {
-        double emissionFactor;
-        switch (type.toLowerCase()) {
-            case "smartphone":
-            case "laptop":
-            case "tv":
-                emissionFactor = 300.0; // kg CO2e per device
-                break;
+    private double getShoppingEmissionFactor(String shoppingType) {
+        switch (shoppingType) {
+            case "Buy New Clothes":
+                return 12.0;
+            case "Buy Electronics":
+                return 300.0;
+            case "Other Purchases":
+                return 20.0;
             default:
-                emissionFactor = 0.0; // kg CO2e for other electronics
+                return 0.0;
         }
-        return quantity * emissionFactor;
     }
 
-    private double calculateOtherPurchasesEmissions(int quantity) {
-        return quantity * 20.0; // Assume each general purchase contributes 20 kg CO2e
+    private void updateShoppingAndConsumption(double calculatedValue) {
+        DocumentReference docRef = db.collection("emissions").document(userId);
+
+        // 获取当前的 totalEmissions 和旧的 shoppingAndConsumption 值
+        docRef.get().addOnSuccessListener(documentSnapshot -> {
+            Map<String, Object> data = documentSnapshot.getData();
+            if (data == null) {
+                data = new HashMap<>();
+            }
+
+            // 获取 dailyData
+            Map<String, Object> dailyData;
+            Object dailyDataObj = data.get("dailyData");
+            if (dailyDataObj instanceof Map) {
+                dailyData = (Map<String, Object>) dailyDataObj;
+            } else {
+                dailyData = new HashMap<>();
+            }
+
+            // 获取 selectedDate 对应的 dateData
+            Map<String, Object> dateData;
+            Object dateDataObj = dailyData.get(selectedDate);
+            if (dateDataObj instanceof Map) {
+                dateData = (Map<String, Object>) dateDataObj;
+            } else {
+                dateData = new HashMap<>();
+            }
+
+            // 获取 consumptionData
+            Map<String, Object> consumptionData;
+            Object consumptionDataObj = dateData.get("consumption");
+            if (consumptionDataObj instanceof Map) {
+                consumptionData = (Map<String, Object>) consumptionDataObj;
+            } else {
+                consumptionData = new HashMap<>();
+            }
+
+            // 获取旧的 shoppingAndConsumption 值
+            double oldShoppingValue = 0.0;
+            Object shoppingObj = consumptionData.get("shoppingAndConsumption");
+            if (shoppingObj instanceof Number) {
+                oldShoppingValue = ((Number) shoppingObj).doubleValue();
+            }
+
+            // 获取旧的 totalEmissions 值
+            double oldTotalEmissions = 0.0;
+            Object totalEmissionsObj = consumptionData.get("totalEmissions");
+            if (totalEmissionsObj instanceof Number) {
+                oldTotalEmissions = ((Number) totalEmissionsObj).doubleValue();
+            }
+
+            // 计算新的 totalEmissions 值
+            double newTotalEmissions = oldTotalEmissions - oldShoppingValue + calculatedValue;
+
+            // 更新 shoppingAndConsumption 和 totalEmissions
+            consumptionData.put("shoppingAndConsumption", calculatedValue);
+            consumptionData.put("totalEmissions", newTotalEmissions);
+
+            // 更新 dateData 和 dailyData
+            dateData.put("consumption", consumptionData);
+            dailyData.put(selectedDate, dateData);
+
+            // 构建更新的数据
+            Map<String, Object> updatedData = new HashMap<>();
+            updatedData.put("dailyData", dailyData);
+
+            // 更新到 Firebase
+            docRef.set(updatedData, SetOptions.merge())
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Shopping and total emissions updated successfully."))
+                    .addOnFailureListener(e -> Log.e(TAG, "Error updating shopping and total emissions", e));
+
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error fetching document", e);
+        });
     }
 
-    private double calculateEnergyBillEmissions(double electricity, double gas, double water) {
-        double electricityEmission = electricity * 0.5; // kg CO2e per dollar
-        double gasEmission = gas * 0.4; // kg CO2e per dollar
-        double waterEmission = water * 0.2; // kg CO2e per dollar
-
-        return electricityEmission + gasEmission + waterEmission;
-    }
-
-    // Firebase Operations
-    private void saveActivityData(String activityType, double emission) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("emission").document(userId)
-                .collection("dailyData").document(selectedDate)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    double currentTotal = documentSnapshot.getDouble("totalEmissions") == null ? 0.0 : documentSnapshot.getDouble("totalEmissions");
-                    currentTotal += emission;
-
-                    documentSnapshot.getReference().update(activityType, emission, "totalEmissions", currentTotal)
-                            .addOnSuccessListener(aVoid -> Toast.makeText(ShoppingActivity.this, "Activity logged successfully!", Toast.LENGTH_SHORT).show())
-                            .addOnFailureListener(e -> Toast.makeText(ShoppingActivity.this, "Error saving data!", Toast.LENGTH_SHORT).show());
-                });
-    }
-
-    private void editActivity(String activityType, EditText inputField) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("emission").document(userId)
-                .collection("dailyData").document(selectedDate)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.contains(activityType)) {
-                        double currentAmount = documentSnapshot.getDouble(activityType);
-                        inputField.setText(String.valueOf(currentAmount));
-                    } else {
-                        Toast.makeText(this, "Not logged yet", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private void editEnergyBill(EditText electricityField, EditText gasField, EditText waterField) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("emission").document(userId)
-                .collection("dailyData").document(selectedDate)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.contains("EnergyBills")) {
-                        Map<String, Object> bills = (Map<String, Object>) documentSnapshot.get("EnergyBills");
-                        if (bills != null) {
-                            electricityField.setText(String.valueOf(bills.getOrDefault("electricity", 0.0)));
-                            gasField.setText(String.valueOf(bills.getOrDefault("gas", 0.0)));
-                            waterField.setText(String.valueOf(bills.getOrDefault("water", 0.0)));
-                        }
-                    } else {
-                        Toast.makeText(this, "Not logged yet", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private void deleteActivity(String activityType) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("emission").document(userId)
-                .collection("dailyData").document(selectedDate)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.contains(activityType)) {
-                        double currentTotal = documentSnapshot.getDouble("totalEmissions");
-                        double activityAmount = documentSnapshot.getDouble(activityType);
-                        double newTotal = currentTotal - activityAmount;
-
-                        documentSnapshot.getReference().update(activityType, null, "totalEmissions", newTotal)
-                                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Deleted successfully", Toast.LENGTH_SHORT).show())
-                                .addOnFailureListener(e -> Toast.makeText(this, "Error deleting data", Toast.LENGTH_SHORT).show());
-                    } else {
-                        Toast.makeText(this, "Not logged yet", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 }

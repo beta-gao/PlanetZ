@@ -5,196 +5,45 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <!-- Buy New Clothes Section -->
-        <TextView
-            android:text="Buy New Clothes"
-            android:textSize="18sp"
+        <!-- 返回按钮 -->
+        <ImageView
+            android:id="@+id/goBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="back"
+            android:padding="8dp" />
 
-        <EditText
-            android:id="@+id/inputClothesQuantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter number of clothing items purchased"
-            android:inputType="number" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <Button
-                android:id="@+id/clothesLogButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log" />
-
-            <Button
-                android:id="@+id/clothesEditButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:id="@+id/clothesDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-
-        <!-- Buy Electronics Section -->
+        <!-- 选择购物类型 -->
         <TextView
-            android:text="Buy Electronics"
-            android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/inputElectronicsQuantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter number of electronic devices purchased"
-            android:inputType="number" />
+            android:text="choose the way to shopping" />
 
         <Spinner
-            android:id="@+id/spinnerElectronicsType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/shoppingTypeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:entries="@array/shopping_types" />
 
-            <Button
-                android:id="@+id/electronicsLogButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log" />
-
-            <Button
-                android:id="@+id/electronicsEditButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:id="@+id/electronicsDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-
-        <!-- Other Purchases Section -->
-        <TextView
-            android:text="Other Purchases"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
+        <!-- 输入数量 -->
         <EditText
-            android:id="@+id/inputPurchaseQuantity"
+            android:id="@+id/itemsCountInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter number of purchases"
+            android:hint="enter the amount"
             android:inputType="number" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <!-- 保存按钮 -->
+        <Button
+            android:id="@+id/saveShoppingEmissionsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <Button
-                android:id="@+id/purchaseLogButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log" />
-
-            <Button
-                android:id="@+id/purchaseEditButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:id="@+id/purchaseDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-
-        <!-- Energy Bills Section -->
-        <TextView
-            android:text="Energy Bills"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/inputElectricityBill"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter electricity bill amount ($)"
-            android:inputType="numberDecimal" />
-
-        <EditText
-            android:id="@+id/inputGasBill"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter gas bill amount ($)"
-            android:inputType="numberDecimal" />
-
-        <EditText
-            android:id="@+id/inputWaterBill"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter water bill amount ($)"
-            android:inputType="numberDecimal" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <Button
-                android:id="@+id/energyBillLogButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log" />
-
-            <Button
-                android:id="@+id/energyBillEditButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:id="@+id/energyBillDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
+            android:text="save" />
 
     </LinearLayout>
 </ScrollView>

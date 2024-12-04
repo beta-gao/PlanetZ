@@ -17,9 +17,9 @@ import android.widget.Button;
 
 import com.example.planetz.LoginandRegister.UserManager;
 import com.example.planetz.R;
-import com.example.planetz.data.UserEmissionData;
+import com.example.planetz.Data.UserEmissionData;
 import com.example.planetz.EcoGaugh.EmissionsDashboard;
-import com.example.planetz.data.FirestoreDataReader;
+import com.example.planetz.Data.FirestoreDataReader;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieEntry;

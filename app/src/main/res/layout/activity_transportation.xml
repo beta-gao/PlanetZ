@@ -5,187 +5,47 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <!-- Drive Personal Vehicle Section -->
-        <TextView
-            android:text="Drive Personal Vehicle"
-            android:textSize="18sp"
+        <!-- 返回按钮 -->
+        <ImageView
+            android:id="@+id/goBackButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/inputDriveDistance"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter distance driven (km or miles)" />
+            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="back"
+            android:padding="8dp" />
+
+        <!-- 选择交通方式 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="choose your transportation means" />
 
         <Spinner
-            android:id="@+id/spinnerDriveFuelType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/transportationTypeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:entries="@array/transportation_types" />
 
-            <Button
-                android:id="@+id/driveLogButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log" />
-
-            <Button
-                android:id="@+id/driveEditButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:id="@+id/driveDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginStart="8dp" />
+        <!-- 动态添加对应的输入控件 -->
+        <LinearLayout
+            android:id="@+id/dynamicLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- 动态添加的控件将放在这里 -->
         </LinearLayout>
 
-        <!-- Take Public Transportation Section -->
-        <TextView
-            android:text="Take Public Transportation"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
 
-        <Spinner
-            android:id="@+id/spinnerPublicTransportType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/inputPublicTransportTime"
+        <!-- 保存按钮 -->
+        <Button
+            android:id="@+id/saveTransportationEmissionsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter time spent (hours)" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <Button
-                android:id="@+id/publicLogButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log" />
-
-            <Button
-                android:id="@+id/publicEditButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:id="@+id/publicDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-
-        <!-- Cycling or Walking Section -->
-        <TextView
-            android:text="Cycling or Walking"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/inputCycleWalkDistance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter distance cycled or walked (km or miles)" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <Button
-                android:id="@+id/cycleLogButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log" />
-
-            <Button
-                android:id="@+id/cycleEditButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:id="@+id/cycleDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-
-        <!-- Flight Section -->
-        <TextView
-            android:text="Flight"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/inputFlightCount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter number of flights taken" />
-
-        <Spinner
-            android:id="@+id/spinnerFlightType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <Button
-                android:id="@+id/flightLogButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log" />
-
-            <Button
-                android:id="@+id/flightEditButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:id="@+id/flightDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
+            android:text="save" />
 
     </LinearLayout>
 </ScrollView>

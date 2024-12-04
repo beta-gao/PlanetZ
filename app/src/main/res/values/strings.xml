@@ -31,4 +31,56 @@
     <string name="Consumption">Consumption</string>
     <string name="resetfilters">Reset Filter</string>
 
+    <string-array name="drive_fuel_types">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Hybrid</item>
+        <item>Electric</item>
+    </string-array>
+
+    <string-array name="public_transport_types">
+        <item>Bus</item>
+        <item>Train</item>
+        <item>Subway</item>
+    </string-array>
+
+    <string-array name="flight_types">
+        <item>Short-haul (&lt;1,500 km)</item>
+        <item>Long-haul (&gt;1,500 km)</item>
+    </string-array>
+
+    <string-array name="meal_types">
+        <item>Beef</item>
+        <item>Pork</item>
+        <item>Chicken</item>
+        <item>Fish</item>
+        <item>Plant-based</item>
+    </string-array>
+
+    <string-array name="electronics_types">
+        <item>Smartphone</item>
+        <item>Laptop</item>
+        <item>TV</item>
+    </string-array>
+
+    <string-array name="transportation_types">
+        <item>Drive Personal Vehicle</item>
+        <item>Take Public Transportation</item>
+        <item>Cycling or Walking</item>
+        <item>Flight</item>
+    </string-array>
+
+    <string-array name="vehicle_types">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Hybrid</item>
+        <item>Electric</item>
+    </string-array>
+
+    <string-array name="shopping_types">
+        <item>Buy New Clothes</item>
+        <item>Buy Electronics</item>
+        <item>Other Purchases</item>
+    </string-array>
+
 </resources>

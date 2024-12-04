@@ -1,4 +1,4 @@
-package com.example.planetz.data;
+package com.example.planetz.Data;
 
 import static android.content.ContentValues.TAG;
 
@@ -16,9 +16,6 @@ import java.util.Set;
  *
  * Data Structure:
  * UserEmissionData
- * │
- * ├── annualCarbonFootprint
- * │      ├── 13.861
  * │
  * └── dailyData
  *        ├── "2024-11-16"

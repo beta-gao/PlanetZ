@@ -18,29 +18,33 @@
             android:contentDescription="back"
             android:padding="8dp" />
 
-        <!-- 选择食物类型 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="select your type of food" />
-
-        <Spinner
-            android:id="@+id/mealTypeSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/meal_types" />
-
-        <!-- 输入份数 -->
+        <!-- 输入电费 -->
         <EditText
-            android:id="@+id/servingsInput"
+            android:id="@+id/electricityCostInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter amount"
-            android:inputType="number" />
+            android:hint="input electricity bill ($CAD)"
+            android:inputType="numberDecimal" />
+
+        <!-- 输入天然气费 -->
+        <EditText
+            android:id="@+id/naturalGasCostInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="input natural gas bill ($CAD)"
+            android:inputType="numberDecimal" />
+
+        <!-- 输入水费 -->
+        <EditText
+            android:id="@+id/waterCostInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="input water bill ($CAD)"
+            android:inputType="numberDecimal" />
 
         <!-- 保存按钮 -->
         <Button
-            android:id="@+id/saveFoodEmissionsButton"
+            android:id="@+id/saveEnergyUseButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="save" />

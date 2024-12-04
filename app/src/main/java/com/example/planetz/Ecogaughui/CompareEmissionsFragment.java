@@ -19,14 +19,13 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.planetz.HomePageActivity;
 import com.example.planetz.LoginandRegister.UserManager;
 import com.example.planetz.MainDashboard;
 import com.example.planetz.R;
-import com.example.planetz.data.UserEmissionData;
+import com.example.planetz.Data.UserEmissionData;
 import com.example.planetz.EcoGaugh.EmissionsDashboard;
-import com.example.planetz.data.CountryDataReader;
-import com.example.planetz.data.FirestoreDataReader;
+import com.example.planetz.Data.CountryDataReader;
+import com.example.planetz.Data.FirestoreDataReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

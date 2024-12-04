@@ -1,233 +1,325 @@
 package com.example.planetz.DailyActivity;
 
-import com.example.planetz.R;
-import com.example.planetz.LoginandRegister.UserManager;
-
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.util.Log;
+import android.view.View;
+import android.widget.*;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.planetz.R;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TransportationActivity extends AppCompatActivity {
 
-    private String userId;
+    private static final String TAG = "TransportationActivity";
     private String selectedDate;
+    private String userId;
+    private FirebaseFirestore db;
+
+    private Spinner transportationTypeSpinner;
+    private Button saveTransportationEmissionsButton;
+    private ImageView goBackButton;
+
+    // 动态添加的控件
+    private LinearLayout dynamicLayout;
+    private EditText distanceInput; // 用于输入距离
+    private Spinner vehicleTypeSpinner; // 用于选择车辆类型
+    private EditText timeInput; // 用于输入时间
+    private EditText flightCountInput; // 用于输入航班次数
+    private Spinner flightTypeSpinner; // 用于选择航班类型
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transportation);
 
-        userId = UserManager.getInstance(this).getUserId();
-        selectedDate = getIntent().getStringExtra("selectedDate");
+        // 初始化Firebase
+        FirebaseApp.initializeApp(this);
+        db = FirebaseFirestore.getInstance();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if (userId == null || selectedDate == null) {
-            Toast.makeText(this, "Error: User not logged in or date not selected", Toast.LENGTH_SHORT).show();
+        selectedDate = getIntent().getStringExtra("selectedDate");
+        if (selectedDate == null) {
+            Log.e(TAG, "Selected date is null");
             finish();
             return;
         }
 
-        // Drive Personal Vehicle Section
-        EditText inputDriveDistance = findViewById(R.id.inputDriveDistance);
-        Spinner spinnerDriveFuelType = findViewById(R.id.spinnerDriveFuelType);
-        Button driveLogButton = findViewById(R.id.driveLogButton);
-        Button driveEditButton = findViewById(R.id.driveEditButton);
-        Button driveDeleteButton = findViewById(R.id.driveDeleteButton);
+        transportationTypeSpinner = findViewById(R.id.transportationTypeSpinner);
+        saveTransportationEmissionsButton = findViewById(R.id.saveTransportationEmissionsButton);
+        goBackButton = findViewById(R.id.goBackButton);
 
-        driveLogButton.setOnClickListener(v -> {
-            String distanceText = inputDriveDistance.getText().toString();
-            if (distanceText.isEmpty()) {
-                Toast.makeText(this, "Please enter the distance", Toast.LENGTH_SHORT).show();
-                return;
+        dynamicLayout = findViewById(R.id.dynamicLayout);
+
+        transportationTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                updateDynamicInputs(position);
             }
-            double distance = Double.parseDouble(distanceText);
-            String fuelType = spinnerDriveFuelType.getSelectedItem().toString();
 
-            double emission = calculateDriveEmissions(distance, fuelType);
-            saveActivityData("DrivePersonalVehicle", emission);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
         });
 
-        driveEditButton.setOnClickListener(v -> editActivity("DrivePersonalVehicle", inputDriveDistance));
-        driveDeleteButton.setOnClickListener(v -> deleteActivity("DrivePersonalVehicle"));
-
-        // Take Public Transportation Section
-        EditText inputPublicTransportTime = findViewById(R.id.inputPublicTransportTime);
-        Spinner spinnerPublicTransportType = findViewById(R.id.spinnerPublicTransportType);
-        Button publicLogButton = findViewById(R.id.publicLogButton);
-        Button publicEditButton = findViewById(R.id.publicEditButton);
-        Button publicDeleteButton = findViewById(R.id.publicDeleteButton);
-
-        publicLogButton.setOnClickListener(v -> {
-            String timeText = inputPublicTransportTime.getText().toString();
-            if (timeText.isEmpty()) {
-                Toast.makeText(this, "Please enter the time spent", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            double time = Double.parseDouble(timeText);
-            String transportType = spinnerPublicTransportType.getSelectedItem().toString();
-
-            double emission = calculatePublicTransportEmissions(transportType, time);
-            saveActivityData("TakePublicTransport", emission);
+        saveTransportationEmissionsButton.setOnClickListener(v -> {
+            calculateAndUpdateEmissions();
         });
 
-        publicEditButton.setOnClickListener(v -> editActivity("TakePublicTransport", inputPublicTransportTime));
-        publicDeleteButton.setOnClickListener(v -> deleteActivity("TakePublicTransport"));
-
-        // Cycling or Walking Section
-        EditText inputCycleWalkDistance = findViewById(R.id.inputCycleWalkDistance);
-        Button cycleLogButton = findViewById(R.id.cycleLogButton);
-        Button cycleEditButton = findViewById(R.id.cycleEditButton);
-        Button cycleDeleteButton = findViewById(R.id.cycleDeleteButton);
-
-        cycleLogButton.setOnClickListener(v -> {
-            String distanceText = inputCycleWalkDistance.getText().toString();
-            if (distanceText.isEmpty()) {
-                Toast.makeText(this, "Please enter the distance", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            double distance = Double.parseDouble(distanceText);
-            double emission = calculateCyclingEmissions(distance);
-
-            saveActivityData("CyclingOrWalking", emission);
+        goBackButton.setOnClickListener(v -> {
+            finish(); // 结束当前活动，返回上一个活动
         });
-
-        cycleEditButton.setOnClickListener(v -> editActivity("CyclingOrWalking", inputCycleWalkDistance));
-        cycleDeleteButton.setOnClickListener(v -> deleteActivity("CyclingOrWalking"));
-
-        // Flight Section
-        EditText inputFlightCount = findViewById(R.id.inputFlightCount);
-        Spinner spinnerFlightType = findViewById(R.id.spinnerFlightType);
-        Button flightLogButton = findViewById(R.id.flightLogButton);
-        Button flightEditButton = findViewById(R.id.flightEditButton);
-        Button flightDeleteButton = findViewById(R.id.flightDeleteButton);
-
-        flightLogButton.setOnClickListener(v -> {
-            String flightCountText = inputFlightCount.getText().toString();
-            if (flightCountText.isEmpty()) {
-                Toast.makeText(this, "Please enter the number of flights", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            int flights = Integer.parseInt(flightCountText);
-            String flightType = spinnerFlightType.getSelectedItem().toString();
-
-            double emission = calculateFlightEmissions(flights, flightType);
-            saveActivityData("Flight", emission);
-        });
-
-        flightEditButton.setOnClickListener(v -> editActivity("Flight", inputFlightCount));
-        flightDeleteButton.setOnClickListener(v -> deleteActivity("Flight"));
     }
 
-    private void editActivity(String activityType, EditText inputField) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("emission").document(userId)
-                .collection("dailyData").document(selectedDate)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.contains(activityType)) {
-                        double currentAmount = documentSnapshot.getDouble(activityType);
-                        inputField.setText(String.valueOf(currentAmount));
-                    } else {
-                        Toast.makeText(this, "Not logged yet", Toast.LENGTH_SHORT).show();
+    private void updateDynamicInputs(int position) {
+        dynamicLayout.removeAllViews();
+
+        switch (position) {
+            case 0:
+                // Drive Personal Vehicle
+                addDistanceInput();
+                addVehicleTypeSpinner();
+                break;
+            case 1:
+                // Take Public Transportation
+                addPublicTransportTypeSpinner();
+                addTimeInput();
+                break;
+            case 2:
+                // Cycling or Walking
+                addDistanceInput();
+                break;
+            case 3:
+                // Flight
+                addFlightCountInput();
+                addFlightTypeSpinner();
+                break;
+        }
+    }
+
+    private void addDistanceInput() {
+        distanceInput = new EditText(this);
+        distanceInput.setHint("enter kilometers");
+        distanceInput.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        dynamicLayout.addView(distanceInput);
+    }
+
+    private void addVehicleTypeSpinner() {
+        TextView textView = new TextView(this);
+        textView.setText("choose vehicle type");
+        dynamicLayout.addView(textView);
+
+        vehicleTypeSpinner = new Spinner(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.vehicle_types, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        vehicleTypeSpinner.setAdapter(adapter);
+        dynamicLayout.addView(vehicleTypeSpinner);
+    }
+
+    private void addTimeInput() {
+        timeInput = new EditText(this);
+        timeInput.setHint("输入时间（小时）");
+        timeInput.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        dynamicLayout.addView(timeInput);
+    }
+
+    private void addPublicTransportTypeSpinner() {
+        TextView textView = new TextView(this);
+        textView.setText("选择公共交通类型：");
+        dynamicLayout.addView(textView);
+
+        // 如果需要区分公交、火车、地铁，可以添加对应的 Spinner
+        // 这里因为三者的排放因子相同，所以可以省略
+    }
+
+    private void addFlightCountInput() {
+        flightCountInput = new EditText(this);
+        flightCountInput.setHint("输入飞行次数");
+        flightCountInput.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
+        dynamicLayout.addView(flightCountInput);
+    }
+
+    private void addFlightTypeSpinner() {
+        TextView textView = new TextView(this);
+        textView.setText("选择航班类型：");
+        dynamicLayout.addView(textView);
+
+        flightTypeSpinner = new Spinner(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.flight_types, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        flightTypeSpinner.setAdapter(adapter);
+        dynamicLayout.addView(flightTypeSpinner);
+    }
+
+    private void calculateAndUpdateEmissions() {
+        int position = transportationTypeSpinner.getSelectedItemPosition();
+        double calculatedValue = 0.0;
+
+        switch (position) {
+            case 0:
+                // Drive Personal Vehicle
+                if (distanceInput != null && vehicleTypeSpinner != null) {
+                    String distanceStr = distanceInput.getText().toString();
+                    if (!distanceStr.isEmpty()) {
+                        double distance = Double.parseDouble(distanceStr);
+                        String vehicleType = vehicleTypeSpinner.getSelectedItem().toString();
+                        double emissionFactor = getVehicleEmissionFactor(vehicleType);
+                        calculatedValue = distance * emissionFactor;
                     }
-                });
-    }
-
-    private void deleteActivity(String activityType) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("emission").document(userId)
-                .collection("dailyData").document(selectedDate)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.contains(activityType)) {
-                        double currentTotal = documentSnapshot.getDouble("totalEmissions");
-                        double activityAmount = documentSnapshot.getDouble(activityType);
-                        double newTotal = currentTotal - activityAmount;
-
-                        documentSnapshot.getReference().update(activityType, null, "totalEmissions", newTotal)
-                                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Deleted successfully", Toast.LENGTH_SHORT).show())
-                                .addOnFailureListener(e -> Toast.makeText(this, "Error deleting data", Toast.LENGTH_SHORT).show());
-                    } else {
-                        Toast.makeText(this, "Not logged yet", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 1:
+                // Take Public Transportation
+                if (timeInput != null) {
+                    String timeStr = timeInput.getText().toString();
+                    if (!timeStr.isEmpty()) {
+                        double time = Double.parseDouble(timeStr);
+                        calculatedValue = time * 1.57;
                     }
-                });
+                }
+                break;
+            case 2:
+                // Cycling or Walking
+                if (distanceInput != null) {
+                    String distanceStr = distanceInput.getText().toString();
+                    if (!distanceStr.isEmpty()) {
+                        // Emission is zero
+                        calculatedValue = 0.0;
+                    }
+                }
+                break;
+            case 3:
+                // Flight
+                if (flightCountInput != null && flightTypeSpinner != null) {
+                    String countStr = flightCountInput.getText().toString();
+                    if (!countStr.isEmpty()) {
+                        int count = Integer.parseInt(countStr);
+                        String flightType = flightTypeSpinner.getSelectedItem().toString();
+                        double emissionFactor = getFlightEmissionFactor(flightType);
+                        calculatedValue = count * emissionFactor;
+                    }
+                }
+                break;
+        }
+
+        if (calculatedValue >= 0) {
+            updateTransportation(calculatedValue);
+        } else {
+            Log.e(TAG, "计算的排放量无效");
+        }
     }
 
-    private double calculateDriveEmissions(double distance, String fuelType) {
-        double emissionFactor;
-        switch (fuelType) {
+    private double getVehicleEmissionFactor(String vehicleType) {
+        switch (vehicleType) {
             case "Gasoline":
-                emissionFactor = 0.24;
-                break;
+                return 0.24;
             case "Diesel":
-                emissionFactor = 0.27;
-                break;
+                return 0.27;
             case "Hybrid":
-                emissionFactor = 0.16;
-                break;
+                return 0.16;
             case "Electric":
-                emissionFactor = 0.05;
-                break;
+                return 0.05;
             default:
-                emissionFactor = 0;
+                return 0.0;
         }
-        return distance * emissionFactor;
     }
 
-    private double calculatePublicTransportEmissions(String transportType, double time) {
-        double emissionFactor;
-        switch (transportType) {
-            case "Bus":
-                emissionFactor = 1.57;
-                break;
-            case "Train":
-                emissionFactor = 1.57;
-                break;
-            case "Subway":
-                emissionFactor = 1.57;
-                break;
-            default:
-                emissionFactor = 0;
+    private double getFlightEmissionFactor(String flightType) {
+        if (flightType.equals("Short-haul (<1500 km)")) {
+            return 225.0;
+        } else if (flightType.equals("Long-haul (>1500 km)")) {
+            return 825.0;
+        } else {
+            return 0.0;
         }
-        return time * emissionFactor;
     }
 
-    private double calculateCyclingEmissions(double distance) {
-        return 0.0; // Cycling and walking are assumed to have no CO2 emissions
+    private void updateTransportation(double calculatedValue) {
+        DocumentReference docRef = db.collection("emissions").document(userId);
+
+        // 获取当前的 totalEmissions 和旧的 transportation 值
+        docRef.get().addOnSuccessListener(documentSnapshot -> {
+            Map<String, Object> data = documentSnapshot.getData();
+            if (data == null) {
+                data = new HashMap<>();
+            }
+
+            // 获取 dailyData
+            Map<String, Object> dailyData;
+            Object dailyDataObj = data.get("dailyData");
+            if (dailyDataObj instanceof Map) {
+                dailyData = (Map<String, Object>) dailyDataObj;
+            } else {
+                dailyData = new HashMap<>();
+            }
+
+            // 获取 selectedDate 对应的 dateData
+            Map<String, Object> dateData;
+            Object dateDataObj = dailyData.get(selectedDate);
+            if (dateDataObj instanceof Map) {
+                dateData = (Map<String, Object>) dateDataObj;
+            } else {
+                dateData = new HashMap<>();
+            }
+
+            // 获取 consumptionData
+            Map<String, Object> consumptionData;
+            Object consumptionDataObj = dateData.get("consumption");
+            if (consumptionDataObj instanceof Map) {
+                consumptionData = (Map<String, Object>) consumptionDataObj;
+            } else {
+                consumptionData = new HashMap<>();
+            }
+
+            // 获取旧的 transportation 值
+            double oldTransportationValue = 0.0;
+            Object transportationObj = consumptionData.get("transportation");
+            if (transportationObj instanceof Number) {
+                oldTransportationValue = ((Number) transportationObj).doubleValue();
+            }
+
+            // 获取旧的 totalEmissions 值
+            double oldTotalEmissions = 0.0;
+            Object totalEmissionsObj = consumptionData.get("totalEmissions");
+            if (totalEmissionsObj instanceof Number) {
+                oldTotalEmissions = ((Number) totalEmissionsObj).doubleValue();
+            }
+
+            // 计算新的 totalEmissions 值
+            double newTotalEmissions = oldTotalEmissions - oldTransportationValue + calculatedValue;
+
+            // 更新 transportation 和 totalEmissions
+            consumptionData.put("transportation", calculatedValue);
+            consumptionData.put("totalEmissions", newTotalEmissions);
+
+            // 更新 dateData 和 dailyData
+            dateData.put("consumption", consumptionData);
+            dailyData.put(selectedDate, dateData);
+
+            // 构建更新的数据
+            Map<String, Object> updatedData = new HashMap<>();
+            updatedData.put("dailyData", dailyData);
+
+            // 更新到 Firebase
+            docRef.set(updatedData, SetOptions.merge())
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Transportation and total emissions updated successfully."))
+                    .addOnFailureListener(e -> Log.e(TAG, "Error updating transportation and total emissions", e));
+
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error fetching document", e);
+        });
     }
 
-    private double calculateFlightEmissions(int flights, String flightType) {
-        double emissionFactor;
-        switch (flightType) {
-            case "Short-haul (<1,500 km)":
-                emissionFactor = 225;
-                break;
-            case "Long-haul (>1,500 km)":
-                emissionFactor = 825;
-                break;
-            default:
-                emissionFactor = 0;
-        }
-        return flights * emissionFactor;
-    }
-
-    private void saveActivityData(String activityType, double emission) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("emission").document(userId)
-                .collection("dailyData").document(selectedDate)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    double currentTotal = documentSnapshot.getDouble("totalEmissions") == null ? 0.0 : documentSnapshot.getDouble("totalEmissions");
-                    currentTotal += emission;
-
-                    documentSnapshot.getReference().update(activityType, emission, "totalEmissions", currentTotal)
-                            .addOnSuccessListener(aVoid -> Toast.makeText(TransportationActivity.this, "Activity logged successfully!", Toast.LENGTH_SHORT).show())
-                            .addOnFailureListener(e -> Toast.makeText(TransportationActivity.this, "Error saving data!", Toast.LENGTH_SHORT).show());
-                });
-    }
 }

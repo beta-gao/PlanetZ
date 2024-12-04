@@ -1,4 +1,4 @@
-package com.example.planetz.data;
+package com.example.planetz.Data;
 
 import android.content.Context;
 import android.util.Log;

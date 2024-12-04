@@ -23,14 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import com.example.planetz.HomePageActivity;
-import com.example.planetz.MainDashboard;
+import com.example.planetz.EcoTrackerMainActivity;
 import com.example.planetz.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -89,8 +87,7 @@ public class TrackingHabit extends AppCompatActivity implements RemoveHabit {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
-                Intent intent = new Intent(getApplicationContext(), MainDashboard.class);
+                Intent intent = new Intent(getApplicationContext(), EcoTrackerMainActivity.class);
                 startActivity(intent);
             }
         });

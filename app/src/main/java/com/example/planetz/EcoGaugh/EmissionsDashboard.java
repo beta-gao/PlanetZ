@@ -4,8 +4,8 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.planetz.data.DailyData;
-import com.example.planetz.data.UserEmissionData;
+import com.example.planetz.Data.DailyData;
+import com.example.planetz.Data.UserEmissionData;
 
 import java.util.ArrayList;
 import java.util.Collections;
