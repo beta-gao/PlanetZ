@@ -2,6 +2,8 @@
 
 PlanetZ is designed to promote sustainability and help users reduce their carbon footprint. It includes features such as tracking emissions, visualizing progress, offsetting carbon, and providing educational resources.
 
+Our team has relatively few pull requests primarily because we frequently conduct offline meetings to merge our individual branches. This collaborative approach allows us to resolve conflicts and integrate code in real-time, reducing the need for frequent online pull requests.
+
 ---
 # **Links**
 
