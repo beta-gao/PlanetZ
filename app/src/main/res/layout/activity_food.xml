@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 返回按钮 -->
+        <ImageView
+            android:id="@+id/goBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="back"
+            android:padding="8dp" />
+
+        <!-- 选择食物类型 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="select your type of food" />
+
+        <Spinner
+            android:id="@+id/mealTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/meal_types" />
+
+        <!-- 输入份数 -->
+        <EditText
+            android:id="@+id/servingsInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="enter amount"
+            android:inputType="number" />
+
+        <!-- 保存按钮 -->
+        <Button
+            android:id="@+id/saveFoodEmissionsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="save" />
+
+    </LinearLayout>
+</ScrollView>

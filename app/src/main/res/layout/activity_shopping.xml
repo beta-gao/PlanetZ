@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 返回按钮 -->
+        <ImageView
+            android:id="@+id/goBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="back"
+            android:padding="8dp" />
+
+        <!-- 选择购物类型 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="choose the way to shopping" />
+
+        <Spinner
+            android:id="@+id/shoppingTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/shopping_types" />
+
+        <!-- 输入数量 -->
+        <EditText
+            android:id="@+id/itemsCountInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="enter the amount"
+            android:inputType="number" />
+
+        <!-- 保存按钮 -->
+        <Button
+            android:id="@+id/saveShoppingEmissionsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="save" />
+
+    </LinearLayout>
+</ScrollView>

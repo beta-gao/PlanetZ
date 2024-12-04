@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 返回按钮 -->
+        <ImageView
+            android:id="@+id/goBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="back"
+            android:padding="8dp" />
+
+        <!-- 输入电费 -->
+        <EditText
+            android:id="@+id/electricityCostInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="input electricity bill ($CAD)"
+            android:inputType="numberDecimal" />
+
+        <!-- 输入天然气费 -->
+        <EditText
+            android:id="@+id/naturalGasCostInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="input natural gas bill ($CAD)"
+            android:inputType="numberDecimal" />
+
+        <!-- 输入水费 -->
+        <EditText
+            android:id="@+id/waterCostInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="input water bill ($CAD)"
+            android:inputType="numberDecimal" />
+
+        <!-- 保存按钮 -->
+        <Button
+            android:id="@+id/saveEnergyUseButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="save" />
+
+    </LinearLayout>
+</ScrollView>

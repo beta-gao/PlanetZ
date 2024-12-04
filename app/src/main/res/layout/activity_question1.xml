@@ -1,0 +1,62 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="#d8dbe2">
+
+    <TextView
+        android:id="@+id/question_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you use a personal vehicle?"
+        android:textColor="#1b1b1e"
+        android:fontFamily="monospace"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup_using_vehicle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp">
+
+        <RadioButton
+            android:id="@+id/radio_yes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Yes"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:padding="10dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="8dp" />
+
+        <RadioButton
+            android:id="@+id/radio_no"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="No"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:padding="10dp"/>
+    </RadioGroup>
+
+</LinearLayout>

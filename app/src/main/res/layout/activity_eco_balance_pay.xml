@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#d8dbe2"
+    android:padding="16dp">
+
+    <!-- 卡片布局 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewPaymentSuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#d8dbe2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <!-- 支付成功标题 -->
+            <TextView
+                android:id="@+id/paymentSuccessMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Successful!"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#009999"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <!-- 感谢信息 -->
+            <TextView
+                android:id="@+id/thankYouMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thank you for contributing to a sustainable future!"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#373f51"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- 返回主页按钮 -->
+            <Button
+                android:id="@+id/backToHomePageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="#009999"
+                android:text="Back to Home"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:padding="12dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

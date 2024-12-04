@@ -1,3 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">planetz</string>
+    <!-- 登录相关字符串 -->
+    <string name="login">Login</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="toregister">No account yet? Register Here!</string>
+    <string name="forgetpw">Forget password?</string>
+    <string name="Forget_Password">Forgot Password</string>
+    <string name="app_name">PlanetZ</string>
+    <string name="logout">Log Out</string>
+    <string name="logoutmsg">Thank you for using Planetz</string>
+    <string name="backtolog">Back to Login</string>
+    <string name="resetemail">Send reset link</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <!-- 排放相关字符串 -->
+    <string name="result_text">Result will appear here</string>
+    <string name="compare_button_text">Compare Emissions</string>
+    <string name="Transportation">Transportation</string>
+    <string name="Energy">Energy</string>
+    <string name="Food">Food</string>
+    <string name="Consumption">Consumption</string>
+    <string name="resetfilters">Reset Filter</string>
+
+    <string-array name="drive_fuel_types">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Hybrid</item>
+        <item>Electric</item>
+    </string-array>
+
+    <string-array name="public_transport_types">
+        <item>Bus</item>
+        <item>Train</item>
+        <item>Subway</item>
+    </string-array>
+
+    <string-array name="flight_types">
+        <item>Short-haul (&lt;1,500 km)</item>
+        <item>Long-haul (&gt;1,500 km)</item>
+    </string-array>
+
+    <string-array name="meal_types">
+        <item>Beef</item>
+        <item>Pork</item>
+        <item>Chicken</item>
+        <item>Fish</item>
+        <item>Plant-based</item>
+    </string-array>
+
+    <string-array name="electronics_types">
+        <item>Smartphone</item>
+        <item>Laptop</item>
+        <item>TV</item>
+    </string-array>
+
+    <string-array name="transportation_types">
+        <item>Drive Personal Vehicle</item>
+        <item>Take Public Transportation</item>
+        <item>Cycling or Walking</item>
+        <item>Flight</item>
+    </string-array>
+
+    <string-array name="vehicle_types">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Hybrid</item>
+        <item>Electric</item>
+    </string-array>
+
+    <string-array name="shopping_types">
+        <item>Buy New Clothes</item>
+        <item>Buy Electronics</item>
+        <item>Other Purchases</item>
+    </string-array>
+
 </resources>

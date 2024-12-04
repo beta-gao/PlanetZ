@@ -1,0 +1,64 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="#d8dbe2">
+
+    <ImageView
+        android:id="@+id/ecoBalanceLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Eco Balance Logo"
+        android:src="@drawable/logo" />
+
+    <Button
+        android:id="@+id/annualFootprintButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First Annual Carbon Footprint"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/ecoBalanceButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eco Balance"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/ecoTrackerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eco Tracker"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btn_to_eco_gaugh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eco Gaugh"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/ecoHubButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eco Hub"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

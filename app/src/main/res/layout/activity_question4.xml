@@ -1,0 +1,110 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d8dbe2"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/question_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="How often do you use public transportation (bus, train, subway)?"
+        android:textColor="#1b1b1e"
+        android:fontFamily="monospace"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup_public_transport_frequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_never"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="Never"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+
+        <RadioButton
+            android:id="@+id/radio_occasionally"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="Occasionally (1-2 times/week)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+
+        <RadioButton
+            android:id="@+id/radio_frequently"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="Frequently (3-4 times/week)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+
+        <RadioButton
+            android:id="@+id/radio_always"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_bg"
+            android:button="@null"
+            android:text="Always (5+ times/week)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp"/>
+    </RadioGroup>
+
+    <RadioButton
+        android:id="@+id/radio_back"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button_bg"
+        android:button="@null"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+
+</LinearLayout>
