@@ -129,14 +129,14 @@ public class TransportationActivity extends AppCompatActivity {
 
     private void addTimeInput() {
         timeInput = new EditText(this);
-        timeInput.setHint("输入时间（小时）");
+        timeInput.setHint("input time(hour)");
         timeInput.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
         dynamicLayout.addView(timeInput);
     }
 
     private void addPublicTransportTypeSpinner() {
         TextView textView = new TextView(this);
-        textView.setText("选择公共交通类型：");
+        textView.setText("choose public transportation type");
         dynamicLayout.addView(textView);
 
         // 如果需要区分公交、火车、地铁，可以添加对应的 Spinner
@@ -145,14 +145,14 @@ public class TransportationActivity extends AppCompatActivity {
 
     private void addFlightCountInput() {
         flightCountInput = new EditText(this);
-        flightCountInput.setHint("输入飞行次数");
+        flightCountInput.setHint("input flight times");
         flightCountInput.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
         dynamicLayout.addView(flightCountInput);
     }
 
     private void addFlightTypeSpinner() {
         TextView textView = new TextView(this);
-        textView.setText("选择航班类型：");
+        textView.setText("choose flight type");
         dynamicLayout.addView(textView);
 
         flightTypeSpinner = new Spinner(this);
